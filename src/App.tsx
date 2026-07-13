@@ -27,6 +27,8 @@ export const App: React.FC<AppProps> = ({ services }) => {
   const [perfis, setPerfis] = useState<PerfilUsuario[]>([]);
   const canAccessAdmin = appServices.mode === 'local'
     || (session.user?.perfil.nivel === 'administrador' && session.user.perfil.status === 'ativo');
+  const canEdit = appServices.mode === 'local'
+    || (session.user?.perfil.status === 'ativo' && ['administrador', 'editor'].includes(session.user.perfil.nivel));
 
   // --- Estados do formulário de autenticação ---
   const [loginEmail, setLoginEmail] = useState<string>('');
@@ -95,6 +97,20 @@ export const App: React.FC<AppProps> = ({ services }) => {
     id: string,
     patch: Partial<Pick<PerfilUsuario, 'nivel' | 'status' | 'setor'>>,
   ) => {
+    const perfilAlvo = perfis.find(p => p.id === id);
+    const eraAdminAtivo = perfilAlvo && perfilAlvo.nivel === 'administrador' && perfilAlvo.status === 'ativo';
+    const vaiDeixarDeSer = 
+      (patch.nivel !== undefined && patch.nivel !== 'administrador') || 
+      (patch.status !== undefined && patch.status !== 'ativo');
+
+    if (eraAdminAtivo && vaiDeixarDeSer) {
+      const outrosAdminsAtivos = perfis.filter(p => p.id !== id && p.nivel === 'administrador' && p.status === 'ativo').length;
+      if (outrosAdminsAtivos === 0) {
+        alert("Ação Bloqueada: O sistema não pode ficar sem nenhum administrador ativo.");
+        return;
+      }
+    }
+
     try {
       await appServices.profiles.updateAccess(id, patch);
       setPerfis(await appServices.profiles.list());
@@ -172,6 +188,26 @@ export const App: React.FC<AppProps> = ({ services }) => {
     setShowLoginPassword(false);
     setShowCadastroPassword(false);
     setLoginTab('login');
+    setActiveTab('visao-geral');
+    setDrawerAberto(false);
+    setDemandaSelecionada(null);
+    setModalNovoAberto(false);
+    setModalEditarAberto(false);
+    setModalStatusAberto(false);
+    setModalHistoricoAberto(false);
+    setPerfis([]);
+    setFiltros({
+      busca: '',
+      tipo: 'Todos',
+      classificacao: 'Todas',
+      status: 'Somente ativos (padrão)',
+      setor: 'Todos'
+    });
+    setQuickFilters({
+      assinatura: false,
+      hoje: false,
+      vencido: false
+    });
   };
 
   // Criar nova demanda
@@ -343,38 +379,55 @@ export const App: React.FC<AppProps> = ({ services }) => {
 
   const demandasFiltradas = getDemandasFiltradas();
 
-  // Exportar demandas filtradas como CSV
+  // Exportar demandas filtradas como CSV (Protegido contra CSV Injection)
   const handleExportCSV = () => {
     if (demandasFiltradas.length === 0) {
       alert("Nenhum registro disponível para exportação na filtragem atual.");
       return;
     }
 
+    const sanitizeCSVCell = (val: any): string => {
+      if (val === null || val === undefined) return '""';
+      let str = String(val);
+      str = str.replace(/"/g, '""');
+      if (str.startsWith('=') || str.startsWith('+') || str.startsWith('-') || str.startsWith('@')) {
+        str = `'${str}`;
+      }
+      return `"${str}"`;
+    };
+
     const headers = ['ID', 'Número', 'Tipo', 'Assunto', 'Responsável', 'Limite 1', 'Limite 2', 'Status', 'Setor', 'Classificação'];
     
     const rows = demandasFiltradas.map(d => [
-      d.id,
-      `"${d.numero}"`,
-      `"${d.tipo}"`,
-      `"${d.assunto.replace(/"/g, '""')}"`,
-      `"${d.responsavel || ''}"`,
-      `"${d.limite1 || ''}"`,
-      `"${d.limite2 || ''}"`,
-      `"${d.status}"`,
-      `"${d.setor || ''}"`,
-      `"${d.classificacao || ''}"`
+      sanitizeCSVCell(d.id),
+      sanitizeCSVCell(d.numero),
+      sanitizeCSVCell(d.tipo),
+      sanitizeCSVCell(d.assunto),
+      sanitizeCSVCell(d.responsavel),
+      sanitizeCSVCell(d.limite1),
+      sanitizeCSVCell(d.limite2),
+      sanitizeCSVCell(d.status),
+      sanitizeCSVCell(d.setor),
+      sanitizeCSVCell(d.classificacao)
     ]);
 
-    const csvContent = "data:text/csv;charset=utf-8,\uFEFF" 
-      + [headers.join(','), ...rows.map(e => e.join(','))].join('\n');
+    const csvRows = [
+      'sep=;',
+      headers.join(';'),
+      ...rows.map(e => e.join(';'))
+    ];
+
+    const csvContent = "\uFEFF" + csvRows.join('\r\n');
     
-    const encodedUri = encodeURI(csvContent);
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
-    link.setAttribute("href", encodedUri);
+    link.setAttribute("href", url);
     link.setAttribute("download", `demandas_sme_${new Date().toISOString().slice(0,10)}.csv`);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+    URL.revokeObjectURL(url);
   };
 
   // Renderização condicional: Tela de Login ou Área de Dashboard
@@ -620,6 +673,8 @@ export const App: React.FC<AppProps> = ({ services }) => {
           });
           setActiveTab('demandas'); // Direciona para a página de Demandas
         }}
+        canEdit={canEdit}
+        appMode={appServices.mode}
       />
 
       {/* Navegação por Abas SPA */}
@@ -691,6 +746,29 @@ export const App: React.FC<AppProps> = ({ services }) => {
             }}
           />
 
+          {/* Banner de Erro caso exista */}
+          {data.error && (
+            <div className="alert-error-banner" style={{
+              backgroundColor: '#fef2f2',
+              border: '1px solid #fee2e2',
+              borderLeft: '4px solid #ef4444',
+              borderRadius: '8px',
+              padding: '16px',
+              marginBottom: '20px',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '12px',
+              color: '#991b1b',
+              fontSize: '0.875rem',
+              fontWeight: 500
+            }}>
+              <i className="fa-solid fa-triangle-exclamation" style={{ fontSize: '1.125rem', color: '#ef4444' }}></i>
+              <div>
+                <strong>Erro de Conectividade:</strong> {data.error}
+              </div>
+            </div>
+          )}
+
           {/* Painel de Filtros e Busca */}
           <FilterPanel 
             filtros={filtros} 
@@ -702,23 +780,43 @@ export const App: React.FC<AppProps> = ({ services }) => {
             totalGeral={demandas.length}
           />
 
-          {/* Tabela de Demandas */}
-          <DemandasTable 
-            demandas={demandasFiltradas}
-            onOpenEditar={(d) => {
-              setDemandaSelecionada(d);
-              setDrawerAberto(true); // Clicar em Abrir/Número agora abre o Drawer lateral!
-            }}
-            onOpenStatus={(d) => {
-              setDemandaSelecionada(d);
-              setModalStatusAberto(true);
-            }}
-            onOpenHistorico={(d) => {
-              setDemandaSelecionada(d);
-              setModalHistoricoAberto(true);
-            }}
-            onExcluir={handleExcluirDemanda}
-          />
+          {/* Tabela de Demandas ou Estado de Carregamento */}
+          {data.loading ? (
+            <div className="loading-state-wrapper" style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: '60px 20px',
+              backgroundColor: '#ffffff',
+              border: '1px solid var(--border-color)',
+              borderRadius: 'var(--radius-lg)',
+              boxShadow: 'var(--shadow-sm)',
+              gap: '12px',
+              color: 'var(--text-muted)'
+            }}>
+              <i className="fa-solid fa-spinner fa-spin" style={{ fontSize: '2rem', color: 'var(--accent-color)' }}></i>
+              <span style={{ fontSize: '0.875rem', color: 'var(--text-muted)', fontWeight: 500 }}>Carregando dados da Central...</span>
+            </div>
+          ) : (
+            <DemandasTable 
+              demandas={demandasFiltradas}
+              canEdit={canEdit}
+              onOpenEditar={(d) => {
+                setDemandaSelecionada(d);
+                setDrawerAberto(true); // Clicar em Abrir/Número agora abre o Drawer lateral!
+              }}
+              onOpenStatus={(d) => {
+                setDemandaSelecionada(d);
+                setModalStatusAberto(true);
+              }}
+              onOpenHistorico={(d) => {
+                setDemandaSelecionada(d);
+                setModalHistoricoAberto(true);
+              }}
+              onExcluir={handleExcluirDemanda}
+            />
+          )}
         </div>
       )}
 
@@ -930,22 +1028,26 @@ export const App: React.FC<AppProps> = ({ services }) => {
               </div>
               
               <div className="drawer-footer">
-                <button 
-                  type="button" 
-                  className="btn btn-secondary-outline"
-                  onClick={() => setModalStatusAberto(true)}
-                  title="Alterar status do processo"
-                >
-                  <i className="fa-solid fa-rotate-left"></i> Status
-                </button>
-                <button 
-                  type="button" 
-                  className="btn btn-secondary-outline"
-                  onClick={() => setModalEditarAberto(true)}
-                  title="Editar informações do processo"
-                >
-                  <i className="fa-solid fa-pen-to-square"></i> Editar
-                </button>
+                {canEdit && (
+                  <button 
+                    type="button" 
+                    className="btn btn-secondary-outline"
+                    onClick={() => setModalStatusAberto(true)}
+                    title="Alterar status do processo"
+                  >
+                    <i className="fa-solid fa-rotate-left"></i> Status
+                  </button>
+                )}
+                {canEdit && (
+                  <button 
+                    type="button" 
+                    className="btn btn-secondary-outline"
+                    onClick={() => setModalEditarAberto(true)}
+                    title="Editar informações do processo"
+                  >
+                    <i className="fa-solid fa-pen-to-square"></i> Editar
+                  </button>
+                )}
                 <button 
                   type="button" 
                   className="btn btn-primary"

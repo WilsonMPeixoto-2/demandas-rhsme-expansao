@@ -17,6 +17,8 @@ interface HeaderProps {
   };
   onToggleFiltroStatus: (status: string) => void;
   onToggleQuickFilter: (filtro: 'assinatura' | 'hoje' | 'vencido') => void;
+  canEdit?: boolean;
+  appMode?: 'local' | 'supabase';
 }
 
 export const Header: React.FC<HeaderProps> = ({ 
@@ -27,7 +29,9 @@ export const Header: React.FC<HeaderProps> = ({
   onExportCSV,
   filtrosAtivos,
   onToggleFiltroStatus,
-  onToggleQuickFilter
+  onToggleQuickFilter,
+  canEdit = true,
+  appMode = 'local'
 }) => {
   const [lastUpdate, setLastUpdate] = useState<string>('');
 
@@ -76,8 +80,14 @@ export const Header: React.FC<HeaderProps> = ({
   const isQuickFiltroAtivo = filtrosAtivos.quickFilters.assinatura || filtrosAtivos.quickFilters.hoje || filtrosAtivos.quickFilters.vencido;
   const isCardAtivosSelecionado = filtrosAtivos.status === 'Somente ativos (padrão)' && !isQuickFiltroAtivo;
 
-  // Legenda de Urgência
-  const totalCriticas = totalHoje + totalVencidos + totalAssinatura;
+  // Legenda de Urgência (Contagem de demandas únicas críticas para evitar duplicidade)
+  const totalCriticas = demandas.filter(d => 
+    d.status !== 'Encerrado' && (
+      d.status === 'Para Assinatura' || 
+      d.limite2 === todayStr || 
+      (d.limite2 && isBeforeToday(d.limite2))
+    )
+  ).length;
   const legendaCriticas = totalCriticas > 0
     ? `${totalCriticas} ${totalCriticas === 1 ? 'demanda exige' : 'demandas exigem'} providência imediata.`
     : 'Todas as demandas de prazo crítico estão em dia.';
@@ -107,7 +117,7 @@ export const Header: React.FC<HeaderProps> = ({
 
           {/* Badge de Ambiente */}
           <div className="inst-badge-ambiente">
-            Ambiente Local (LocalStorage)
+            {appMode === 'supabase' ? 'Base Compartilhada — Supabase' : 'Ambiente Local (LocalStorage)'}
           </div>
 
           {/* Botão Sair */}
@@ -145,15 +155,17 @@ export const Header: React.FC<HeaderProps> = ({
           </button>
 
           {/* Ação Primária: Nova Demanda */}
-          <button 
-            type="button"
-            className="btn btn-primary btn-nova-demanda-header" 
-            onClick={onOpenNovo}
-            title="Cadastrar nova demanda"
-          >
-            <i className="fa-solid fa-plus"></i>
-            <span>Nova demanda</span>
-          </button>
+          {canEdit && (
+            <button 
+              type="button"
+              className="btn btn-primary btn-nova-demanda-header" 
+              onClick={onOpenNovo}
+              title="Cadastrar nova demanda"
+            >
+              <i className="fa-solid fa-plus"></i>
+              <span>Nova demanda</span>
+            </button>
+          )}
         </div>
       </div>
 

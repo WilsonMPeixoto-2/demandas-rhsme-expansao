@@ -54,7 +54,6 @@ async function ensureUsers(client, password) {
       createdUsers.push(user.id);
     } else {
       const result = await client.auth.admin.updateUserById(user.id, {
-        password,
         email_confirm: true,
         user_metadata: { ...user.user_metadata, nome: definition.nome },
       });

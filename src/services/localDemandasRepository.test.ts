@@ -88,37 +88,32 @@ describe('LocalDemandasRepository', () => {
     expect(storage.keys()).toEqual(['demandas_data', 'demandas_history']);
   });
 
-  it('reinicializa cada coleção armazenada com menos de 20 itens', async () => {
-    storage.setItem('demandas_data', JSON.stringify(initialDemandas.slice(0, 19)));
-    storage.setItem(
-      'demandas_history',
-      JSON.stringify(makeHistory(initialDemandas.slice(0, 19))),
-    );
-    const repository = new LocalDemandasRepository(storage, initialDemandas);
-
-    const data = await repository.load();
-
-    expect(data.demandas).toEqual(initialDemandas);
-    expect(data.historico).toHaveLength(initialDemandas.length);
-    expect(data.historico.map((item) => item.demandaId)).toEqual(
-      initialDemandas.map((demanda) => demanda.id),
-    );
-  });
-
-  it('preserva coleções armazenadas com pelo menos 20 itens e sua ordem', async () => {
-    const storedDemandas = initialDemandas.slice(0, 20).map((demanda, index) => ({
-      ...demanda,
-      assunto: `Demanda preservada ${index}`,
-    }));
+  it('preserva coleções armazenadas válidas independente da quantidade de itens', async () => {
+    const storedDemandas = initialDemandas.slice(0, 5);
     const storedHistorico = makeHistory(storedDemandas);
     storage.setItem('demandas_data', JSON.stringify(storedDemandas));
     storage.setItem('demandas_history', JSON.stringify(storedHistorico));
     const repository = new LocalDemandasRepository(storage, initialDemandas);
 
-    await expect(repository.load()).resolves.toEqual({
-      demandas: storedDemandas,
-      historico: storedHistorico,
-    });
+    const data = await repository.load();
+
+    expect(data.demandas).toEqual(storedDemandas);
+    expect(data.historico).toEqual(storedHistorico);
+  });
+
+  it('redefine para fallback se os dados locais estiverem corrompidos (JSON inválido)', async () => {
+    const alertMock = vi.spyOn(window, 'alert').mockImplementation(() => {});
+    
+    storage.setItem('demandas_data', '{invalid json}');
+    storage.setItem('demandas_history', '{invalid json}');
+    const repository = new LocalDemandasRepository(storage, initialDemandas);
+
+    const data = await repository.load();
+
+    expect(data.demandas).toEqual(initialDemandas);
+    expect(alertMock).toHaveBeenCalledTimes(2);
+    
+    alertMock.mockRestore();
   });
 
   it('preserva as chaves atuais e cria histórico junto com a demanda', async () => {

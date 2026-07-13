@@ -88,37 +88,32 @@ describe('LocalDemandasRepository', () => {
     expect(storage.keys()).toEqual(['demandas_data', 'demandas_history']);
   });
 
-  it('reinicializa cada coleção armazenada com menos de 20 itens', async () => {
-    storage.setItem('demandas_data', JSON.stringify(initialDemandas.slice(0, 19)));
-    storage.setItem(
-      'demandas_history',
-      JSON.stringify(makeHistory(initialDemandas.slice(0, 19))),
-    );
-    const repository = new LocalDemandasRepository(storage, initialDemandas);
-
-    const data = await repository.load();
-
-    expect(data.demandas).toEqual(initialDemandas);
-    expect(data.historico).toHaveLength(initialDemandas.length);
-    expect(data.historico.map((item) => item.demandaId)).toEqual(
-      initialDemandas.map((demanda) => demanda.id),
-    );
-  });
-
-  it('preserva coleções armazenadas com pelo menos 20 itens e sua ordem', async () => {
-    const storedDemandas = initialDemandas.slice(0, 20).map((demanda, index) => ({
-      ...demanda,
-      assunto: `Demanda preservada ${index}`,
-    }));
+  it('preserva coleções armazenadas válidas independente da quantidade de itens', async () => {
+    const storedDemandas = initialDemandas.slice(0, 5);
     const storedHistorico = makeHistory(storedDemandas);
     storage.setItem('demandas_data', JSON.stringify(storedDemandas));
     storage.setItem('demandas_history', JSON.stringify(storedHistorico));
     const repository = new LocalDemandasRepository(storage, initialDemandas);
 
-    await expect(repository.load()).resolves.toEqual({
-      demandas: storedDemandas,
-      historico: storedHistorico,
-    });
+    const data = await repository.load();
+
+    expect(data.demandas).toEqual(storedDemandas);
+    expect(data.historico).toEqual(storedHistorico);
+  });
+
+  it('redefine para fallback se os dados locais estiverem corrompidos (JSON inválido)', async () => {
+    const alertMock = vi.spyOn(window, 'alert').mockImplementation(() => {});
+    
+    storage.setItem('demandas_data', '{invalid json}');
+    storage.setItem('demandas_history', '{invalid json}');
+    const repository = new LocalDemandasRepository(storage, initialDemandas);
+
+    const data = await repository.load();
+
+    expect(data.demandas).toEqual(initialDemandas);
+    expect(alertMock).toHaveBeenCalledTimes(2);
+    
+    alertMock.mockRestore();
   });
 
   it('preserva as chaves atuais e cria histórico junto com a demanda', async () => {
@@ -192,6 +187,49 @@ describe('LocalDemandasRepository', () => {
       initialDemandas.filter((demanda) => demanda.id !== targetId).map((demanda) => demanda.id),
     );
     expect(historico.some((item) => item.demandaId === targetId)).toBe(false);
+  });
+
+  it('rejeita criação de demandas com número de processo duplicado', async () => {
+    const repository = new LocalDemandasRepository(storage, initialDemandas);
+    await repository.load();
+
+    await expect(repository.create({
+      ...novaDemanda,
+      numero: initialDemandas[0].numero // número já existente
+    })).rejects.toThrow('Já existe uma demanda cadastrada com este número de processo.');
+  });
+
+  it('rejeita atualização de demanda inexistente', async () => {
+    const repository = new LocalDemandasRepository(storage, initialDemandas);
+    await repository.load();
+
+    await expect(repository.update(999, { assunto: 'invalido' }))
+      .rejects.toThrow('Demanda não encontrada.');
+  });
+
+  it('rejeita atualização de status de demanda inexistente', async () => {
+    const repository = new LocalDemandasRepository(storage, initialDemandas);
+    await repository.load();
+
+    await expect(repository.updateStatus(999, 'Encerrado', 'comentario'))
+      .rejects.toThrow('Demanda não encontrada.');
+  });
+
+  it('redefine dados locais se o array lido possuir chaves ou tipos estruturais inválidos', async () => {
+    const alertMock = vi.spyOn(window, 'alert').mockImplementation(() => {});
+    
+    // Salva estrutura que é JSON válido mas possui chaves incorretas
+    storage.setItem('demandas_data', JSON.stringify([{ id: 'texto_em_vez_de_numero', numero: '' }]));
+    storage.setItem('demandas_history', JSON.stringify([]));
+
+    const repository = new LocalDemandasRepository(storage, initialDemandas);
+    const data = await repository.load();
+
+    // Deve carregar fallback consistente e alertar
+    expect(data.demandas).toEqual(initialDemandas);
+    expect(alertMock).toHaveBeenCalledTimes(1);
+
+    alertMock.mockRestore();
   });
 
   it('não cria assinatura remota no modo local', () => {

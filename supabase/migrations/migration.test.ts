@@ -29,18 +29,26 @@ describe('migração Supabase', () => {
     expect(sql.match(/set search_path = ''/g)?.length).toBeGreaterThanOrEqual(6);
   });
 
-  it('cria RPCs security invoker e concede somente ao papel autenticado', () => {
+  it('cria RPCs security definer e concede somente ao papel autenticado', () => {
     expect(sql).toContain('create or replace function public.criar_sme_demanda');
     expect(sql).toContain('create or replace function public.atualizar_status_sme_demanda');
-    expect(sql.match(/security invoker/g)?.length).toBe(2);
+    expect(sql.match(/security definer/g)?.length).toBeGreaterThanOrEqual(6);
     expect(sql).toContain('grant execute on function public.criar_sme_demanda');
     expect(sql).toContain('grant execute on function public.atualizar_status_sme_demanda');
   });
 
   it('concede privilégios explícitos às tabelas do novo projeto', () => {
     expect(sql).toContain('grant select on table public.perfis_usuarios to authenticated');
-    expect(sql).toContain('grant select, insert, update, delete on table public.sme_demandas to authenticated');
-    expect(sql).toContain('grant select, insert on table public.sme_historico to authenticated');
+    expect(sql).toContain('grant update (nivel, status, setor) on table public.perfis_usuarios to authenticated');
+    expect(sql).toContain('grant select, delete on table public.sme_demandas to authenticated');
+    expect(sql).toContain('grant update (numero, tipo, assunto, responsavel, limite1, limite2, setor, classificacao) on table public.sme_demandas to authenticated');
+    expect(sql).toContain('grant select on table public.sme_historico to authenticated');
+  });
+
+  it('não concede privilégios de insert direto para authenticated nas tabelas de demandas ou histórico', () => {
+    expect(sql).not.toContain('grant select, insert, delete on table public.sme_demandas');
+    expect(sql).not.toContain('grant insert on table public.sme_demandas');
+    expect(sql).not.toContain('grant insert on table public.sme_historico');
   });
 
   it('habilita Realtime para demandas e histórico', () => {

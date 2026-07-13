@@ -7,6 +7,7 @@ interface DemandasTableProps {
   onOpenStatus: (demanda: Demanda) => void;
   onOpenHistorico: (demanda: Demanda) => void;
   onExcluir: (id: number) => void;
+  canEdit?: boolean;
 }
 
 export const DemandasTable: React.FC<DemandasTableProps> = ({
@@ -14,7 +15,8 @@ export const DemandasTable: React.FC<DemandasTableProps> = ({
   onOpenEditar,
   onOpenStatus,
   onOpenHistorico,
-  onExcluir
+  onExcluir,
+  canEdit = true
 }) => {
   // Controle de qual linha exibe o dropdown de ações
   const [activeDropdownId, setActiveDropdownId] = useState<number | null>(null);
@@ -246,22 +248,26 @@ export const DemandasTable: React.FC<DemandasTableProps> = ({
                           
                           {activeDropdownId === d.id && (
                             <div className="dropdown-menu" id={`menu-acoes-${d.id}`} role="menu">
-                              <button 
-                                type="button" 
-                                className="dropdown-item"
-                                onClick={() => onOpenStatus(d)}
-                              >
-                                <i className="fa-solid fa-rotate-left"></i>
-                                <span>Alterar status</span>
-                              </button>
-                              <button 
-                                type="button" 
-                                className="dropdown-item"
-                                onClick={() => onOpenEditar(d)}
-                              >
-                                <i className="fa-solid fa-pen-to-square"></i>
-                                <span>Editar</span>
-                              </button>
+                              {canEdit && (
+                                <button 
+                                  type="button" 
+                                  className="dropdown-item"
+                                  onClick={() => onOpenStatus(d)}
+                                >
+                                  <i className="fa-solid fa-rotate-left"></i>
+                                  <span>Alterar status</span>
+                                </button>
+                              )}
+                              {canEdit && (
+                                <button 
+                                  type="button" 
+                                  className="dropdown-item"
+                                  onClick={() => onOpenEditar(d)}
+                                >
+                                  <i className="fa-solid fa-pen-to-square"></i>
+                                  <span>Editar</span>
+                                </button>
+                              )}
                               <button 
                                 type="button" 
                                 className="dropdown-item"
@@ -270,15 +276,19 @@ export const DemandasTable: React.FC<DemandasTableProps> = ({
                                 <i className="fa-solid fa-clock-rotate-left"></i>
                                 <span>Histórico</span>
                               </button>
-                              <div className="dropdown-divider"></div>
-                              <button 
-                                type="button" 
-                                className="dropdown-item delete-item"
-                                onClick={() => handleExcluirClick(d.id, d.numero)}
-                              >
-                                <i className="fa-solid fa-trash-can"></i>
-                                <span>Excluir</span>
-                              </button>
+                              {canEdit && (
+                                <>
+                                  <div className="dropdown-divider"></div>
+                                  <button 
+                                    type="button" 
+                                    className="dropdown-item delete-item"
+                                    onClick={() => handleExcluirClick(d.id, d.numero)}
+                                  >
+                                    <i className="fa-solid fa-trash-can"></i>
+                                    <span>Excluir</span>
+                                  </button>
+                                </>
+                              )}
                             </div>
                           )}
                         </div>

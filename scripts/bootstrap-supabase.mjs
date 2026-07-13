@@ -54,28 +54,37 @@ async function ensureUsers(client, password) {
       createdUsers.push(user.id);
     } else {
       const result = await client.auth.admin.updateUserById(user.id, {
-        password,
         email_confirm: true,
         user_metadata: { ...user.user_metadata, nome: definition.nome },
       });
       if (result.error) throw result.error;
     }
 
-    const { error: profileError } = await client.from('perfis_usuarios').upsert({
-      id: user.id,
-      nome: definition.nome,
-      email: definition.email,
-      setor: 'E/CTRH',
-      nivel: definition.nivel,
-      status: 'ativo',
-    });
-    if (profileError) throw profileError;
+    const { data: existingProfile, error: profileCheckError } = await client
+      .from('perfis_usuarios')
+      .select('id')
+      .eq('id', user.id)
+      .maybeSingle();
+      
+    if (profileCheckError) throw profileCheckError;
+    
+    if (!existingProfile) {
+      const { error: profileError } = await client.from('perfis_usuarios').insert({
+        id: user.id,
+        nome: definition.nome,
+        email: definition.email,
+        setor: 'E/CTRH',
+        nivel: definition.nivel,
+        status: 'ativo',
+      });
+      if (profileError) throw profileError;
+    }
   }
 
   return { users: knownUsers, createdUsers };
 }
 
-async function importDemandas(client, demandas, actorId) {
+async function importDemandas(client, demandas) {
   const numeros = demandas.map((demanda) => demanda.numero);
   const { data: existing, error: existingError } = await client
     .from('sme_demandas')
@@ -87,33 +96,21 @@ async function importDemandas(client, demandas, actorId) {
 
   for (const demanda of demandas) {
     if (existingNumbers.has(demanda.numero)) continue;
-    const { data: inserted, error: insertError } = await client
-      .from('sme_demandas')
-      .insert({
-        numero: demanda.numero,
-        tipo: demanda.tipo,
-        assunto: demanda.assunto,
-        responsavel: demanda.responsavel ?? '',
-        limite1: toDatabaseDate(demanda.limite1),
-        limite2: toDatabaseDate(demanda.limite2),
-        status: demanda.status,
-        setor: demanda.setor ?? '',
-        classificacao: demanda.classificacao ?? '',
-        created_by: actorId,
-        updated_by: actorId,
-      })
-      .select('id,status,setor')
-      .single();
-    if (insertError) throw insertError;
-
-    const { error: historyError } = await client.from('sme_historico').insert({
-      demanda_id: inserted.id,
-      status_novo: inserted.status,
-      setor: inserted.setor,
-      comentario: 'Demanda importada da planilha inicial.',
-      created_by: actorId,
+    
+    // Inserção atômica via RPC, garantindo a atomicidade entre demanda e histórico
+    const { error: rpcError } = await client.rpc('criar_sme_demanda', {
+      p_numero: demanda.numero,
+      p_tipo: demanda.tipo,
+      p_assunto: demanda.assunto,
+      p_responsavel: demanda.responsavel ?? '',
+      p_limite1: toDatabaseDate(demanda.limite1),
+      p_limite2: toDatabaseDate(demanda.limite2),
+      p_status: demanda.status,
+      p_setor: demanda.setor ?? '',
+      p_classificacao: demanda.classificacao ?? '',
     });
-    if (historyError) throw historyError;
+
+    if (rpcError) throw rpcError;
     created += 1;
   }
 
@@ -121,10 +118,16 @@ async function importDemandas(client, demandas, actorId) {
 }
 
 export async function runBootstrap(client, password, demandas) {
-  const { users } = await ensureUsers(client, password);
-  const actor = users.find((user) => user.email?.toLowerCase() === 'wilson.peixoto@rioeduca.net');
-  if (!actor) throw new Error('Administrador de bootstrap não encontrado.');
-  return importDemandas(client, demandas, actor.id);
+  await ensureUsers(client, password);
+  
+  // Autenticar com o email do administrador Wilson para estabelecer o contexto de auth.uid() nas RPCs
+  const { error: authError } = await client.auth.signInWithPassword({
+    email: 'wilson.peixoto@rioeduca.net',
+    password: password
+  });
+  if (authError) throw authError;
+
+  return importDemandas(client, demandas);
 }
 
 async function main() {

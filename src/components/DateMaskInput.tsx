@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 
 interface DateMaskInputProps {
   id: string;
@@ -11,15 +11,9 @@ export const DateMaskInput: React.FC<DateMaskInputProps> = ({ id, value, onChang
   const inputRef = useRef<HTMLInputElement>(null);
   const placeholderMask = "dd/mm/aaaa";
 
-  // Se o valor estiver vazio, definir como a máscara padrão
-  useEffect(() => {
-    if (!value) {
-      onChange(placeholderMask);
-    }
-  }, [value, onChange]);
-
   const handleFocus = () => {
-    if (value === placeholderMask && inputRef.current) {
+    if ((!value || value === placeholderMask) && inputRef.current) {
+      onChange(placeholderMask);
       // Posiciona o cursor no início
       setTimeout(() => {
         inputRef.current?.setSelectionRange(0, 0);
@@ -28,7 +22,7 @@ export const DateMaskInput: React.FC<DateMaskInputProps> = ({ id, value, onChang
   };
 
   const handleClick = () => {
-    if (value === placeholderMask && inputRef.current) {
+    if ((!value || value === placeholderMask) && inputRef.current) {
       inputRef.current.setSelectionRange(0, 0);
     }
   };
@@ -149,6 +143,25 @@ export const DateMaskInput: React.FC<DateMaskInputProps> = ({ id, value, onChang
     }
   };
 
+  const handlePaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    const pastedData = e.clipboardData.getData('text');
+    const cleanDigits = pastedData.replace(/\D/g, '');
+    if (cleanDigits.length === 8) {
+      const formatted = `${cleanDigits.substring(0, 2)}/${cleanDigits.substring(2, 4)}/${cleanDigits.substring(4, 8)}`;
+      const [day, month, year] = formatted.split('/').map(Number);
+      const dateObj = new Date(year, month - 1, day);
+      const dataValida = (dateObj.getFullYear() === year && dateObj.getMonth() === month - 1 && dateObj.getDate() === day);
+      if (dataValida) {
+        onChange(formatted);
+      } else {
+        alert("Data colada inválida.");
+      }
+    } else {
+      alert("Formato de data colada inválido. Use dd/mm/aaaa ou apenas os números.");
+    }
+  };
+
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
       {label && <label htmlFor={id} className="input-label-externa">{label}</label>}
@@ -162,7 +175,8 @@ export const DateMaskInput: React.FC<DateMaskInputProps> = ({ id, value, onChang
         onClick={handleClick}
         onKeyDown={handleKeyDown}
         onBlur={handleBlur}
-        onChange={() => {}} // Controlado totalmente pelo KeyDown
+        onPaste={handlePaste}
+        onChange={() => {}} // Controlado totalmente pelo KeyDown/Paste
         placeholder={placeholderMask}
       />
     </div>

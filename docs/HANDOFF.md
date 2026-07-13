@@ -1,58 +1,43 @@
 # Handoff Operacional — Central de Demandas CTRH SME
 
-Atualizado em: 2026-07-07 (Encerramento do dia com Layout e Visual Editorial de Alto Impacto)
+Atualizado em: 2026-07-13 (Homologação do Gate 0 Concluída com Sucesso)
 
 ---
 
 ## 📌 Norte Operacional e Status
 
-Toda a infraestrutura visual, design system editorial, tipografia profissional (Inter) e fluxo estático offline baseados em `LocalStorage` estão **100% entregues, verdes e publicados** na Vercel:
+Toda a infraestrutura visual, design system editorial, fluxo estático e integração Supabase endurecida e segura estão **100% entregues, testados e verdes**.
 
 *   **URL de Produção**: [demandas-rhsme-nine.vercel.app](https://demandas-rhsme-nine.vercel.app)
-*   **Repositório GitHub**: [github.com/WilsonMPeixoto-2/demandas-rhsme](https://github.com/WilsonMPeixoto-2/demandas-rhsme)
+*   **Repositório GitHub**: [github.com/WilsonMPeixoto-2/demandas-rhsme-expansao](https://github.com/WilsonMPeixoto-2/demandas-rhsme-expansao)
 
 ---
 
-## 🛠️ Entregas Realizadas Hoje
+## 🛠️ Entregas Realizadas no Gate 0
 
-### 1. Split Login Corporativo
-*   Estrutura dividida no desktop com painel institucional navy escuro e padrão geométrico de grid com glows sutis.
-*   Lista dos 3 pilares do sistema (Prazos, Responsáveis, Histórico).
-*   Abas nítidas para *Entrar* e *Primeiro acesso* com checagens de e-mail corporativo (`@rioeduca.net`) e senhas fortes.
-*   Mobile com ocultação da barra lateral de forma automatizada e marca compacta centralizada.
+### 1. Hardening do Banco de Dados e RPCs
+* RPCs `criar_sme_demanda` e `atualizar_status_sme_demanda` migradas para `security definer` com validação de editor (`private.can_edit()`).
+* Criação de trigger no Postgres `perfis_usuarios_prevent_admin_self_block` para impedir que o último administrador ativo se bloqueie ou seja rebaixado.
+* Correção no provisionador `bootstrap-supabase.mjs` para evitar reset acidental de senhas.
 
-### 2. Cabeçalho Institucional de Ponta a Ponta
-*   Faixa superior de identificação do órgão (`CTRH • Secretaria Municipal de Educação | Sistema interno de acompanhamento`).
-*   Dados de sessão, tag do ambiente e data e hora da última atualização reativa.
-*   Título principal **Central de Demandas** associado aos botões **Nova demanda** e **Exportar CSV**.
+### 2. Robustez do Repositório Local e Interface
+* `localDemandasRepository.ts` não apaga mais a base local caso esta caia abaixo de 20 registros, e trata adequadamente erros de parse de JSON corrompido com fallback seguro.
+* O logout em `App.tsx` limpa completamente abas, filtros e modais, evitando vazamento de dados.
+* Propagação da propriedade `canEdit` (perfil leitor) ocultando botões de escrita (Nova demanda, Editar, Status, Excluir) no Header, Tabela de Demandas e Drawer lateral.
+* Exibição explícita de banner de erros e skeletons/loaders durante o carregamento de dados.
 
-### 3. Faixa de Atenção Imediata
-*   Filtragem automática das demandas críticas do sistema:
-    *   *Mais antiga vencida* (ex: "Vencida há 7 dias")
-    *   *Vencimento no dia* (ex: "Vence hoje")
-    *   *Assinatura pendente há mais tempo* (ex: "Aguardando assinatura")
-*   Desaparece automaticamente se não houver itens críticos.
+### 3. Ajustes de UX e Segurança adicionais
+* Prevenção contra CSV Injection na exportação e substituição do delimitador para `;` com a instrução `sep=;` na primeira linha.
+* Correção da máscara no `DateMaskInput.tsx` para não forçar string `"dd/mm/aaaa"` no pai se o usuário não interagir, adicionando suporte inteligente para colagem (`onPaste`).
 
-### 4. Tabela de Prazos Semânticos e Ações Dropdown
-*   Colunas agrupadas por hierarquia de leitura em varredura.
-*   Avatares redondos dos responsáveis com exibição do setor secundário (`E/CTRH`).
-*   Etiquetas coloridas dinâmicas na coluna de prazo final (*vence hoje*, *X dias em atraso*, *em X dias*).
-*   Menu dropdown acionado pelas reticências `⋮` consolidando ações secundárias para prevenir exclusão acidental.
-
-### 5. Saneamento de Termos (RH -> CTRH)
-*   Substituição completa do termo visual "RH" pela sigla administrativa oficial **"CTRH"** em todas as interfaces.
+### 4. Validação da Suíte de Testes
+* Suíte de testes automatizados unitários (`vitest`) rodando e passando com 57 testes em verde.
+* Build de produção Vite + TypeScript executando com 100% de sucesso.
 
 ---
 
-## 🔮 Próximas Etapas Recomendadas
+## 🔮 Próximas Etapas
 
-Quando retomar o projeto amanhã ou transferir a tarefa, siga esta ordem:
-
-1.  **Criação de Tabelas do Supabase**:
-    *   O script SQL com as estruturas necessárias para o banco (`demandas`, `historico_comentarios`, `perfis_usuarios`, triggers e políticas RLS) já está pronto e salvo no diretório `/supabase/migrations`.
-2.  **Variáveis de Ambiente**:
-    *   Copiar `.env.example` para `.env` e preencher as chaves de acesso público do Supabase.
-3.  **Substituir LocalStorage por Supabase API**:
-    *   Substituir a carga estática local em `src/App.tsx` pelas funções reais de consulta e escrita (que estão comentadas no arquivo prontas para ativação).
-4.  **Ativação de Autenticação Segura**:
-    *   Conectar o Supabase Auth para cadastro real de servidores de SME e validações de e-mail.
+1. Aplicar a migração `20260707000000_sme_demandas.sql` na base do Supabase em produção.
+2. Definir as variáveis de ambiente reais do Supabase em produção.
+3. Iniciar a homologação real dos servidores SME na base Supabase compartilhada.

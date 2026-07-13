@@ -114,34 +114,27 @@ create policy "usuários ativos consultam demandas"
 on public.sme_demandas for select to authenticated
 using ((select private.is_active()));
 
-create policy "editores criam demandas"
-on public.sme_demandas for insert to authenticated
-with check ((select private.can_edit()));
-
 create policy "editores atualizam demandas"
 on public.sme_demandas for update to authenticated
 using ((select private.can_edit()))
 with check ((select private.can_edit()));
 
-create policy "editores excluem demandas"
+create policy "administradores ativos excluem demandas"
 on public.sme_demandas for delete to authenticated
-using ((select private.can_edit()));
+using ((select private.is_admin()));
 
 create policy "usuários ativos consultam histórico"
 on public.sme_historico for select to authenticated
 using ((select private.is_active()));
-
-create policy "editores registram histórico"
-on public.sme_historico for insert to authenticated
-with check ((select private.can_edit()));
 
 revoke all on table public.perfis_usuarios from anon, authenticated;
 revoke all on table public.sme_demandas from anon, authenticated;
 revoke all on table public.sme_historico from anon, authenticated;
 grant select on table public.perfis_usuarios to authenticated;
 grant update (nivel, status, setor) on table public.perfis_usuarios to authenticated;
-grant select, insert, update, delete on table public.sme_demandas to authenticated;
-grant select, insert on table public.sme_historico to authenticated;
+grant select, delete on table public.sme_demandas to authenticated;
+grant update (numero, tipo, assunto, responsavel, limite1, limite2, setor, classificacao) on table public.sme_demandas to authenticated;
+grant select on table public.sme_historico to authenticated;
 grant usage, select on all sequences in schema public to authenticated;
 
 alter publication supabase_realtime add table public.sme_demandas;
@@ -200,6 +193,36 @@ create trigger on_auth_user_created
 after insert on auth.users
 for each row execute function private.handle_new_user();
 
+create or replace function private.prevent_no_active_admin()
+returns trigger
+language plpgsql
+security definer
+set search_path = ''
+as $$
+declare
+  v_admin_count integer;
+begin
+  if (old.nivel = 'administrador' and old.status = 'ativo') and 
+     (new.nivel <> 'administrador' or new.status <> 'ativo') then
+     
+    select count(*) into v_admin_count
+    from public.perfis_usuarios
+    where nivel = 'administrador' and status = 'ativo' and id <> old.id;
+    
+    if v_admin_count = 0 then
+      raise exception 'Operação bloqueada: O sistema não pode ficar sem nenhum administrador ativo.';
+    end if;
+  end if;
+  return new;
+end;
+$$;
+
+revoke all on function private.prevent_no_active_admin() from public;
+
+create trigger perfis_usuarios_prevent_no_active_admin
+before update or delete on public.perfis_usuarios
+for each row execute function private.prevent_no_active_admin();
+
 create or replace function public.criar_sme_demanda(
   p_numero text,
   p_tipo text,
@@ -213,12 +236,26 @@ create or replace function public.criar_sme_demanda(
 )
 returns public.sme_demandas
 language plpgsql
-security invoker
+security definer
 set search_path = ''
 as $$
 declare
   v_demanda public.sme_demandas;
 begin
+  if not private.can_edit() then
+    raise exception 'Acesso negado: permissões insuficientes.';
+  end if;
+
+  if p_numero is null or btrim(p_numero) = '' then
+    raise exception 'O número do processo é obrigatório.';
+  end if;
+  if p_assunto is null or btrim(p_assunto) = '' then
+    raise exception 'O assunto do processo é obrigatório.';
+  end if;
+  if p_status is null or btrim(p_status) = '' then
+    raise exception 'O status do processo é obrigatório.';
+  end if;
+
   insert into public.sme_demandas (
     numero, tipo, assunto, responsavel, limite1, limite2, status,
     setor, classificacao, created_by, updated_by
@@ -246,12 +283,23 @@ create or replace function public.atualizar_status_sme_demanda(
 )
 returns void
 language plpgsql
-security invoker
+security definer
 set search_path = ''
 as $$
 declare
   v_setor text;
 begin
+  if not private.can_edit() then
+    raise exception 'Acesso negado: permissões insuficientes.';
+  end if;
+
+  if p_novo_status is null or btrim(p_novo_status) = '' then
+    raise exception 'O novo status é obrigatório.';
+  end if;
+  if p_comentario is null or btrim(p_comentario) = '' then
+    raise exception 'O comentário de acompanhamento é obrigatório para registrar a movimentação.';
+  end if;
+
   update public.sme_demandas
   set status = p_novo_status, updated_by = (select auth.uid())
   where id = p_demanda_id
@@ -265,7 +313,7 @@ begin
     demanda_id, status_novo, setor, comentario, created_by
   ) values (
     p_demanda_id, p_novo_status, coalesce(v_setor, ''),
-    coalesce(p_comentario, ''), (select auth.uid())
+    p_comentario, (select auth.uid())
   );
 end;
 $$;

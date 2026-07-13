@@ -3,7 +3,6 @@ import type { AppData, DemandasRepository } from './contracts';
 
 const DEMANDAS_KEY = 'demandas_data';
 const HISTORY_KEY = 'demandas_history';
-const MINIMUM_STORED_ITEMS = 20;
 
 export type StorageAdapter = Pick<Storage, 'getItem' | 'setItem'>;
 
@@ -17,34 +16,47 @@ export class LocalDemandasRepository implements DemandasRepository {
   ) {}
 
   async load(): Promise<AppData> {
-    const storedDemandas = this.read<Demanda[]>(DEMANDAS_KEY);
-    if (storedDemandas && storedDemandas.length >= MINIMUM_STORED_ITEMS) {
-      this.demandas = storedDemandas;
+    const rawDemandas = this.storage.getItem(DEMANDAS_KEY);
+    if (rawDemandas !== null) {
+      const storedDemandas = this.read<Demanda[]>(DEMANDAS_KEY);
+      this.demandas = storedDemandas ?? this.initialDemandas.map((demanda) => ({ ...demanda }));
+      if (!storedDemandas) {
+        this.saveDemandas();
+      }
     } else {
       this.demandas = this.initialDemandas.map((demanda) => ({ ...demanda }));
       this.saveDemandas();
     }
 
-    const storedHistorico = this.read<ComentarioHistorico[]>(HISTORY_KEY);
-    if (storedHistorico && storedHistorico.length >= MINIMUM_STORED_ITEMS) {
-      this.historico = storedHistorico;
+    const rawHistorico = this.storage.getItem(HISTORY_KEY);
+    if (rawHistorico !== null) {
+      const storedHistorico = this.read<ComentarioHistorico[]>(HISTORY_KEY);
+      if (storedHistorico) {
+        this.historico = storedHistorico;
+      } else {
+        this.resetHistoricoFallback();
+      }
     } else {
-      const hojeStr = new Date().toLocaleString('pt-BR');
-      this.historico = this.initialDemandas.map((demanda) => ({
-        id: demanda.id,
-        demandaId: demanda.id,
-        data_hora: hojeStr,
-        status_novo: demanda.status,
-        setor: demanda.setor || 'SME',
-        comentario: 'Demanda importada da planilha inicial.',
-      }));
-      this.saveHistorico();
+      this.resetHistoricoFallback();
     }
 
     return {
       demandas: this.demandas,
       historico: this.historico,
     };
+  }
+
+  private resetHistoricoFallback(): void {
+    const hojeStr = new Date().toLocaleString('pt-BR');
+    this.historico = this.initialDemandas.map((demanda) => ({
+      id: demanda.id,
+      demandaId: demanda.id,
+      data_hora: hojeStr,
+      status_novo: demanda.status,
+      setor: demanda.setor || 'SME',
+      comentario: 'Demanda importada da planilha inicial.',
+    }));
+    this.saveHistorico();
   }
 
   async create(input: Omit<Demanda, 'id'>): Promise<void> {
@@ -111,7 +123,13 @@ export class LocalDemandasRepository implements DemandasRepository {
 
   private read<T>(key: string): T | null {
     const value = this.storage.getItem(key);
-    return value ? JSON.parse(value) as T : null;
+    if (value === null) return null;
+    try {
+      return JSON.parse(value) as T;
+    } catch {
+      alert(`Os dados locais de "${key}" estavam corrompidos e foram redefinidos para os valores padrões.`);
+      return null;
+    }
   }
 
   private saveDemandas(): void {

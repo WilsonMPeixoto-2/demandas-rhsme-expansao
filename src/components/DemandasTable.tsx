@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Demanda } from '../types';
+import { getPrazoFinalSemantics } from '../utils/date';
 
 interface DemandasTableProps {
   demandas: Demanda[];
@@ -7,6 +8,7 @@ interface DemandasTableProps {
   onOpenStatus: (demanda: Demanda) => void;
   onOpenHistorico: (demanda: Demanda) => void;
   onExcluir: (id: number) => void;
+  canEdit?: boolean;
 }
 
 export const DemandasTable: React.FC<DemandasTableProps> = ({
@@ -14,12 +16,11 @@ export const DemandasTable: React.FC<DemandasTableProps> = ({
   onOpenEditar,
   onOpenStatus,
   onOpenHistorico,
-  onExcluir
+  onExcluir,
+  canEdit = true
 }) => {
-  // Controle de qual linha exibe o dropdown de ações
   const [activeDropdownId, setActiveDropdownId] = useState<number | null>(null);
 
-  // Fecha o dropdown se clicar fora de qualquer componente
   useEffect(() => {
     const handleGlobalClick = () => {
       setActiveDropdownId(null);
@@ -37,14 +38,6 @@ export const DemandasTable: React.FC<DemandasTableProps> = ({
     };
   }, []);
 
-
-
-  // Retorna a classe da linha baseada no status e data limite
-  const getRowClass = () => {
-    return '';
-  };
-
-  // Retorna a classe CSS da badge de status
   const getStatusBadgeClass = (status: string) => {
     switch (status) {
       case 'Aguardando Andamento': return 'badge aguardando';
@@ -57,7 +50,6 @@ export const DemandasTable: React.FC<DemandasTableProps> = ({
     }
   };
 
-  // Lógica para gerar iniciais para o avatar
   const getInitials = (name: string | undefined): string => {
     if (!name) return '—';
     const cleanName = name.trim();
@@ -67,50 +59,6 @@ export const DemandasTable: React.FC<DemandasTableProps> = ({
     if (parts.length === 0) return '—';
     if (parts.length === 1) return parts[0].substring(0, 2).toUpperCase();
     return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
-  };
-
-  // Lógica para formatar e colorir semântica dos prazos
-  const getPrazoFinalSemantics = (dateStr: string | undefined) => {
-    if (!dateStr || dateStr === 'dd/mm/aaaa') {
-      return { data: '—', label: null, classe: '' };
-    }
-
-    try {
-      const [day, month, year] = dateStr.split('/').map(Number);
-      const dateObj = new Date(year, month - 1, day);
-      
-      const meses = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'];
-      const dataFormatada = `${String(day).padStart(2, '0')} ${meses[month - 1]} ${year}`;
-
-      const today = new Date();
-      const todayObj = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-
-      const diffTime = dateObj.getTime() - todayObj.getTime();
-      const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
-
-      if (diffDays < 0) {
-        const absDays = Math.abs(diffDays);
-        return {
-          data: dataFormatada,
-          label: `${absDays} ${absDays === 1 ? 'dia' : 'dias'} em atraso`,
-          classe: 'status-atrasado'
-        };
-      } else if (diffDays === 0) {
-        return {
-          data: dataFormatada,
-          label: 'vence hoje',
-          classe: 'status-hoje'
-        };
-      } else {
-        return {
-          data: dataFormatada,
-          label: `em ${diffDays} ${diffDays === 1 ? 'dia' : 'dias'}`,
-          classe: 'status-no-prazo'
-        };
-      }
-    } catch {
-      return { data: dateStr, label: null, classe: '' };
-    }
   };
 
   const handleExcluirClick = (id: number, numero: string) => {
@@ -143,7 +91,7 @@ export const DemandasTable: React.FC<DemandasTableProps> = ({
                 const showAvatar = initials !== '—';
 
                 return (
-                  <tr key={d.id} className={getRowClass()}>
+                  <tr key={d.id}>
                     {/* Processo / Documento (Número, Tipo e Classificação consolidados) */}
                     <td style={{ textAlign: 'left' }}>
                       <div className="processo-identificacao">
@@ -151,7 +99,7 @@ export const DemandasTable: React.FC<DemandasTableProps> = ({
                           type="button"
                           className="numero-link" 
                           onClick={() => onOpenEditar(d)}
-                          title={`Clique para editar a demanda do processo nº ${d.numero}`}
+                          title={canEdit ? `Clique para editar a demanda do processo nº ${d.numero}` : `Abrir detalhes do processo nº ${d.numero}`}
                         >
                           {d.numero}
                         </button>
@@ -222,9 +170,9 @@ export const DemandasTable: React.FC<DemandasTableProps> = ({
                           type="button"
                           className="btn btn-abrir-tabela"
                           onClick={() => onOpenEditar(d)}
-                          title="Abrir demanda"
+                          title={canEdit ? "Editar demanda" : "Abrir detalhes da demanda"}
                         >
-                          Abrir
+                          {canEdit ? "Editar" : "Abrir"}
                         </button>
                         
                         <div className="dropdown-container">
@@ -246,39 +194,51 @@ export const DemandasTable: React.FC<DemandasTableProps> = ({
                           
                           {activeDropdownId === d.id && (
                             <div className="dropdown-menu" id={`menu-acoes-${d.id}`} role="menu">
+                              {canEdit && (
+                                <button 
+                                  type="button" 
+                                  className="dropdown-item"
+                                  role="menuitem"
+                                  onClick={() => onOpenStatus(d)}
+                                >
+                                  <i className="fa-solid fa-rotate-left"></i>
+                                  <span>Alterar status</span>
+                                </button>
+                              )}
+                              {canEdit && (
+                                <button 
+                                  type="button" 
+                                  className="dropdown-item"
+                                  role="menuitem"
+                                  onClick={() => onOpenEditar(d)}
+                                >
+                                  <i className="fa-solid fa-pen-to-square"></i>
+                                  <span>Editar</span>
+                                </button>
+                              )}
                               <button 
                                 type="button" 
                                 className="dropdown-item"
-                                onClick={() => onOpenStatus(d)}
-                              >
-                                <i className="fa-solid fa-rotate-left"></i>
-                                <span>Alterar status</span>
-                              </button>
-                              <button 
-                                type="button" 
-                                className="dropdown-item"
-                                onClick={() => onOpenEditar(d)}
-                              >
-                                <i className="fa-solid fa-pen-to-square"></i>
-                                <span>Editar</span>
-                              </button>
-                              <button 
-                                type="button" 
-                                className="dropdown-item"
+                                role="menuitem"
                                 onClick={() => onOpenHistorico(d)}
                               >
                                 <i className="fa-solid fa-clock-rotate-left"></i>
                                 <span>Histórico</span>
                               </button>
-                              <div className="dropdown-divider"></div>
-                              <button 
-                                type="button" 
-                                className="dropdown-item delete-item"
-                                onClick={() => handleExcluirClick(d.id, d.numero)}
-                              >
-                                <i className="fa-solid fa-trash-can"></i>
-                                <span>Excluir</span>
-                              </button>
+                              {canEdit && (
+                                <>
+                                  <div className="dropdown-divider"></div>
+                                  <button 
+                                    type="button" 
+                                    className="dropdown-item delete-item"
+                                    role="menuitem"
+                                    onClick={() => handleExcluirClick(d.id, d.numero)}
+                                  >
+                                    <i className="fa-solid fa-trash-can"></i>
+                                    <span>Excluir</span>
+                                  </button>
+                                </>
+                              )}
                             </div>
                           )}
                         </div>

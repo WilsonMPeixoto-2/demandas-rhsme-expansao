@@ -1,15 +1,15 @@
 {
   "project": "Central de Demandas — CTRH SME",
-  "updated_at": "2026-07-07T19:08:00-03:00",
+  "updated_at": "2026-07-13T14:15:00-03:00",
   "source_of_truth": {
-    "repository": "https://github.com/WilsonMPeixoto-2/demandas-rhsme",
+    "repository": "https://github.com/WilsonMPeixoto-2/demandas-rhsme-expansao",
     "base_branch": "main",
-    "base_commit": "98ea59a",
+    "base_commit": "main",
     "note": "Always verify against GitHub code, branch, commit, diff and tests. This file is a snapshot, not a source of truth."
   },
   "operational_north": {
-    "plan": "Fase de Layout Estético, Reatividade e Prazos Semânticos Concluída",
-    "current_mode": "Autenticação em Split Layout, Faixa de Atenção Imediata, Filtro Reativo e Tabela de Demandas Hierárquica 100% integrados no Vercel."
+    "plan": "Endurecimento de Segurança e Homologação (Gate 0) Concluído",
+    "current_mode": "Autenticação em Split Layout, Faixa de Atenção Imediata, Filtro Reativo, Tabela de Demandas e Integração Supabase endurecida prontas para Homologação."
   },
   "recent_commits": [
     { "message": "feat: redesign login screen with desktop split layout, institutional brand banner, mesh pattern background and features list", "commit": "6a44d4a", "date": "2026-07-07" },
@@ -17,18 +17,17 @@
     { "message": "docs: add complete project README with design specifications and running instructions", "commit": "48a45da", "date": "2026-07-07" }
   ],
   "delivered_state": {
-    "login_split_layout": "delivered; layout dividido 50/50 com painel CTRH azul profundo, grid geométrico e glows em CSS no desktop. Mobile oculta o banner e centraliza o card sob marca textual compacta.",
-    "cabeçalho_institucional": "delivered; faixa superior fina de ponta a ponta com dados da sessão, data de atualização, indicador de ambiente local (LocalStorage), botão sair e ações globais associadas ao título Central de Demandas.",
-    "atencao_imediata": "delivered; faixa reativa que analisa prazos e log de assinaturas para destacar as 3 demandas mais críticas do sistema (vencidas, vencendo hoje ou assinaturas antigas) com botão de abertura rápida.",
-    "tabela_demandas_hierarquica": "delivered; colunas agrupadas por relevância, avatares de responsáveis com iniciais e setor em linha secundária, prazos semânticos coloridos automáticos, status em caixa baixa natural e menu de ações sob reticências."
+    "gate_0_security_hardening": "delivered; RPCs criar_sme_demanda e atualizar_status_sme_demanda convertidas in security definer com checagem interna de can_edit; trigger contra auto-bloqueio de administrador aplicada no Postgres e no frontend; bootstrap corrigido para não redefinir senhas.",
+    "robustez_repositorio_local": "delivered; localDemandasRepository corrigido para evitar redefinição arbitrária e tratar JSON inválido com fallback seguro; logout limpa modais, filtros e drawers.",
+    "protecoes_ux_seguranca": "delivered; DateMaskInput corrigido para não forçar strings no pai; exportador CSV sanitiza CSV Injection e usa delimitador ponto e vírgula com instrução sep=; no topo; suíte de testes unitários com 57 passados em verde e build concluído."
   },
   "next_priority": {
-    "immediate_next_step": "Migração para o banco de dados real Supabase, criação de tabelas e políticas RLS no Postgres, e autenticação real via Supabase Auth.",
+    "immediate_next_step": "Conectar o frontend às variáveis de ambiente reais do Supabase em produção e iniciar homologação em base compartilhada.",
     "smoke_checklist": [
-      "Verificar se o padrão geométrico da barra lateral de login aparece corretamente no desktop",
-      "Validar responsividade em dispositivos móveis (ocultar sidebar lateral)",
-      "Testar criação e edição reativa salvando no LocalStorage",
-      "Confirmar exportação de CSV contendo a nomenclatura atualizada de CTRH"
+      "Confirmar se o badge de ambiente exibe dinamicamente o status com base no VITE_APP_MODE",
+      "Validar se perfil leitor de fato não vê botões de escrita Nova Demanda, Editar, Status e Excluir",
+      "Confirmar exportação de CSV sem erros de formatação no Excel",
+      "Checar no console que não há erros de parse do localStorage"
     ]
   }
 }

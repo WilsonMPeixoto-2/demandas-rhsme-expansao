@@ -140,8 +140,9 @@ revoke all on table public.sme_demandas from anon, authenticated;
 revoke all on table public.sme_historico from anon, authenticated;
 grant select on table public.perfis_usuarios to authenticated;
 grant update (nivel, status, setor) on table public.perfis_usuarios to authenticated;
-grant select, insert, update, delete on table public.sme_demandas to authenticated;
-grant select, insert on table public.sme_historico to authenticated;
+grant select, insert, delete on table public.sme_demandas to authenticated;
+grant update (numero, tipo, assunto, responsavel, limite1, limite2, setor, classificacao) on table public.sme_demandas to authenticated;
+grant select on table public.sme_historico to authenticated;
 grant usage, select on all sequences in schema public to authenticated;
 
 alter publication supabase_realtime add table public.sme_demandas;
@@ -200,6 +201,36 @@ create trigger on_auth_user_created
 after insert on auth.users
 for each row execute function private.handle_new_user();
 
+create or replace function private.prevent_no_active_admin()
+returns trigger
+language plpgsql
+security definer
+set search_path = ''
+as $$
+declare
+  v_admin_count integer;
+begin
+  if (old.nivel = 'administrador' and old.status = 'ativo') and 
+     (new.nivel <> 'administrador' or new.status <> 'ativo') then
+     
+    select count(*) into v_admin_count
+    from public.perfis_usuarios
+    where nivel = 'administrador' and status = 'ativo' and id <> old.id;
+    
+    if v_admin_count = 0 then
+      raise exception 'Operação bloqueada: O sistema não pode ficar sem nenhum administrador ativo.';
+    end if;
+  end if;
+  return new;
+end;
+$$;
+
+revoke all on function private.prevent_no_active_admin() from public;
+
+create trigger perfis_usuarios_prevent_no_active_admin
+before update on public.perfis_usuarios
+for each row execute function private.prevent_no_active_admin();
+
 create or replace function public.criar_sme_demanda(
   p_numero text,
   p_tipo text,
@@ -213,12 +244,16 @@ create or replace function public.criar_sme_demanda(
 )
 returns public.sme_demandas
 language plpgsql
-security invoker
+security definer
 set search_path = ''
 as $$
 declare
   v_demanda public.sme_demandas;
 begin
+  if not private.can_edit() then
+    raise exception 'Acesso negado: permissões insuficientes.';
+  end if;
+
   insert into public.sme_demandas (
     numero, tipo, assunto, responsavel, limite1, limite2, status,
     setor, classificacao, created_by, updated_by
@@ -246,12 +281,16 @@ create or replace function public.atualizar_status_sme_demanda(
 )
 returns void
 language plpgsql
-security invoker
+security definer
 set search_path = ''
 as $$
 declare
   v_setor text;
 begin
+  if not private.can_edit() then
+    raise exception 'Acesso negado: permissões insuficientes.';
+  end if;
+
   update public.sme_demandas
   set status = p_novo_status, updated_by = (select auth.uid())
   where id = p_demanda_id

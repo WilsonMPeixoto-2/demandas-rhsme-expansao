@@ -1,0 +1,85 @@
+name: Prepare functional modernization
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  prepare-and-verify:
+    if: github.head_ref == 'modernizacao/funcional-2026' && github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+
+    steps:
+      - name: Checkout modernization branch
+        uses: actions/checkout@v4
+        with:
+          ref: modernizacao/funcional-2026
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Set up Node.js 24
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Apply functional modernization
+        run: node scripts/apply-functional-modernization.mjs
+
+      - name: Install compatible production dependencies
+        run: |
+          npm install --save-exact \
+            react@latest \
+            react-dom@latest \
+            @supabase/supabase-js@latest \
+            @fortawesome/fontawesome-free@latest \
+            @fontsource-variable/inter@latest
+
+      - name: Install compatible development dependencies
+        run: |
+          npm install --save-dev --save-exact \
+            @testing-library/jest-dom@latest \
+            @testing-library/react@latest \
+            @testing-library/user-event@latest \
+            @types/node@24 \
+            @types/react@latest \
+            @types/react-dom@latest \
+            @vitejs/plugin-react@latest \
+            jsdom@latest \
+            typescript@5.9.3 \
+            vite@latest \
+            vitest@latest \
+            @playwright/test@latest
+
+      - name: Audit dependencies
+        run: npm audit --audit-level=high
+
+      - name: Run unit and integration tests
+        run: npm test
+
+      - name: Build production bundle
+        run: npm run build
+
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Run desktop and mobile browser tests
+        run: npm run test:e2e
+
+      - name: Remove temporary modernization machinery
+        run: |
+          rm scripts/apply-functional-modernization.mjs
+          rm .github/workflows/prepare-functional-modernization.yml
+
+      - name: Commit validated modernization
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "chore: modernizar toolchain e homologação em navegador"
+          git push origin HEAD:modernizacao/funcional-2026

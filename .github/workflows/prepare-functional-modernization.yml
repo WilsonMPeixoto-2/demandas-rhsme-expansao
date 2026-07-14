@@ -82,13 +82,30 @@ jobs:
         run: npx playwright install --with-deps chromium
 
       - name: Run desktop and mobile browser tests
-        run: npm run test:e2e
+        id: browser-tests
+        shell: bash
+        run: |
+          set -o pipefail
+          npm run test:e2e 2>&1 | tee modernization-e2e.log
+
+      - name: Upload browser diagnostics
+        if: failure() && steps.browser-tests.outcome == 'failure'
+        uses: actions/upload-artifact@v4
+        with:
+          name: modernization-browser-tests
+          path: |
+            modernization-e2e.log
+            playwright-report
+            test-results
+          if-no-files-found: warn
+          retention-days: 3
 
       - name: Remove temporary modernization machinery
         run: |
           rm scripts/apply-functional-modernization.mjs
           rm .github/workflows/prepare-functional-modernization.yml
-          rm -f modernization-unit-tests.log
+          rm -f modernization-unit-tests.log modernization-e2e.log
+          rm -rf playwright-report test-results
 
       - name: Commit validated modernization
         run: |

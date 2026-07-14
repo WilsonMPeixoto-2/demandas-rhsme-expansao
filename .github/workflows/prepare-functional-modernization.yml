@@ -88,13 +88,21 @@ jobs:
           set -o pipefail
           npm run test:e2e 2>&1 | tee modernization-e2e.log
 
-      - name: Upload browser diagnostics
+      - name: Upload browser log
         if: failure() && steps.browser-tests.outcome == 'failure'
         uses: actions/upload-artifact@v4
         with:
-          name: modernization-browser-tests
+          name: modernization-browser-log
+          path: modernization-e2e.log
+          if-no-files-found: error
+          retention-days: 3
+
+      - name: Upload browser visual diagnostics
+        if: failure() && steps.browser-tests.outcome == 'failure'
+        uses: actions/upload-artifact@v4
+        with:
+          name: modernization-browser-visuals
           path: |
-            modernization-e2e.log
             playwright-report
             test-results
           if-no-files-found: warn

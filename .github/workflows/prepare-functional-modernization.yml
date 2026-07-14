@@ -64,18 +64,16 @@ jobs:
         shell: bash
         run: |
           set -o pipefail
-          npm test -- --reporter=verbose 2>&1 | tee /tmp/modernization-unit-tests.log
+          npm test -- --reporter=verbose 2>&1 | tee modernization-unit-tests.log
 
-      - name: Publish unit-test diagnostics
+      - name: Upload unit-test diagnostics
         if: failure() && steps.unit-tests.outcome == 'failure'
-        run: |
-          mkdir -p docs/diagnostics
-          cp /tmp/modernization-unit-tests.log docs/diagnostics/modernization-unit-tests.log
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add docs/diagnostics/modernization-unit-tests.log
-          git commit -m "test: registrar falha da modernização"
-          git push origin HEAD:modernizacao/funcional-2026
+        uses: actions/upload-artifact@v4
+        with:
+          name: modernization-unit-tests
+          path: modernization-unit-tests.log
+          if-no-files-found: error
+          retention-days: 3
 
       - name: Build production bundle
         run: npm run build
@@ -90,7 +88,7 @@ jobs:
         run: |
           rm scripts/apply-functional-modernization.mjs
           rm .github/workflows/prepare-functional-modernization.yml
-          rm -rf docs/diagnostics
+          rm -f modernization-unit-tests.log
 
       - name: Commit validated modernization
         run: |

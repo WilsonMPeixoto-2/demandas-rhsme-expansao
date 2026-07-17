@@ -385,6 +385,7 @@ const AppContent: React.FC<AppProps> = ({ services }) => {
         <button 
           type="button" 
           className={`nav-tab-link ${activeTab === 'visao-geral' ? 'active' : ''}`}
+          aria-current={activeTab === 'visao-geral' ? 'page' : undefined}
           onClick={() => setActiveTab('visao-geral')}
           title="Ver o resumo e indicadores do CTRH"
         >
@@ -395,6 +396,7 @@ const AppContent: React.FC<AppProps> = ({ services }) => {
         <button 
           type="button" 
           className={`nav-tab-link ${activeTab === 'demandas' ? 'active' : ''}`}
+          aria-current={activeTab === 'demandas' ? 'page' : undefined}
           onClick={() => setActiveTab('demandas')}
           title="Ver a listagem e pesquisar processos operacionais"
         >
@@ -406,6 +408,7 @@ const AppContent: React.FC<AppProps> = ({ services }) => {
           <button
             type="button"
             className={`nav-tab-link ${activeTab === 'admin' ? 'active' : ''}`}
+            aria-current={activeTab === 'admin' ? 'page' : undefined}
             onClick={() => setActiveTab('admin')}
             title="Ver e gerenciar configurações e perfis de servidores"
           >

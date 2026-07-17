@@ -128,7 +128,7 @@ export const Header: React.FC<HeaderProps> = ({
           {/* Ação Secundária: Exportar Excel */}
           <button 
             type="button"
-            className="btn btn-secondary-outline" 
+            className="btn btn-export-excel"
             onClick={onExportExcel}
             disabled={exportingExcel}
             aria-busy={exportingExcel}

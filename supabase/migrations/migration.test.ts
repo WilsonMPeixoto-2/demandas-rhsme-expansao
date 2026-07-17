@@ -7,10 +7,12 @@ const migrationsDir = dirname(fileURLToPath(import.meta.url));
 const migrationPath = resolve(migrationsDir, '20260707000000_sme_demandas.sql');
 const revokeAnonPath = resolve(migrationsDir, '20260713211616_revoke_anon_operational_rpcs.sql');
 const indexesPath = resolve(migrationsDir, '20260713211703_add_foreign_key_indexes.sql');
+const batchImportPath = resolve(migrationsDir, '20260716235900_batch_import_audit.sql');
 
 const sql = readFileSync(migrationPath, 'utf8').toLowerCase();
 const revokeAnonSql = readFileSync(revokeAnonPath, 'utf8').toLowerCase();
 const indexesSql = readFileSync(indexesPath, 'utf8').toLowerCase();
+const batchImportSql = readFileSync(batchImportPath, 'utf8').toLowerCase();
 
 describe('migração Supabase', () => {
   it('protege todas as tabelas públicas com RLS', () => {
@@ -93,5 +95,40 @@ describe('migração Supabase', () => {
     ]) {
       expect(indexesSql).toContain(`create index ${indexName}`);
     }
+  });
+
+  it('mantém a trilha da importação em lote privada e protegida por RLS', () => {
+    for (const table of ['sme_importacoes', 'sme_importacao_itens']) {
+      expect(batchImportSql).toContain(`create table private.${table}`);
+      expect(batchImportSql).toContain(`alter table private.${table} enable row level security`);
+      expect(batchImportSql).toContain(`revoke all on table private.${table} from public, anon, authenticated`);
+    }
+  });
+
+  it('restringe a RPC atômica de lote à service_role', () => {
+    expect(batchImportSql).toContain('create or replace function public.importar_sme_demandas_lote');
+    expect(batchImportSql).toContain('pg_catalog.pg_advisory_xact_lock(3344556677)');
+    expect(batchImportSql).toMatch(/revoke all on function public\.importar_sme_demandas_lote\([\s\S]*?\) from public, anon, authenticated;/);
+    expect(batchImportSql).toMatch(/grant execute on function public\.importar_sme_demandas_lote\([\s\S]*?\) to service_role;/);
+    expect(batchImportSql).not.toMatch(/grant execute on function public\.importar_sme_demandas_lote\([\s\S]*?\) to authenticated;/);
+  });
+
+  it('exige dry-run, fingerprint, hashes e reconciliação antes de concluir o lote', () => {
+    expect(batchImportSql).toContain("'status', 'dry_run_ok'");
+    expect(batchImportSql).toContain('p_expected_db_fingerprint <> v_db_fingerprint');
+    expect(batchImportSql).toContain("pg_catalog.encode(\n    extensions.digest(pg_catalog.convert_to(p_lote::text, 'utf8'), 'sha256')");
+    expect(batchImportSql).toContain('v_inserted <> p_expected_count');
+    expect(batchImportSql).toContain('v_db_count_after <> v_db_count + p_expected_count');
+    expect(batchImportSql).toContain('v_historico_fingerprint_after <> v_historico_fingerprint');
+    expect(batchImportSql).toContain("set status = 'concluido'");
+  });
+
+  it('bloqueia concorrência e preserva exclusões administrativas', () => {
+    expect(batchImportSql).toContain('create unique index if not exists sme_demandas_numero_normalizado_uidx');
+    expect(batchImportSql).toContain('lock table public.sme_demandas in share row exclusive mode');
+    expect(batchImportSql).toContain('lock table public.sme_historico in share row exclusive mode');
+    expect(batchImportSql).toContain('demanda_id bigint unique references public.sme_demandas(id) on delete set null');
+    expect(batchImportSql).toContain('if p_apply is null then');
+    expect(batchImportSql).toContain('if p_apply is not true then');
   });
 });

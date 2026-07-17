@@ -7,14 +7,16 @@ const migrationsDir = dirname(fileURLToPath(import.meta.url));
 const migrationPath = resolve(migrationsDir, '20260707000000_sme_demandas.sql');
 const revokeAnonPath = resolve(migrationsDir, '20260713211616_revoke_anon_operational_rpcs.sql');
 const indexesPath = resolve(migrationsDir, '20260713211703_add_foreign_key_indexes.sql');
-const batchImportPath = resolve(migrationsDir, '20260716235900_batch_import_audit.sql');
-const batchImportDomainFixPath = resolve(migrationsDir, '20260717001000_batch_import_allow_legacy_classifications.sql');
+const batchImportPath = resolve(migrationsDir, '20260717002408_batch_import_audit_20260716.sql');
+const batchImportDomainFixPath = resolve(migrationsDir, '20260717003552_batch_import_allow_legacy_classifications.sql');
 
-const sql = readFileSync(migrationPath, 'utf8').toLowerCase();
-const revokeAnonSql = readFileSync(revokeAnonPath, 'utf8').toLowerCase();
-const indexesSql = readFileSync(indexesPath, 'utf8').toLowerCase();
-const batchImportSql = readFileSync(batchImportPath, 'utf8').toLowerCase();
-const batchImportDomainFixSql = readFileSync(batchImportDomainFixPath, 'utf8').toLowerCase();
+const readSql = (path: string) => readFileSync(path, 'utf8').replace(/\r\n/g, '\n').toLowerCase();
+
+const sql = readSql(migrationPath);
+const revokeAnonSql = readSql(revokeAnonPath);
+const indexesSql = readSql(indexesPath);
+const batchImportSql = readSql(batchImportPath);
+const batchImportDomainFixSql = readSql(batchImportDomainFixPath);
 
 describe('migração Supabase', () => {
   it('protege todas as tabelas públicas com RLS', () => {

@@ -184,7 +184,7 @@ begin
         'Dispensa de Ponto', 'CCFG', 'Cessão', 'Concursos', 'Contratação',
         'Consultas', 'Inventário', 'Expediente Parlamentar', 'MP',
         'Representação Judicial', 'DP', 'PGM', 'Recurso', 'Financeiro',
-        'Demanda Interna', 'Outros'
+        'Demanda Interna', 'Permuta', 'Diversos', 'Outros'
       )
       or (limite1 is not null and limite2 is not null and limite2 < limite1)
       or numero !~ (

@@ -1,4 +1,5 @@
 import React from 'react';
+import { classificacaoValues } from '../constants/demandaOptions';
 
 interface FiltrosState {
   busca: string;
@@ -66,13 +67,6 @@ export const FilterPanel: React.FC<FilterPanelProps> = ({
       vencido: false
     });
   };
-
-  const classificacoes = [
-    'Dispensa de Ponto', 'CCFG', 'Cessão', 'Concursos', 'Contratação', 
-    'Consultas', 'Inventário', 'Expediente Parlamentar', 'MP', 
-    'Representação Judicial', 'DP', 'PGM', 'Recurso', 'Financeiro', 
-    'Demanda Interna', 'Outros'
-  ];
 
   const statusList = [
     'Aguardando Andamento', 'Tramitado', 'Para Assinatura', 
@@ -200,7 +194,7 @@ export const FilterPanel: React.FC<FilterPanelProps> = ({
                 onChange={handleInputChange}
               >
                 <option value="Todas">Todas</option>
-                {classificacoes.map(c => (
+                {classificacaoValues.map(c => (
                   <option key={c} value={c}>{c}</option>
                 ))}
               </select>

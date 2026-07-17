@@ -35,6 +35,14 @@ describe('experiência profissional de formulários e tabela', () => {
     expect(alertSpy).not.toHaveBeenCalled();
   });
 
+  it('oferece as classificações legadas válidas no cadastro', () => {
+    render(<ModalNovo onClose={vi.fn()} onSalvar={vi.fn()} />);
+
+    const classificacao = screen.getByLabelText('Selecione a classificação');
+    expect(within(classificacao).getByRole('option', { name: 'Permuta' })).toBeInTheDocument();
+    expect(within(classificacao).getByRole('option', { name: 'Diversos' })).toBeInTheDocument();
+  });
+
   it('ordena por processo e pagina a lista', async () => {
     const demandas = Array.from({ length: 12 }, (_, index): Demanda => ({
       ...base,

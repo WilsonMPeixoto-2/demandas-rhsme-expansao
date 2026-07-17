@@ -7,18 +7,12 @@ import { DateMaskInput } from './DateMaskInput';
 import { AppDialog } from './ui/AppDialog';
 import { ConfirmDialog } from './ui/ConfirmDialog';
 import { FormError } from './ui/FormError';
+import { classificacaoValues } from '../constants/demandaOptions';
 
 interface ModalNovoProps {
   onClose: () => void;
   onSalvar: (demanda: Omit<Demanda, 'id'>) => void | Promise<void>;
 }
-
-const classificacoes = [
-  'Dispensa de Ponto', 'CCFG', 'Cessão', 'Concursos', 'Contratação',
-  'Consultas', 'Inventário', 'Expediente Parlamentar', 'MP',
-  'Representação Judicial', 'DP', 'PGM', 'Recurso', 'Financeiro',
-  'Demanda Interna', 'Outros',
-];
 
 export const ModalNovo: React.FC<ModalNovoProps> = ({ onClose, onSalvar }) => {
   const [confirmClose, setConfirmClose] = useState(false);
@@ -164,7 +158,7 @@ export const ModalNovo: React.FC<ModalNovoProps> = ({ onClose, onSalvar }) => {
                   aria-describedby={errors.classificacao ? 'novo-classificacao-error' : undefined}
                 >
                   <option value="" />
-                  {classificacoes.map((item) => <option key={item} value={item}>{item}</option>)}
+                  {classificacaoValues.map((item) => <option key={item} value={item}>{item}</option>)}
                 </select>
                 <label htmlFor="novo-classificacao">Selecione a classificação</label>
                 <FormError id="novo-classificacao-error" message={errors.classificacao?.message} />

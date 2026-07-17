@@ -8,11 +8,13 @@ const migrationPath = resolve(migrationsDir, '20260707000000_sme_demandas.sql');
 const revokeAnonPath = resolve(migrationsDir, '20260713211616_revoke_anon_operational_rpcs.sql');
 const indexesPath = resolve(migrationsDir, '20260713211703_add_foreign_key_indexes.sql');
 const batchImportPath = resolve(migrationsDir, '20260716235900_batch_import_audit.sql');
+const batchImportDomainFixPath = resolve(migrationsDir, '20260717001000_batch_import_allow_legacy_classifications.sql');
 
 const sql = readFileSync(migrationPath, 'utf8').toLowerCase();
 const revokeAnonSql = readFileSync(revokeAnonPath, 'utf8').toLowerCase();
 const indexesSql = readFileSync(indexesPath, 'utf8').toLowerCase();
 const batchImportSql = readFileSync(batchImportPath, 'utf8').toLowerCase();
+const batchImportDomainFixSql = readFileSync(batchImportDomainFixPath, 'utf8').toLowerCase();
 
 describe('migração Supabase', () => {
   it('protege todas as tabelas públicas com RLS', () => {
@@ -130,5 +132,12 @@ describe('migração Supabase', () => {
     expect(batchImportSql).toContain('demanda_id bigint unique references public.sme_demandas(id) on delete set null');
     expect(batchImportSql).toContain('if p_apply is null then');
     expect(batchImportSql).toContain('if p_apply is not true then');
+  });
+
+  it('aceita as classificações legítimas já presentes na base', () => {
+    for (const value of ["'permuta'", "'diversos'"]) {
+      expect(batchImportSql).toContain(value);
+      expect(batchImportDomainFixSql).toContain(value);
+    }
   });
 });

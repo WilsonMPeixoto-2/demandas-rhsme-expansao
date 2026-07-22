@@ -42,7 +42,7 @@ jobs:
 
       - name: Upload static analysis report
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: lint-report
           path: lint-report.txt
@@ -57,7 +57,7 @@ jobs:
 
       - name: Upload test execution report
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: test-coverage-report
           path: test-coverage-report.txt
@@ -66,7 +66,7 @@ jobs:
 
       - name: Upload coverage report
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: coverage-report
           path: coverage
@@ -81,7 +81,7 @@ jobs:
 
       - name: Upload build report
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: build-report
           path: build-report.txt
@@ -102,7 +102,7 @@ jobs:
 
       - name: Upload browser test report
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: browser-test-report
           path: |

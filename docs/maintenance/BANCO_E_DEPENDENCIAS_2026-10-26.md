@@ -207,7 +207,29 @@ O sandbox Vercel não possui as bibliotecas Linux nativas exigidas pelo Chromium
 
 O primeiro gate oficial executou os 42 cenários e aprovou 40. As duas falhas eram a mesma ocorrência em desktop e mobile: `@axe-core/playwright@4.14.0` passou a sinalizar `label-content-name-mismatch` (WCAG 2.5.3) no cartão **Minhas demandas**. O botão tinha conteúdo textual visível suficiente e, adicionalmente, um `aria-label` redundante com pontuação diferente do texto renderizado.
 
-A correção removeu somente o `aria-label` redundante, fazendo o nome acessível derivar do próprio conteúdo visível. Nenhuma regra do Axe foi ignorada ou desativada. O gate completo precisa permanecer verde antes do merge.
+A correção removeu somente o `aria-label` redundante, fazendo o nome acessível derivar do próprio conteúdo visível. Nenhuma regra do Axe foi ignorada ou desativada.
+
+O gate seguinte expôs a mesma regra nos cabeçalhos ordenáveis da tabela, porque rótulos como `Ordenar por processo` não continham literalmente o texto visível `Processo / Documento`. Os cinco cabeçalhos ordenáveis foram corrigidos como padrão, preservando a instrução de ordenação e incluindo o texto visível no nome acessível.
+
+### Gate final do PR #195
+
+O workflow permanente **Dependency health**, run `40407325341`, concluiu com **success** no candidato `56d2fda79691152fc989d8537e1fd9b9fa5ec18e`.
+
+Resultados finais:
+
+- instalação limpa com Node 24: aprovada;
+- documentação: 9/9;
+- audit: 0 vulnerabilidades;
+- assinaturas/proveniência: aprovadas;
+- lint: aprovado;
+- Vitest: 80 arquivos / 365 testes;
+- cobertura: aprovada;
+- build: aprovado;
+- bundle budget, inspeção pública e exclusão de ferramentas de desenvolvimento: aprovados;
+- Chromium: instalado com dependências;
+- Playwright: **42/42 cenários desktop/mobile aprovados**.
+
+Nenhum relaxamento de acessibilidade, segurança ou testes foi usado para obter o resultado.
 
 ## 10. Limites desta entrega
 

@@ -243,7 +243,6 @@ export const Header: React.FC<HeaderProps> = ({
           className={`stat-card personal-workspace-card ${personalWorkspaceActive ? 'active' : ''}`}
           onClick={onOpenMinhasDemandas}
           aria-pressed={personalWorkspaceActive}
-          aria-label="Minhas demandas. Acompanhe sua carteira de processos."
           title="Abrir a carteira de processos atribuída a você"
         >
           <span className="personal-workspace-card-icon" aria-hidden="true">

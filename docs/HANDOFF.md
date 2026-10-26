@@ -44,8 +44,9 @@ Atualizado em: **26 de outubro de 2026 — auditoria de banco concluída; backen
 - Production Vercel continua `READY` no SHA `706570480288e60cf7070c3a4648fa6d37d9f8fb`;
 - a configuração de Production possui fallback público explícito para o projeto Supabase atual;
 - se houver decisão de migração para Google, a alternativa recomendada para preservar o modelo relacional é **Firebase SQL Connect + Cloud SQL for PostgreSQL**, não uma conversão automática para Firestore;
-- dependências foram atualizadas ao máximo viável sem contornar peers incompatíveis;
+- dependências foram atualizadas ao máximo viável sem contornar peers incompatíveis e o gate integral do PR #195 foi aprovado;
 - TypeScript 7, ESLint 10 e `@hookform/resolvers` 6 permanecem bloqueados por incompatibilidades upstream comprovadas;
+- o Axe 4.14 revelou dois padrões de nome acessível incompatíveis com WCAG 2.5.3; ambos foram corrigidos sem desativar regras, e o E2E final aprovou 42/42 cenários;
 - relatório completo: `docs/maintenance/BANCO_E_DEPENDENCIAS_2026-10-26.md`;
 - nenhuma reativação de banco, migration remota, mudança de provedor ou publicação em Production faz parte desta entrega.
 

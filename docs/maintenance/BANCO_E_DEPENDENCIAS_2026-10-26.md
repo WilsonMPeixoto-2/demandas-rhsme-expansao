@@ -187,8 +187,8 @@ Desenvolvimento:
 Executado com Node 24:
 
 - `npm audit --audit-level=high`: **0 vulnerabilidades**;
-- assinaturas do registry: **583 verificadas**;
-- attestations: **174 verificadas**;
+- assinaturas do registry no CI oficial: **600 verificadas**;
+- attestations no CI oficial: **175 verificadas**;
 - compatibilidade transitiva: **5/5**;
 - consistência documental: **9/9**;
 - lint: aprovado;
@@ -202,6 +202,12 @@ Executado com Node 24:
 - Query Devtools: confirmado fora do bundle de Production.
 
 O sandbox Vercel não possui as bibliotecas Linux nativas exigidas pelo Chromium novo e não oferece `apt-get`; por isso o E2E de navegador não é considerado validado localmente. O workflow oficial do GitHub instala Chromium com `playwright install --with-deps chromium` e é o gate autoritativo para os 42 cenários desktop/mobile desta atualização.
+
+### Achado de acessibilidade durante o primeiro E2E do CI
+
+O primeiro gate oficial executou os 42 cenários e aprovou 40. As duas falhas eram a mesma ocorrência em desktop e mobile: `@axe-core/playwright@4.14.0` passou a sinalizar `label-content-name-mismatch` (WCAG 2.5.3) no cartão **Minhas demandas**. O botão tinha conteúdo textual visível suficiente e, adicionalmente, um `aria-label` redundante com pontuação diferente do texto renderizado.
+
+A correção removeu somente o `aria-label` redundante, fazendo o nome acessível derivar do próprio conteúdo visível. Nenhuma regra do Axe foi ignorada ou desativada. O gate completo precisa permanecer verde antes do merge.
 
 ## 10. Limites desta entrega
 

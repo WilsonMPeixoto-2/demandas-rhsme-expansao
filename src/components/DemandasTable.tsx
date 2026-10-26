@@ -146,7 +146,7 @@ export const DemandasTable: React.FC<DemandasTableProps> = ({
           type="button"
           className="table-sort-button"
           onClick={column.getToggleSortingHandler()}
-          aria-label="Ordenar por processo"
+          aria-label="Processo / Documento. Ordenar por processo"
         >
           Processo / Documento <SortIcon direction={column.getIsSorted()} />
         </button>
@@ -195,7 +195,7 @@ export const DemandasTable: React.FC<DemandasTableProps> = ({
     }),
     columnHelper.accessor('responsavel', {
       header: ({ column }) => (
-        <button type="button" className="table-sort-button" onClick={column.getToggleSortingHandler()} aria-label="Ordenar por responsável">
+        <button type="button" className="table-sort-button" onClick={column.getToggleSortingHandler()} aria-label="Responsável. Ordenar por responsável">
           Responsável <SortIcon direction={column.getIsSorted()} />
         </button>
       ),
@@ -230,7 +230,7 @@ export const DemandasTable: React.FC<DemandasTableProps> = ({
     }),
     columnHelper.accessor('limite2', {
       header: ({ column }) => (
-        <button type="button" className="table-sort-button table-sort-centered" onClick={column.getToggleSortingHandler()} aria-label="Ordenar por prazo final">
+        <button type="button" className="table-sort-button table-sort-centered" onClick={column.getToggleSortingHandler()} aria-label="Prazo Final. Ordenar por prazo final">
           Prazo Final <SortIcon direction={column.getIsSorted()} />
         </button>
       ),
@@ -247,7 +247,7 @@ export const DemandasTable: React.FC<DemandasTableProps> = ({
     }),
     columnHelper.accessor('proximaAcaoEm', {
       header: ({ column }) => (
-        <button type="button" className="table-sort-button" onClick={column.getToggleSortingHandler()} aria-label="Ordenar por próxima providência">
+        <button type="button" className="table-sort-button" onClick={column.getToggleSortingHandler()} aria-label="Próxima Providência. Ordenar por próxima providência">
           Próxima Providência <SortIcon direction={column.getIsSorted()} />
         </button>
       ),
@@ -275,7 +275,7 @@ export const DemandasTable: React.FC<DemandasTableProps> = ({
     }),
     columnHelper.accessor('status', {
       header: ({ column }) => (
-        <button type="button" className="table-sort-button table-sort-centered" onClick={column.getToggleSortingHandler()} aria-label="Ordenar por status">
+        <button type="button" className="table-sort-button table-sort-centered" onClick={column.getToggleSortingHandler()} aria-label="Status. Ordenar por status">
           Status <SortIcon direction={column.getIsSorted()} />
         </button>
       ),

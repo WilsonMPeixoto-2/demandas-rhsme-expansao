@@ -1,6 +1,6 @@
 # Handoff Operacional — Central de Demandas CTRH
 
-Atualizado em: **3 de setembro de 2026 — janela experimental pré-migração concluída; TanStack Table 9.2.4 migrado estruturalmente e integrado à `main`; ainda não publicado em Production**
+Atualizado em: **26 de outubro de 2026 — auditoria de banco concluída; backend confirmado como Supabase, atualmente INACTIVE; lote de dependências de 26/10 em validação final no CI; Production não alterada**
 
 <!-- IMPLEMENTATION_AUTHORIZATION: V1-E-A01 -->
 
@@ -28,7 +28,7 @@ Atualizado em: **3 de setembro de 2026 — janela experimental pré-migração c
 | Encerramento da release | PR #134, merge `15aa5c049c3c7122db365eec6a2e9f629e3c38ea` |
 | Production atual | `dpl_EqrEWJ4B9RVjSbbrSuuWNKe45YBN` — `READY` |
 | SHA funcional publicado | `706570480288e60cf7070c3a4648fa6d37d9f8fb` |
-| Supabase | `CTRH PROCESSOS`, ref `kdhekkzwcokfrpcrsllr`, região `sa-east-1`, `ACTIVE_HEALTHY` |
+| Supabase | `CTRH PROCESSOS`, ref `kdhekkzwcokfrpcrsllr`, região `sa-east-1`, **`INACTIVE` em 26/10/2026**; frontend Production continua configurado para esse projeto |
 | Integridade conhecida | 379 demandas, zero excluídas, 764 históricos, 13 perfis |
 | Deploy automático | `deploymentEnabled: false`, restaurado pelo PR #170 após confirmação da nova Production |
 | Testes após TanStack Query | 365 testes unitários e de integração; 42 cenários Playwright aprovados |
@@ -36,6 +36,18 @@ Atualizado em: **3 de setembro de 2026 — janela experimental pré-migração c
 | Rodada 4 — TypeScript 6 | concluída pelo PR #138; compilador 6.0.3, lockfile reproduzível e gate integral aprovado |
 | Atividade técnica atual | janela experimental de 03/09 concluída pelos PRs #176 e #178; TanStack Table 9.2.4 migrado integralmente; `main` em `4d9ec654b6feb1acd43329861eedd1ac5c8c12bf`; Production permanece deliberadamente na versão anterior, com deploy automático bloqueado |
 | Próxima atualização candidata | debate B1 do Trilho B, com pré-flight técnico concluído; B2 permanece bloqueado até aprovação expressa das decisões B1 aplicáveis |
+
+## Retomada técnica — 26 de outubro de 2026
+
+- backend atual confirmado como **Supabase**; não há implementação Firebase/Firestore nem migração Supabase → Firebase;
+- projeto Supabase `CTRH PROCESSOS` reportado como **INACTIVE**; migrations remotas não puderam ser listadas enquanto o banco permanece pausado;
+- Production Vercel continua `READY` no SHA `706570480288e60cf7070c3a4648fa6d37d9f8fb`;
+- a configuração de Production possui fallback público explícito para o projeto Supabase atual;
+- se houver decisão de migração para Google, a alternativa recomendada para preservar o modelo relacional é **Firebase SQL Connect + Cloud SQL for PostgreSQL**, não uma conversão automática para Firestore;
+- dependências foram atualizadas ao máximo viável sem contornar peers incompatíveis;
+- TypeScript 7, ESLint 10 e `@hookform/resolvers` 6 permanecem bloqueados por incompatibilidades upstream comprovadas;
+- relatório completo: `docs/maintenance/BANCO_E_DEPENDENCIAS_2026-10-26.md`;
+- nenhuma reativação de banco, migration remota, mudança de provedor ou publicação em Production faz parte desta entrega.
 
 ## Rodadas técnicas concluídas
 

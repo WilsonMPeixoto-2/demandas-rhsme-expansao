@@ -1,9 +1,10 @@
-import { render, screen } from '@testing-library/react';
+import { cleanup, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { describe, expect, it, vi } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import { SiteNavigation } from './SiteNavigation';
 
 describe('Navegação institucional do CTRH', () => {
+  afterEach(cleanup);
   it('mantém a marca original e chama as rotas da aplicação', async () => {
     const onNavigate = vi.fn();
     render(<SiteNavigation activeArea="visao-geral" canAccessAdmin onNavigate={onNavigate} />);

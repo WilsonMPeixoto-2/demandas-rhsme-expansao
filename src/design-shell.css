@@ -247,6 +247,7 @@
   }
   .ct-sidebar .ct-nav-button.is-current { color:#fff; background:linear-gradient(145deg,#316f9b,#275476); border-color:rgba(164,208,237,.35); box-shadow:inset 0 2px rgba(178,222,246,.26); }
   .ct-sidebar .ct-nav-icon { width:29px; height:29px; border:0; background:transparent; font-size:1.02rem; }
+  .ct-sidebar.is-collapsed .ct-nav-button-content { display:block; }
   .ct-sidebar .ct-nav-button-content {
     position:absolute;
     width:1px; height:1px; padding:0; margin:-1px; border:0;

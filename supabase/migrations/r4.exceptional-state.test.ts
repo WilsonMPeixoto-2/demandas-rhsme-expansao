@@ -5,7 +5,7 @@ import { describe, expect, it } from 'vitest';
 
 const migrationsDir = dirname(fileURLToPath(import.meta.url));
 const migration = readFileSync(
-  resolve(migrationsDir, '20260730023500_r4_preserve_exceptional_internal_state.sql'),
+  resolve(migrationsDir, '20260730064021_r4_preserve_exceptional_internal_state.sql'),
   'utf8',
 );
 

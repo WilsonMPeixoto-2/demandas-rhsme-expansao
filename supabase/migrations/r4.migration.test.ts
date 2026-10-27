@@ -5,11 +5,11 @@ import { describe, expect, it } from 'vitest';
 
 const migrationsDir = dirname(fileURLToPath(import.meta.url));
 const rules = readFileSync(
-  resolve(migrationsDir, '20260730023000_r4_deadlines_and_follow_up_rules.sql'),
+  resolve(migrationsDir, '20260730063742_r4_deadlines_and_follow_up_rules.sql'),
   'utf8',
 );
 const constraints = readFileSync(
-  resolve(migrationsDir, '20260730023100_r4_deadline_consistency_constraints.sql'),
+  resolve(migrationsDir, '20260730063806_r4_deadline_consistency_constraints.sql'),
   'utf8',
 );
 

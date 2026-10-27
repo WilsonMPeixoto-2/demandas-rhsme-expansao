@@ -41,7 +41,7 @@ update public.perfis_usuarios
 set nome = 'Usuário Inativo E4', nivel = 'leitor', status = 'inativo', setor = 'Consulta'
 where id = '44444444-4444-4444-4444-444444444444';
 
--- O editor cria duas demandas atribuídas ao administrador e movimenta uma delas.
+-- Datas do fixture são relativas ao dia da execução para que o gate não quebre com o calendário.\n-- O editor cria duas demandas atribuídas ao administrador e movimenta uma delas.
 begin;
 set local role authenticated;
 select pg_temp.set_actor('22222222-2222-2222-2222-222222222222');
@@ -49,19 +49,19 @@ select public.criar_sme_demanda_v2(
   'E4-ATIVA-001', 'Processo', 'Demanda ativa atribuída a colega',
   '11111111-1111-1111-1111-111111111111', 'Nome enviado pelo cliente',
   null, 'nao_informado', '', null, 'nao_informado', '',
-  'Analisar documentação recebida', date '2026-09-10',
+  'Analisar documentação recebida', (current_date + 14),
   'Aguardando Andamento', 'CTRH', 'Diversos', ''
 );
 select public.registrar_andamento_sme_demanda(
   (select id from public.sme_demandas where numero = 'E4-ATIVA-001'),
   'Editor deu continuidade à demanda atribuída ao administrador.',
-  'Aguardar complementação documental', date '2026-09-15'
+  'Aguardar complementação documental', (current_date + 19)
 );
 select public.criar_sme_demanda_v2(
   'E4-EXCLUIDA-001', 'Processo', 'Demanda destinada ao teste da lixeira',
   '11111111-1111-1111-1111-111111111111', 'Outro nome enviado pelo cliente',
   null, 'nao_informado', '', null, 'nao_informado', '',
-  'Validar duplicidade identificada', date '2026-09-12',
+  'Validar duplicidade identificada', (current_date + 16),
   'Aguardando Andamento', 'CTRH', 'Diversos', ''
 );
 commit;
@@ -111,7 +111,7 @@ begin
     perform public.registrar_andamento_sme_demanda(
       (select active_id from e4_targets),
       'Tentativa de andamento pelo leitor deve ser recusada.',
-      'Ação que não pode ser persistida', date '2026-09-20'
+      'Ação que não pode ser persistida', (current_date + 24)
     );
   exception when others then
     if sqlerrm like 'Acesso negado:%' then

@@ -5,7 +5,7 @@ import { describe, expect, it } from 'vitest';
 
 const migrationsDir = dirname(fileURLToPath(import.meta.url));
 const migration = readFileSync(
-  resolve(migrationsDir, '20260730023200_r4_preserve_legacy_deadline_metadata.sql'),
+  resolve(migrationsDir, '20260730063832_r4_preserve_legacy_deadline_metadata.sql'),
   'utf8',
 );
 

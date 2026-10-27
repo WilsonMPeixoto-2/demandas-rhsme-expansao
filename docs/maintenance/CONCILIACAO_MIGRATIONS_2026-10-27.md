@@ -16,7 +16,7 @@ Este commit **renomeia exclusivamente esses sete arquivos**, conservando seus me
 | `20260730023500` | `20260730064021` | `r4_preserve_exceptional_internal_state` |
 | `20260730170000` | `20260730180713` | `r5_1_disable_product_restore` |
 
-## Verificações exigidas
+## Ajustes de testes no mesmo PR\n\nOs cinco testes estáticos R4 foram atualizados para ler os novos nomes versionados. O teste de integração E4 tinha datas absolutas de setembro de 2026 que ficaram no passado; as quatro datas sintéticas passaram a ser relativas à data do teste, preservando os intervalos entre elas e a lógica de autorização. Nenhuma regra do produto foi relaxada.\n\n## Verificações exigidas
 
 1. Confirmar 24 migrations locais e 24 remotas com timestamps idênticos após o merge.
 2. Rodar o gate de replay de migrations em banco efêmero; não reutilizar o banco de produção nesse teste.

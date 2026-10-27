@@ -5,9 +5,9 @@ import { createMinimalDemandFixture } from '../test/expandedFixtures';
 import { VisaoGeral } from './VisaoGeral';
 
 const demandas = [
-  createMinimalDemandFixture({ id: 1201, numero: 'SME-2026-01201',
+  createMinimalDemandFixture({ id: 1201, numero: 'SME-2026-01201', assunto: 'Acompanhamento externo', responsavel: 'Pessoa A',
     status: 'Tramitado', proximaAcao: '', proximaAcaoEm: '', linkOrigem: '' }),
-  createMinimalDemandFixture({ id: 1202, numero: 'SME-2026-01202',
+  createMinimalDemandFixture({ id: 1202, numero: 'SME-2026-01202', assunto: 'Providência da equipe', responsavel: 'Pessoa B',
     status: 'Aguardando Andamento', proximaAcao: 'Solicitar resposta à unidade',
     proximaAcaoEm: '15/11/2026', linkOrigem: 'https://processo.rio/' }),
 ];

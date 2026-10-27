@@ -62,6 +62,7 @@ describe('apresentação do histórico', () => {
         demandas={[demanda]}
         historico={[vinculacao, importacao]}
         onOpenEditar={vi.fn()}
+        onFilterStatus={vi.fn()}
         renderAtencaoImediata={() => null}
       />,
     );

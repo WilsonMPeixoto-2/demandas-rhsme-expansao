@@ -260,6 +260,8 @@
 }
 @media (max-width: 540px) {
   .ct-shell.app-container { padding:14px 14px calc(110px + env(safe-area-inset-bottom,0px)); }
+  /* As carteiras usam --workspace-gutter:16px por padrão; aqui o recuo real é 14px. */
+  .ct-shell.app-container:has(.demandas-table) .institucional-bar { margin-inline:-14px; }
   .ct-shell .institucional-bar { margin:-14px -14px 20px; padding:10px 14px; }
   .ct-header-dashboard .stat-card:not(.personal-workspace-card) { min-height:129px; padding:14px; }
   .ct-header-dashboard .stat-card .stat-card-footer { font-size:.69rem; }

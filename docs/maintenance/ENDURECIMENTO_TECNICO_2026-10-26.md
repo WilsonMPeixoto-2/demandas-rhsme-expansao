@@ -13,10 +13,10 @@ Foi adicionado o workflow `.github/workflows/codeql.yml` com:
 
 - análise de JavaScript/TypeScript;
 - análise dos próprios workflows do GitHub Actions;
-- execução em pull requests para `main`;
 - execução após push em `main`;
 - execução semanal;
 - execução manual;
+- deliberadamente fora do gate de pull request, para não alongar o ciclo de alterações pequenas; o `Dependency health` permanece como gate do PR.
 - permissões mínimas explícitas;
 - CodeQL Action v4, compatível com a documentação oficial vigente.
 

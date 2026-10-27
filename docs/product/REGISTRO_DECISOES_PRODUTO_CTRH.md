@@ -3,7 +3,7 @@
 <!-- IMPLEMENTATION_AUTHORIZATION: V1-E-A01 -->
 
 **Status:** vigente  
-**Atualizado em:** 1º de agosto de 2026
+**Atualizado em:** 26 de outubro de 2026
 **Finalidade:** registrar somente decisões expressamente aprovadas pelo responsável pelo produto antes da implementação de cada pacote.
 
 ## 1. Regra de uso
@@ -774,6 +774,24 @@ Fica autorizada, na mesma linha de completude operacional, a implementação e h
 Não estão autorizados motor avançado de alertas, Central de Relatórios, novos painéis, visões salvas, métricas temporais imaturas, R1 residual, R2 antecipado ou execução do Trilho B sem fonte real. A ampliação simples de `Atenção agora` permanece recomendável, mas separável e condicionada à evidência de uso.
 
 **Resultado de execução:** o escopo foi implementado pelo PR #112, homologado no Preview `dpl_GkBQLRVNk98sJyU4z5e8eNz48Vry` e publicado pelo PR #113 em Production no deployment `dpl_AZARXi92PqtR5WrRJtgpvDZgxZjD`, SHA `501f8cfb6c193f90a71ffabc2456230dbe0dc026`. O PR #114 restaura o bloqueio de deployments automáticos. Nenhuma extensão condicionada foi promovida por inferência.
+
+## 10-A. Endurecimento técnico de 26 de outubro de 2026
+
+### TECH-HARDEN-A01 — Autorização do primeiro lote de endurecimento
+
+**Data:** 26 de outubro de 2026  
+**Classificação:** necessidade técnica, segurança e modernização proporcional  
+**Decisão:** APROVADA E IMPLEMENTADA.
+
+Após auditoria das capacidades já existentes, o responsável pelo produto autorizou expressamente iniciar pelos itens de menor risco e maior benefício concreto. O primeiro lote ficou delimitado a:
+
+1. adicionar CodeQL para JavaScript/TypeScript e GitHub Actions;
+2. adicionar headers HTTP básicos e independentes da decisão de backend: `X-Content-Type-Options: nosniff`, `X-Frame-Options: DENY`, `Referrer-Policy: no-referrer` e restrição de APIs de navegador não utilizadas por `Permissions-Policy`;
+3. preservar integralmente regras de negócio, dados, autenticação, banco, migrations, RLS, grants e dependências npm;
+4. não incluir ainda CSP, Sentry, Speed Insights, Web Analytics, PWA ou qualquer telemetria;
+5. manter a proteção/ruleset da `main` como configuração externa separada, a ser ativada quando o controle administrativo correspondente estiver disponível.
+
+**Resultado:** implementado e validado no PR #196. Os workflows `Dependency health` e `CodeQL` concluíram com sucesso. Nenhum deploy em Production foi realizado por esse pacote.
 
 ## 11. Modelo de registro de decisão do ciclo
 

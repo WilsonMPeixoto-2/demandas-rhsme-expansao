@@ -1,6 +1,7 @@
 import React, { lazy, Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import { BrowserRouter, useInRouterContext, useLocation, useNavigate, useSearchParams } from 'react-router';
 import { Toaster, toast } from 'sonner';
+import { Analytics } from '@vercel/analytics/react';
 import type {
   CreateDemandaInput,
   DeleteDemandaInput,
@@ -938,6 +939,7 @@ export const App: React.FC<AppProps> = (props) => {
         {app}
       </ErrorBoundary>
       <Toaster richColors position="top-right" closeButton duration={4200} />
+      <Analytics />
     </>
   );
 };

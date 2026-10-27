@@ -206,7 +206,7 @@ export const Header: React.FC<HeaderProps> = ({
         </div>
       </div>
 
-      {activeArea === 'visao-geral' && (
+      {activeArea !== 'admin' && (
         <>
       <div className="stats-grid">
         <button

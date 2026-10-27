@@ -610,6 +610,7 @@ const AppContent: React.FC<AppProps> = ({ services }) => {
     <Suspense fallback={activeTab === 'admin' ? <AdminSkeleton /> : isDemandWorkspace ? <TableSkeleton /> : null}>
       <div className="app-container">
         <Header
+          activeArea={activeTab}
           userEmail={userEmail}
           demandas={workspaceDemandas}
           onLogout={() => { void handleLogout(); }}
@@ -715,6 +716,9 @@ const AppContent: React.FC<AppProps> = ({ services }) => {
                     demandas={demandas}
                     historico={historico}
                     onOpenEditar={openDemand}
+                    onFilterStatus={(status) => navigateToWorkspace('equipe',
+                      { ...DEFAULT_DEMAND_FILTERS, status },
+                      { ...DEFAULT_QUICK_FILTERS })}
                     renderAtencaoImediata={() => (
                       <AtencaoImediata demandas={demandas} historico={historico} onOpenEditar={openDemand} />
                     )}

@@ -131,6 +131,7 @@ describe('informações apresentadas ao usuário', () => {
         demandas={[legacyDemand]}
         historico={[]}
         onOpenEditar={vi.fn()}
+        onFilterStatus={vi.fn()}
         renderAtencaoImediata={() => null}
       />,
     );
@@ -155,6 +156,7 @@ describe('informações apresentadas ao usuário', () => {
         demandas={[]}
         historico={[unmatchedHistory]}
         onOpenEditar={vi.fn()}
+        onFilterStatus={vi.fn()}
         renderAtencaoImediata={() => null}
       />,
     );

@@ -10,11 +10,14 @@ import {
   type ResponsibleDistributionItem,
 } from '../domain/governanceAnalytics';
 import { getTodayString } from '../utils/date';
+import type { DemandFilters } from '../filters/filterTypes';
+import { GovernanceOverview } from './GovernanceOverview';
 
 interface VisaoGeralProps {
   demandas: Demanda[];
   historico: ComentarioHistorico[];
   onOpenEditar: (demanda: Demanda) => void;
+  onFilterStatus: (status: DemandFilters['status']) => void;
   renderAtencaoImediata: () => React.ReactNode;
 }
 
@@ -153,6 +156,7 @@ export const VisaoGeral: React.FC<VisaoGeralProps> = ({
   demandas,
   historico,
   onOpenEditar,
+  onFilterStatus,
   renderAtencaoImediata,
 }) => {
   const total = demandas.length;
@@ -173,6 +177,17 @@ export const VisaoGeral: React.FC<VisaoGeralProps> = ({
     .sort((a, b) => b.count - a.count)
     .slice(0, 5);
 
+  const acompanhadas = demandas.filter((demanda) => demanda.status !== 'Encerrado');
+  const proximaProvidenciaCompleta = acompanhadas.filter(
+    (demanda) => Boolean(demanda.proximaAcao.trim()) && Boolean(demanda.proximaAcaoEm),
+  ).length;
+  const processosVinculados = demandas.filter((demanda) => Boolean(demanda.linkOrigem?.trim())).length;
+  const coberturaOperacional = [
+    { id: 'proxima', titulo: 'Próxima providência programada', contagem: proximaProvidenciaCompleta,
+      base: acompanhadas.length, descricao: 'Demandas em acompanhamento com providência e data cadastradas.' },
+    { id: 'origem', titulo: 'Vínculo com o processo oficial', contagem: processosVinculados,
+      base: demandas.length, descricao: 'Demandas com endereço do processo de origem cadastrado.' },
+  ];
   const prazoInterno = getDeadlineCoverage(demandas, 'interno');
   const prazoFinal = getDeadlineCoverage(demandas, 'final');
   const situacaoPrazoFinal = getDefinedFinalDeadlineSituation(demandas, getTodayString());
@@ -193,6 +208,7 @@ export const VisaoGeral: React.FC<VisaoGeralProps> = ({
 
   return (
     <main className="visao-geral-container governance-dashboard">
+      <GovernanceOverview demandas={demandas} onFilterStatus={onFilterStatus} />
       {renderAtencaoImediata()}
 
       <section className="governance-section" aria-label="Composição da carteira">
@@ -200,16 +216,24 @@ export const VisaoGeral: React.FC<VisaoGeralProps> = ({
           <article className="dashboard-col-card governance-card">
             <div className="governance-card-title">
               <span className="governance-card-icon"><i className="fa-solid fa-chart-bar" /></span>
-              <div><h3>Distribuição por status</h3><p>Composição do estoque atual por situação registrada.</p></div>
+              <div><h3>Distribuição por status</h3><p>Composição do estoque. Selecione uma barra para consultar as demandas.</p></div>
             </div>
             <div className="governance-progress-list">
               {statusDist.length > 0 ? statusDist.map((item) => (
                 <div key={item.label} className="progress-bar-group">
-                  <div className="progress-bar-labels">
-                    <span>{item.label}</span>
-                    <span>{item.count} {item.count === 1 ? 'demanda' : 'demandas'} <small>({item.percent}%)</small></span>
-                  </div>
-                  <div className="progress-bar-outer"><div className={`progress-bar-inner ${STATUS_CLASS[item.label as DemandStatus]}`} style={{ width: `${item.percent}%` }} /></div>
+                  <button type="button" className="governance-chart-link"
+                    onClick={() => onFilterStatus(item.label as DemandStatus)}
+                    title={`Abrir carteira filtrada: ${item.label}`}>
+                    <div className="progress-bar-labels">
+                      <span>{item.label}</span>
+                      <span>{item.count} {item.count === 1 ? 'demanda' : 'demandas'} <small>({item.percent}%)</small>
+                        <i className="fa-solid fa-arrow-up-right-from-square chart-drilldown-icon" aria-hidden="true" /></span>
+                    </div>
+                    <div className="progress-bar-outer" aria-hidden="true">
+                      <div className={`progress-bar-inner ${STATUS_CLASS[item.label as DemandStatus]}`}
+                        style={{ width: `${item.percent}%` }} />
+                    </div>
+                  </button>
                 </div>
               )) : <div className="governance-empty">Nenhum dado disponível.</div>}
             </div>
@@ -233,6 +257,31 @@ export const VisaoGeral: React.FC<VisaoGeralProps> = ({
             </div>
           </article>
         </div>
+      </section>
+
+      <section className="governance-section" aria-labelledby="operational-coverage-title">
+        <div className="governance-section-heading">
+          <div>
+            <span className="governance-kicker">Confiabilidade operacional</span>
+            <h2 id="operational-coverage-title">Informações disponíveis para acompanhamento</h2>
+          </div>
+        </div>
+        <div className="operational-coverage-grid">
+          {coberturaOperacional.map((item) => (
+            <article key={item.id} className="governance-card operational-coverage-card">
+              <div className="operational-coverage-heading">
+                <h3>{item.titulo}</h3><strong>{percentage(item.contagem, item.base)}%</strong>
+              </div>
+              <div className="operational-coverage-track" role="progressbar" aria-label={item.titulo}
+                aria-valuenow={percentage(item.contagem, item.base)} aria-valuemin={0} aria-valuemax={100}>
+                <span className="operational-coverage-fill"
+                  style={{ width: `${percentage(item.contagem, item.base)}%` }} />
+              </div>
+              <p>{item.contagem} de {item.base} registros. {item.descricao}</p>
+            </article>
+          ))}
+        </div>
+        <p className="operational-coverage-note">Cobertura significa presença de informação cadastrada, não comprovação de execução ou cumprimento de prazo. Ausências legadas não são tratadas como atraso.</p>
       </section>
 
       <section className="governance-section" aria-labelledby="deadlines-title">

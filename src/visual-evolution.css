@@ -1,0 +1,401 @@
+/* CTRH | Evolução visual 2 - camada final de apresentação
+ * Componentes estruturados, identidade preservada. Sem alterar regras de negócio.
+ */
+:root {
+  --ct-panel-border: #dbe4ee;
+  --ct-navy: #112b46;
+  --ct-soft-shadow: 0 16px 42px rgba(17, 43, 70, .075);
+  --ct-action: #67b4ec;
+  --ct-waiting: #af9cf5;
+  --ct-monitor: #f2c37a;
+  --ct-completed: #95a9bd;
+}
+body {
+  background:
+    radial-gradient(ellipse at 72% -12%, rgba(47, 111, 165, .085), transparent 42%),
+    #f3f6fa;
+}
+.app-container {
+  max-width: 1500px;
+  padding: 32px 32px 56px;
+}
+.institucional-bar {
+  margin: -32px -32px 28px;
+  padding: 13px 32px;
+  background: #fff;
+  border-bottom: 1px solid var(--ct-panel-border);
+}
+.inst-meta-item { font-size: .79rem; }
+.inst-badge-ambiente { font-size: .75rem; padding: 5px 11px; }
+.title-action-row { margin-bottom: 24px; align-items: center; }
+.governance-header-mark {
+  width: 54px;
+  height: 54px;
+  border-radius: 16px;
+  background: linear-gradient(145deg, #17324d, #347eb3);
+  box-shadow: 0 12px 25px rgba(23,50,77,.18);
+  font-size: 1.3rem;
+}
+.title-area h1 { font-size: clamp(1.65rem, 2vw, 2.25rem); line-height: 1.15; }
+.header-subtitle { font-size: .92rem; max-width: 760px; line-height: 1.55; }
+.header-global-actions .btn { min-height: 44px; border-radius: 10px; }
+.stats-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr)) minmax(215px, 1.1fr);
+  gap: 14px;
+  margin-bottom: 16px;
+}
+.stat-card:not(.personal-workspace-card) {
+  height: 155px;
+  padding: 21px;
+  border-radius: 16px;
+  border: 1px solid var(--ct-panel-border);
+  background: linear-gradient(155deg, #ffffff 66%, #f0f5fa 100%);
+  box-shadow: var(--ct-soft-shadow);
+}
+.stat-card.total-card { border-top: 4px solid #3477aa; }
+.stat-card.assinatura-card { border-top: 4px solid #237366; }
+.stat-card.hoje-card { border-top: 4px solid #99611d; }
+.stat-card.vencido-card { border-top: 4px solid #b91c1c; }
+.stat-card .stat-info { position: relative; z-index: 1; }
+.stat-card .stat-info h3 {
+  font-size: .775rem;
+  line-height: 1.35;
+  max-width: calc(100% - 36px);
+  text-transform: none;
+  letter-spacing: .01em;
+  font-weight: 680;
+}
+.stat-card .stat-number {
+  margin-top: 12px;
+  font-size: clamp(1.95rem, 2.3vw, 2.75rem);
+  letter-spacing: -.045em;
+}
+.stat-card .stat-card-decor {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 0;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 11px;
+  font-size: 1rem;
+  color: #2f6fa5;
+  background: #eaf2fa;
+}
+.stat-card.assinatura-card .stat-card-decor { background: #e2f1ec; color: #237366; }
+.stat-card.hoje-card .stat-card-decor { background: #fdf1dc; color: #99611d; }
+.stat-card.vencido-card .stat-card-decor { background: #fce8e7; color: #a92727; }
+.stat-card .stat-card-footer {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 10px;
+  color: #536477;
+  font-size: .75rem;
+  line-height: 1.35;
+  font-weight: 560;
+}
+.stat-card .stat-card-footer i { color: #2f6fa5; font-size: .72rem; }
+.stat-card:hover:not(.personal-workspace-card) {
+  background: #fff;
+  box-shadow: 0 20px 32px rgba(17, 43, 70, .105);
+}
+.stat-card.personal-workspace-card {
+  min-height: 155px;
+  height: auto;
+  padding: 20px;
+  border-radius: 16px;
+  background: linear-gradient(136deg, #17324d, #2b628b);
+  border: 1px solid #17324d;
+  box-shadow: 0 16px 27px rgba(17,43,70,.18);
+}
+.personal-workspace-card-copy strong { color: #fff; font-size: .93rem; }
+.personal-workspace-card-copy small { color: #d7e9f6; font-size: .8125rem; }
+.personal-workspace-card-arrow { color: #fff; }
+.personal-workspace-card-icon {
+  background: rgba(255,255,255,.17);
+  border-radius: 13px;
+  color: #fff;
+  width: 43px;
+  height: 43px;
+}
+.stat-card.personal-workspace-card:hover,
+.stat-card.personal-workspace-card.active {
+  background: linear-gradient(136deg, #214f72, #347cad);
+  border-color: #225075;
+}
+.urgency-legend {
+  font-size: .84rem;
+  margin-bottom: 22px;
+}
+.nav-tabs {
+  margin-bottom: 26px;
+  border-radius: 14px;
+  border-color: #d9e3ec;
+  background: #e8eff6;
+}
+.nav-tab-link { font-size: .875rem; }
+.nav-tab-link.active { background: #17324d; }
+.governance-dashboard { gap: 28px; }
+.governance-section { gap: 16px; }
+.governance-section-heading h2 { font-size: 1.3rem; }
+.governance-card {
+  border-color: var(--ct-panel-border);
+  border-radius: 17px;
+  box-shadow: var(--ct-soft-shadow);
+}
+.governance-composition-grid .governance-card,
+.deadline-coverage-card,
+.responsible-distribution-card,
+.history-governance-card {
+  padding: 25px;
+}
+.governance-card-title h3 { font-size: 1.06rem; }
+.governance-progress-list { gap: 10px; }
+.governance-chart-link { border-radius: 12px; }
+.governance-progress-list .progress-bar-outer { height: 12px; }
+.governance-work-card:focus-visible,
+.governance-overview-all:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+.governance-chart-link:focus-visible { outline: 3px solid #2f6fa5; outline-offset: 2px; }
+
+/* Painel infográfico */
+.governance-overview {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: 29px 32px 32px;
+  border-radius: 22px;
+  color: #fff;
+  background:
+    radial-gradient(circle at 9% 10%, rgba(103, 180, 236, .18), transparent 35%),
+    linear-gradient(135deg, #10283f 4%, #1b4264 56%, #214f71 100%);
+  border: 1px solid rgba(13, 44, 75, .8);
+  box-shadow: 0 20px 48px rgba(17,43,70,.17);
+}
+.governance-overview::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  z-index: -1;
+  inset: 0;
+  background-image: radial-gradient(rgba(255,255,255,.12) .65px, transparent .65px);
+  background-size: 14px 14px;
+  mask-image: linear-gradient(90deg, transparent 50%, black 100%);
+}
+.governance-overview-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 24px;
+  margin-bottom: 22px;
+}
+.governance-overview-copy { min-width: 0; }
+.governance-overview-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #b7d9f1;
+  font-size: .78rem;
+  font-weight: 750;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+}
+.governance-overview-heading h2 {
+  margin-top: 9px;
+  color: #fff;
+  font-size: clamp(1.4rem, 2.3vw, 1.9rem);
+  line-height: 1.22;
+  font-weight: 730;
+  letter-spacing: -.026em;
+}
+.governance-overview-heading p {
+  margin-top: 7px;
+  max-width: 760px;
+  color: #d2e1ee;
+  font-size: .91rem;
+  line-height: 1.5;
+}
+.governance-overview-all {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  white-space: nowrap;
+  min-height: 42px;
+  padding: 9px 14px;
+  border: 1px solid rgba(224,239,251,.48);
+  border-radius: 10px;
+  background: rgba(255,255,255,.105);
+  color: #fff;
+  font-family: inherit;
+  font-size: .85rem;
+  font-weight: 670;
+  cursor: pointer;
+}
+.governance-overview-all:hover { background: rgba(255,255,255,.22); }
+.governance-overview-body {
+  display: grid;
+  grid-template-columns: minmax(215px, .67fr) minmax(0, 2fr);
+  align-items: center;
+  gap: 26px;
+}
+.governance-donut-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 14px;
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 17px;
+  background: rgba(8,28,47,.23);
+}
+.governance-donut {
+  display: grid;
+  place-items: center;
+  width: min(100%, 218px);
+  aspect-ratio: 1;
+  padding: 22px;
+  border-radius: 50%;
+  box-shadow: 0 9px 30px rgba(0,0,0,.16);
+}
+.governance-donut-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: #173852;
+  border: 3px solid rgba(255,255,255,.08);
+  text-align: center;
+}
+.governance-donut-number {
+  display: block;
+  color: #fff;
+  font-size: clamp(2.1rem, 3vw, 3.1rem);
+  font-weight: 790;
+  letter-spacing: -.05em;
+  line-height: 1.08;
+  font-variant-numeric: tabular-nums;
+}
+.governance-donut-caption {
+  display: block;
+  max-width: 118px;
+  margin-top: 6px;
+  color: #c6d8e8;
+  font-size: .76rem;
+  line-height: 1.3;
+}
+.governance-donut-footnote {
+  color: #cadbe9;
+  font-size: .74rem;
+  text-align: center;
+  line-height: 1.4;
+}
+.governance-work-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 13px;
+}
+.governance-work-card {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  align-items: flex-start;
+  overflow: hidden;
+  min-width: 0;
+  min-height: 177px;
+  padding: 20px;
+  border-radius: 15px;
+  border: 1px solid rgba(224,239,251,.27);
+  background: rgba(255,255,255,.095);
+  font-family: inherit;
+  color: #fff;
+  text-align: left;
+  cursor: pointer;
+  transition: transform .18s ease, background .18s ease, border-color .18s ease;
+}
+.governance-work-card:hover {
+  transform: translateY(-3px);
+  background: rgba(255,255,255,.16);
+  border-color: rgba(224,239,251,.52);
+}
+.governance-work-card-top {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.governance-work-icon {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  background: rgba(103,180,236,.19);
+  border-radius: 9px;
+  color: var(--ct-action);
+}
+.governance-work-card--waiting .governance-work-icon { background: rgba(175,156,245,.19); color: var(--ct-waiting); }
+.governance-work-card--monitoring .governance-work-icon { background: rgba(242,195,122,.15); color: var(--ct-monitor); }
+.governance-work-card--closed .governance-work-icon { background: rgba(149,169,189,.18); color: #d0dae5; }
+.governance-work-arrow { color: #d4e9f8; font-size: .8rem; }
+.governance-work-number {
+  font-size: clamp(1.8rem, 2.1vw, 2.4rem);
+  line-height: 1.1;
+  font-weight: 760;
+  letter-spacing: -.035em;
+  font-variant-numeric: tabular-nums;
+}
+.governance-work-card strong { margin-top: 6px; font-size: .94rem; line-height: 1.3; }
+.governance-work-caption { margin-top: 4px; color: #d1e0eb; font-size: .79rem; line-height: 1.4; }
+.governance-work-stroke { position: absolute; bottom: 0; left: 0; width: 100%; height: 4px; background: var(--ct-action); }
+.governance-work-card--waiting .governance-work-stroke { background: var(--ct-waiting); }
+.governance-work-card--monitoring .governance-work-stroke { background: var(--ct-monitor); }
+.governance-work-card--closed .governance-work-stroke { background: var(--ct-completed); }
+
+@media (max-width: 1280px) {
+  .stats-grid { grid-template-columns: repeat(4,minmax(0,1fr)); }
+  .stats-grid .personal-workspace-card { grid-column: 1 / -1; min-height: 90px; }
+}
+@media (max-width: 1020px) {
+  .app-container { padding-inline: 22px; }
+  .institucional-bar { margin-inline: -22px; padding-inline: 22px; }
+  .stats-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .stats-grid .personal-workspace-card { grid-column: 1 / -1; }
+  .governance-overview-body { grid-template-columns: minmax(170px,.7fr) minmax(0,1.9fr); gap: 16px; }
+  .governance-work-card { min-height: 165px; padding: 15px; }
+}
+@media (max-width: 730px) {
+  .app-container { padding: 22px 16px 40px; }
+  .institucional-bar { margin: -22px -16px 20px; padding: 12px 16px; }
+  .stats-grid { gap: 11px; margin-bottom: 18px; }
+  .stat-card:not(.personal-workspace-card) { min-height: 147px; height: auto; padding: 17px; }
+  .stat-card .stat-card-decor { width: 30px; height: 30px; top: 13px; right: 12px; }
+  .stat-card .stat-info h3 { max-width: calc(100% - 23px); }
+  .stat-card .stat-card-footer { font-size: .7rem; }
+  .governance-overview { padding: 23px 20px; border-radius: 18px; }
+  .governance-overview-heading { align-items: flex-start; flex-direction: column; gap: 15px; }
+  .governance-overview-all { width: 100%; }
+  .governance-overview-body { grid-template-columns: 1fr; }
+  .governance-donut-area { flex-direction: row; padding: 12px 18px; justify-content: center; }
+  .governance-donut { width: 142px; flex-shrink: 0; padding: 15px; }
+  .governance-donut-number { font-size: 1.95rem; }
+  .governance-work-grid { gap: 10px; }
+  .governance-work-card { min-height: 162px; }
+}
+@media (max-width: 440px) {
+  .stat-card .stat-card-footer { font-size: .68rem; }
+  .stat-card .stat-number { font-size: 2rem; }
+  .governance-work-grid { grid-template-columns: 1fr; }
+  .governance-work-card { min-height: 138px; }
+  .governance-donut-footnote { max-width: 135px; }
+  .governance-overview-heading h2 { font-size: 1.42rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .governance-work-card { transition: none; }
+  .governance-work-card:hover { transform: none; }
+}

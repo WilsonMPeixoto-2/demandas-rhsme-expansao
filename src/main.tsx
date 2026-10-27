@@ -16,6 +16,7 @@ import './r4-prazos-providencias.css';
 import './form-field-polish.css';
 import './error-boundary.css';
 import './demandas-table-responsive.css';
+import './visual-evolution.css';
 
 const queryClient = createAppQueryClient();
 const QueryDevtools = import.meta.env.DEV

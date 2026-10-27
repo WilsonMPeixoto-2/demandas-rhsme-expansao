@@ -587,15 +587,17 @@ As Rodadas técnicas 1, 2, 3 e 4, a correção responsiva e as Rodadas 3.1 e 3.2
 
 Para a conclusão funcional inicial, a migration `20260801044712_r5_essential_harden_pre_r4_progress_status` permanece registrada remotamente. Ela não altera dados: apenas converte os dois contratos anteriores ao R4 em wrappers e deixa `EXECUTE` somente para `authenticated`. A verificação posterior confirmou 379 demandas ativas, zero excluídas, 764 históricos, `search_path` vazio e ausência de execução por `anon` ou `service_role` nesses wrappers.
 
-## Endurecimento técnico iniciado — 26 de outubro de 2026
+## Endurecimento técnico integrado — 26 de outubro de 2026
 
-Foi aberta uma rodada independente de endurecimento sem alteração funcional:
+Foi integrada pelo PR #196 uma rodada independente de endurecimento sem alteração funcional:
 
 - CodeQL para JavaScript/TypeScript e GitHub Actions;
 - headers HTTP básicos no `vercel.json`: `nosniff`, bloqueio de framing, `no-referrer` e restrição de APIs de navegador não utilizadas;
 - nenhuma CSP nesta etapa, por depender da decisão de backend e de futuras integrações externas;
 - nenhuma dependência npm, migration, RLS, dado ou regra de negócio alterada;
-- proteção/ruleset da `main` permanece configuração externa a ser comprovada diretamente no GitHub.
+- proteção/ruleset da `main` permanece configuração externa a ser comprovada diretamente no GitHub;
+- `Dependency health` e CodeQL concluíram com sucesso no SHA validado do PR;
+- a autorização expressa da rodada foi reconciliada formalmente no Registro de Decisões em `TECH-HARDEN-001`; a proteção da `main` foi autorizada em `TECH-HARDEN-002`.
 
 Evidência: `docs/maintenance/ENDURECIMENTO_TECNICO_2026-10-26.md`.
 

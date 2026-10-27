@@ -3,7 +3,7 @@
 <!-- IMPLEMENTATION_AUTHORIZATION: V1-E-A01 -->
 
 **Status:** vigente  
-**Atualizado em:** 1º de agosto de 2026
+**Atualizado em:** 26 de outubro de 2026
 **Finalidade:** registrar somente decisões expressamente aprovadas pelo responsável pelo produto antes da implementação de cada pacote.
 
 ## 1. Regra de uso
@@ -822,3 +822,44 @@ Não estão autorizados motor avançado de alertas, Central de Relatórios, novo
 | R10 | Parcialmente materializado | GOV-013 e AUTH-E-D01 | Concluída somente para recuperação de senha | autenticação, controle de acesso e recuperação vigentes e publicados; demais extensões condicionadas |
 | R11 | Parcialmente materializado | GOV-013 | Não para extensões | controles de release vigentes; observabilidade proporcional e correções continuam obrigatórias |
 | R12 | Gate final | GOV-013 | Obrigatório na entrega | contrato, segurança e homologação final não são backlog opcional |
+
+
+---
+
+## Decisões de manutenção e endurecimento técnico — 26 de outubro de 2026
+
+### TECH-HARDEN-001 — CodeQL e headers HTTP básicos
+
+**Data:** 26 de outubro de 2026  
+**Classificação:** necessidade técnica de segurança e manutenção  
+**Decisão:** APROVADA E IMPLEMENTADA.
+
+Após auditoria específica das capacidades técnicas do CTRH, o responsável pelo produto aprovou expressamente o início da implementação pelos itens de menor risco e maior benefício concreto.
+
+O escopo aprovado compreende:
+
+1. habilitar CodeQL no repositório para análise de JavaScript/TypeScript e GitHub Actions, em pull requests para `main`, push em `main`, execução semanal e execução manual;
+2. adicionar headers HTTP básicos e independentes da decisão de backend: `X-Content-Type-Options: nosniff`, `X-Frame-Options: DENY`, `Referrer-Policy: no-referrer` e `Permissions-Policy` restringindo câmera, microfone, geolocalização, pagamento e USB;
+3. não introduzir dependência npm, alteração funcional, migration, RLS, grant, dado, autenticação, telemetria externa ou mudança de backend;
+4. manter Content Security Policy fora desta etapa, pois sua definição depende das origens efetivamente utilizadas após a decisão Supabase versus Google/Firebase e de eventual observabilidade/Speed Insights;
+5. preservar `git.deploymentEnabled: false` e não promover esta rodada automaticamente para Production.
+
+A implementação foi integrada pelo PR #196 no SHA `0d9f2469e67e9a185e09ae08677c062f0924fb27`.
+
+**Reconciliação documental:** a autorização expressa ocorreu antes da implementação na conversa de 26/10/2026, mas não foi registrada neste arquivo antes da criação da branch, em desacordo com a sequência documental definida por GOV-001/GOV-006 e `AGENTS.md`. O achado foi identificado na revisão automatizada do PR #196. Esta entrada corrige a omissão documental sem ampliar, reinterpretar ou criar autorização posterior ao fato.
+
+### TECH-HARDEN-002 — Proteção da branch principal
+
+**Data:** 26 de outubro de 2026  
+**Classificação:** necessidade técnica de governança do repositório  
+**Decisão:** APROVADA PARA IMPLEMENTAÇÃO.
+
+Está autorizada a configuração da branch `main` para impedir integração sem os gates aplicáveis, com escopo mínimo de:
+
+1. exigir pull request para alterações na `main`;
+2. exigir o gate `Dependency health` antes da integração;
+3. impedir force push;
+4. impedir exclusão da `main`;
+5. exigir resolução de discussões de revisão quando suportado pela configuração do repositório.
+
+A configuração não altera código, banco, dados, regras de negócio ou Production. A ativação deve ser comprovada diretamente no estado do GitHub, pois não é representada por arquivo versionado.

@@ -587,13 +587,25 @@ As Rodadas técnicas 1, 2, 3 e 4, a correção responsiva e as Rodadas 3.1 e 3.2
 
 Para a conclusão funcional inicial, a migration `20260801044712_r5_essential_harden_pre_r4_progress_status` permanece registrada remotamente. Ela não altera dados: apenas converte os dois contratos anteriores ao R4 em wrappers e deixa `EXECUTE` somente para `authenticated`. A verificação posterior confirmou 379 demandas ativas, zero excluídas, 764 históricos, `search_path` vazio e ausência de execução por `anon` ou `service_role` nesses wrappers.
 
+## Endurecimento técnico iniciado — 26 de outubro de 2026
+
+Foi aberta uma rodada independente de endurecimento sem alteração funcional:
+
+- CodeQL para JavaScript/TypeScript e GitHub Actions;
+- headers HTTP básicos no `vercel.json`: `nosniff`, bloqueio de framing, `no-referrer` e restrição de APIs de navegador não utilizadas;
+- nenhuma CSP nesta etapa, por depender da decisão de backend e de futuras integrações externas;
+- nenhuma dependência npm, migration, RLS, dado ou regra de negócio alterada;
+- proteção/ruleset da `main` permanece configuração externa a ser comprovada diretamente no GitHub.
+
+Evidência: `docs/maintenance/ENDURECIMENTO_TECNICO_2026-10-26.md`.
+
 ## Próxima etapa
 
 Com a rodada de manutenção concluída, a próxima frente técnica autorizada volta a ser a fundação B1 do Trilho B de migração. O trabalho deve permanecer sem carga dos 3.201 registros reais em Production e com preservação integral dos dados legados, inclusive estados hoje incompatíveis com regras de criação do sistema novo.
 
 O `fast-check` já disponível deve ser empregado nos testes gerativos das transformações quando o B1/B2 chegar a essa camada. pgTAP deve ser avaliado para invariantes locais de banco antes de qualquer adoção definitiva. `json-canonicalize` permanece reservado ao B2, quando os hashes canônicos de proveniência forem implementados.
 
-Observabilidade, Lighthouse CI, MSW, CodeQL, TanStack Table 9, ESLint 10 e TypeScript 7 continuam pacotes independentes, sem autorização automática.
+Observabilidade, Lighthouse CI, MSW, TanStack Table 9, ESLint 10 e TypeScript 7 continuam pacotes independentes, sem autorização automática. CodeQL passou a integrar a rodada de endurecimento técnico de 26/10.
 
 Nenhuma extensão funcional do R5 avançado, R1 residual, R2 ou ciclos posteriores é autorizada por inferência. E2, segurança final e homologação consolidada do R12 permanecem gates antes da entrega final do produto.
 

@@ -213,9 +213,11 @@ export const Header: React.FC<HeaderProps> = ({
           onClick={() => onToggleFiltroStatus('acompanhamento')}
           title="Exibir todas as demandas em acompanhamento"
         >
+          <span className="stat-card-decor" aria-hidden="true"><i className="fa-solid fa-layer-group" /></span>
           <div className="stat-info">
             <h3>Em acompanhamento</h3>
             <div className="stat-number">{totalEmAcompanhamento}</div>
+            <span className="stat-card-footer">Ver carteira em acompanhamento <i className="fa-solid fa-arrow-right" aria-hidden="true" /></span>
           </div>
         </button>
 
@@ -225,9 +227,11 @@ export const Header: React.FC<HeaderProps> = ({
           onClick={() => onToggleQuickFilter('assinatura')}
           title="Filtrar por demandas aguardando assinatura"
         >
+          <span className="stat-card-decor" aria-hidden="true"><i className="fa-solid fa-file-signature" /></span>
           <div className="stat-info">
             <h3>Para Assinatura</h3>
             <div className="stat-number">{totalAssinatura}</div>
+            <span className="stat-card-footer">Abrir itens para assinatura <i className="fa-solid fa-arrow-right" aria-hidden="true" /></span>
           </div>
         </button>
 
@@ -237,9 +241,11 @@ export const Header: React.FC<HeaderProps> = ({
           onClick={() => onToggleQuickFilter('hoje')}
           title="Filtrar por demandas cujo prazo final vence hoje"
         >
+          <span className="stat-card-decor" aria-hidden="true"><i className="fa-solid fa-calendar-day" /></span>
           <div className="stat-info">
             <h3>Prazo final hoje</h3>
             <div className="stat-number">{totalHoje}</div>
+            <span className="stat-card-footer">Consultar vencimentos do dia <i className="fa-solid fa-arrow-right" aria-hidden="true" /></span>
           </div>
         </button>
 
@@ -249,9 +255,11 @@ export const Header: React.FC<HeaderProps> = ({
           onClick={() => onToggleQuickFilter('vencido')}
           title="Filtrar por demandas com prazo final vencido"
         >
+          <span className="stat-card-decor" aria-hidden="true"><i className="fa-solid fa-triangle-exclamation" /></span>
           <div className="stat-info">
             <h3>Prazo final vencido</h3>
             <div className="stat-number">{totalVencidos}</div>
+            <span className="stat-card-footer">Ver prazos vencidos <i className="fa-solid fa-arrow-right" aria-hidden="true" /></span>
           </div>
         </button>
 

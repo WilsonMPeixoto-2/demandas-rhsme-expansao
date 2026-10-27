@@ -10,12 +10,14 @@ import {
   type ResponsibleDistributionItem,
 } from '../domain/governanceAnalytics';
 import { getTodayString } from '../utils/date';
+import type { DemandFilters } from '../filters/filterTypes';
+import { GovernanceOverview } from './GovernanceOverview';
 
 interface VisaoGeralProps {
   demandas: Demanda[];
   historico: ComentarioHistorico[];
   onOpenEditar: (demanda: Demanda) => void;
-  onFilterStatus: (status: DemandStatus) => void;
+  onFilterStatus: (status: DemandFilters['status']) => void;
   renderAtencaoImediata: () => React.ReactNode;
 }
 
@@ -206,6 +208,7 @@ export const VisaoGeral: React.FC<VisaoGeralProps> = ({
 
   return (
     <main className="visao-geral-container governance-dashboard">
+      <GovernanceOverview demandas={demandas} onFilterStatus={onFilterStatus} />
       {renderAtencaoImediata()}
 
       <section className="governance-section" aria-label="Composição da carteira">

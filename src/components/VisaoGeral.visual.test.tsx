@@ -23,6 +23,19 @@ describe('Radar visual e navegação gerencial', () => {
     expect(onFilterStatus).toHaveBeenCalledWith('Tramitado');
   });
 
+  it('transforma o panorama operacional em atalhos de carteira', async () => {
+    const onFilterStatus = vi.fn();
+    render(<VisaoGeral demandas={demandas} historico={[]} onOpenEditar={vi.fn()}
+      onFilterStatus={onFilterStatus} renderAtencaoImediata={() => null} />);
+
+    expect(screen.getByRole('heading', { name: 'O trabalho da equipe, em uma visão.' })).toBeVisible();
+    expect(screen.getByRole('img', { name: /Distribuição de 2 demandas/ })).toBeVisible();
+    await userEvent.setup().click(screen.getByRole('button', { name: /Providência do CTRH/ }));
+    expect(onFilterStatus).toHaveBeenCalledWith('providencia_ctrh');
+    await userEvent.setup().click(screen.getByRole('button', { name: /Ver carteira completa/ }));
+    expect(onFilterStatus).toHaveBeenCalledWith('todos');
+  });
+
   it('apresenta cobertura real, sem inferir atraso do legado', () => {
     render(<VisaoGeral demandas={demandas} historico={[]} onOpenEditar={vi.fn()}
       onFilterStatus={vi.fn()} renderAtencaoImediata={() => null} />);

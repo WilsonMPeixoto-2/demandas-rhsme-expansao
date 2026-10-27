@@ -65,3 +65,31 @@ Resultados no SHA do PR:
 - CodeQL `javascript-typescript`: **success**.
 
 A revisão automatizada identificou uma única pendência de governança: a autorização expressa do responsável havia ocorrido na conversa antes da implementação, mas não havia sido transcrita para o Registro de Decisões antes da criação da branch. A omissão documental foi reconciliada em `TECH-HARDEN-001`, sem ampliação de escopo.
+
+
+## 7. Proteção da main — artefato de importação
+
+Foi preparado o arquivo versionado `docs/maintenance/rulesets/cthr-main-protection.json`, compatível com a importação de rulesets do GitHub.
+
+O ruleset:
+
+- aplica-se somente à branch padrão;
+- exige Pull Request;
+- exige resolução das discussões de revisão;
+- exige o check `Audit, lint, coverage, build and browser QA`, que corresponde ao job do workflow `Dependency health`;
+- impede exclusão da branch;
+- impede force push;
+- não exige aprovação de terceiro, preservando o fluxo de manutenção de um repositório pessoal;
+- não exige branch estritamente atualizada antes do merge, evitando repetição desnecessária do gate quando a base recebe alteração independente.
+
+A conexão GitHub utilizada nesta execução possui acesso de conteúdo, pull requests e workflows, mas não possui permissão administrativa para criar ou alterar rulesets. Por isso, o arquivo foi preparado para importação pelo proprietário em `Settings > Rulesets > Rulesets > New ruleset > Import a ruleset`.
+
+A proteção somente deve ser considerada **ativa** depois de o GitHub confirmar o ruleset no estado do repositório.
+
+## 8. Secret scanning e push protection
+
+O repositório é público. O GitHub executa secret scanning automaticamente em repositórios públicos, portanto não há pacote ou workflow adicional a instalar para a varredura básica.
+
+A proteção de push em nível de usuário permanece uma proteção do GitHub.com para pushes em repositórios públicos. A proteção de push em nível de repositório é uma configuração administrativa de Secret Protection e não é exposta pela conexão GitHub usada nesta execução.
+
+Nenhuma credencial, token ou segredo foi adicionado por esta rodada.

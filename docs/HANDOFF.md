@@ -597,7 +597,9 @@ Foi integrada pelo PR #196 uma rodada independente de endurecimento sem alteraç
 - nenhuma dependência npm, migration, RLS, dado ou regra de negócio alterada;
 - proteção/ruleset da `main` permanece configuração externa a ser comprovada diretamente no GitHub;
 - `Dependency health` e CodeQL concluíram com sucesso no SHA validado do PR;
-- a autorização expressa da rodada foi reconciliada formalmente no Registro de Decisões em `TECH-HARDEN-001`; a proteção da `main` foi autorizada em `TECH-HARDEN-002`.
+- a autorização expressa da rodada foi reconciliada formalmente no Registro de Decisões em `TECH-HARDEN-001`; a proteção da `main` foi autorizada em `TECH-HARDEN-002`;
+- ruleset importável `docs/maintenance/rulesets/cthr-main-protection.json` preparado para a branch padrão; a ativação administrativa ainda precisa ser confirmada no GitHub;
+- secret scanning básico não exige instalação adicional no repositório público.
 
 Evidência: `docs/maintenance/ENDURECIMENTO_TECNICO_2026-10-26.md`.
 

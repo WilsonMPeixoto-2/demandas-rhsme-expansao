@@ -299,7 +299,7 @@
 }
 
 /* Notebook compact rail: full table width, same navigation and original symbol. */
-.ct-shell.app-container .institucional-bar { margin:0 0 25px; }
+@media (min-width:941px) { .ct-shell.app-container .institucional-bar { margin:0 0 25px; } }
 @media (min-width:941px) and (max-width:1450px) {
   .ct-shell.app-container {
     grid-template-columns:68px minmax(0,1fr);

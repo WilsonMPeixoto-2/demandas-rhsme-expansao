@@ -591,7 +591,7 @@ Para a conclusão funcional inicial, a migration `20260801044712_r5_essential_ha
 
 Foi aberta uma rodada independente de endurecimento sem alteração funcional:
 
-- CodeQL para JavaScript/TypeScript e GitHub Actions;
+- CodeQL para JavaScript/TypeScript e GitHub Actions, executado após merge na `main`, semanalmente e sob demanda, sem bloquear cada PR;
 - headers HTTP básicos no `vercel.json`: `nosniff`, bloqueio de framing, `no-referrer` e restrição de APIs de navegador não utilizadas;
 - nenhuma CSP nesta etapa, por depender da decisão de backend e de futuras integrações externas;
 - nenhuma dependência npm, migration, RLS, dado ou regra de negócio alterada;

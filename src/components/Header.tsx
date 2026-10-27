@@ -7,6 +7,22 @@ import { getTodayString, isBeforeToday } from '../utils/date';
 import { BrandLogo } from './BrandLogo';
 
 type ConnectionStatus = 'online' | 'connecting' | 'offline' | 'local';
+type HeaderArea = 'visao-geral' | 'demandas' | 'minhas-demandas' | 'admin';
+
+const HEADER_AREA: Record<HeaderArea, { title: string; description: string; icon: string }> = {
+  'visao-geral': { title: 'Radar de Governança',
+    description: 'Visão estratégica do fluxo de trabalho, com análise de dados e monitoramento da carteira de demandas.',
+    icon: 'fa-compass' },
+  demandas: { title: 'Carteira da equipe',
+    description: 'Consulte as demandas, filtre os processos e registre os acompanhamentos necessários.',
+    icon: 'fa-list-check' },
+  'minhas-demandas': { title: 'Carteira pessoal',
+    description: 'Acompanhe os processos atribuídos a você, seus prazos e próximas providências.',
+    icon: 'fa-folder-open' },
+  admin: { title: 'Gestão de acessos',
+    description: 'Administre os perfis e consulte os registros de auditoria disponíveis.',
+    icon: 'fa-users-gear' },
+};
 
 const CONNECTION_STATUS_PRESENTATION: Record<ConnectionStatus, { label: string; icon: string }> = {
   online: { label: 'Sistema online', icon: 'fa-circle-check' },
@@ -16,6 +32,7 @@ const CONNECTION_STATUS_PRESENTATION: Record<ConnectionStatus, { label: string; 
 };
 
 interface HeaderProps {
+  activeArea?: HeaderArea;
   userEmail: string;
   demandas: Demanda[];
   onLogout: () => void;
@@ -39,6 +56,7 @@ interface HeaderProps {
 }
 
 export const Header: React.FC<HeaderProps> = ({
+  activeArea = 'visao-geral',
   userEmail,
   demandas,
   onLogout,
@@ -90,6 +108,7 @@ export const Header: React.FC<HeaderProps> = ({
     ? `${totalCriticas} ${totalCriticas === 1 ? 'demanda exige' : 'demandas exigem'} providência imediata.`
     : 'Todas as demandas de prazo final crítico estão em dia.';
   const connectionPresentation = CONNECTION_STATUS_PRESENTATION[connectionStatus];
+  const activeAreaPresentation = HEADER_AREA[activeArea];
 
   return (
     <header className="header-container">
@@ -149,13 +168,11 @@ export const Header: React.FC<HeaderProps> = ({
       <div className="title-action-row">
         <div className="title-area governance-header-identity">
           <div className="governance-header-mark" aria-hidden="true">
-            <i className="fa-solid fa-compass" />
+            <i className={`fa-solid ${activeAreaPresentation.icon}`} />
           </div>
           <div className="governance-header-copy">
-            <h1>Radar de Governança</h1>
-            <p className="header-subtitle">
-              Visão estratégica do fluxo de trabalho, com análise de dados e monitoramento da carteira de demandas.
-            </p>
+            <h1>{activeAreaPresentation.title}</h1>
+            <p className="header-subtitle">{activeAreaPresentation.description}</p>
           </div>
         </div>
 

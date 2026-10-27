@@ -37,6 +37,7 @@ describe('semânticas do Radar de Governança', () => {
         demandas={demandas}
         historico={[]}
         onOpenEditar={vi.fn()}
+        onFilterStatus={vi.fn()}
         renderAtencaoImediata={() => null}
       />,
     );

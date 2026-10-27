@@ -26,6 +26,14 @@
   --color-vencido-bg: rgba(239, 68, 68, 0.03);      /* Vermelho ultra sutil */
   --color-vencido-line: #b91c1c;
 
+  /* Situações operacionais: tokens únicos para badges e gráficos. */
+  --status-aguardando: #3f6f98;
+  --status-tramitado: #61539a;
+  --status-assinatura: #237366;
+  --status-ajustar: #99611d;
+  --status-sobrestado: #5c6878;
+  --status-encerrado: #586473;
+
   /* Tipografia */
   --font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   
@@ -218,7 +226,7 @@ h1, h2, h3, h4 {
 }
 
 .stat-info h3 {
-  font-size: 0.688rem;
+  font-size: 0.8125rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -480,12 +488,12 @@ h1, h2, h3, h4 {
   letter-spacing: 0.025em;
 }
 
-.badge.aguardando { background-color: #f4f4f5; color: #52525b; }
-.badge.tramitado { background-color: rgba(23, 50, 77, 0.08); color: var(--primary-color); }
-.badge.assinatura { background-color: var(--primary-color); color: #ffffff; }
-.badge.encerrado { background-color: #e4e4e7; color: #27272a; }
-.badge.sobrestado { background-color: #f4f4f5; color: #52525b; }
-.badge.ajustar { background-color: #fffbeb; color: #92400e; }
+.badge.aguardando { background-color: #eaf1f7; color: var(--status-aguardando); }
+.badge.tramitado { background-color: #efeafa; color: var(--status-tramitado); }
+.badge.assinatura { background-color: #e5f2ee; color: var(--status-assinatura); }
+.badge.encerrado { background-color: #edf0f3; color: var(--status-encerrado); }
+.badge.sobrestado { background-color: #edf0f4; color: var(--status-sobrestado); }
+.badge.ajustar { background-color: #fff2d9; color: var(--status-ajustar); }
 
 /* Modais Estrutura (Glassmorphism sutil) */
 .modal-overlay {

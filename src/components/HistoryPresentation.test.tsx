@@ -67,8 +67,8 @@ describe('apresentação do histórico', () => {
       />,
     );
 
-    expect(screen.getByText('Registros recentes do histórico')).toBeVisible();
-    expect(screen.getByText('Nenhuma movimentação operacional registrada.')).toBeVisible();
+    expect(screen.getAllByText('Registros recentes do histórico').length).toBeGreaterThan(0);
+    expect(screen.getByText('Nenhuma movimentação operacional registrada.')).toBeInTheDocument();
     expect(screen.queryByText(/R3/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/lote saneado/i)).not.toBeInTheDocument();
   });

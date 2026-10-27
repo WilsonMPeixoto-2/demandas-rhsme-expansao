@@ -17,6 +17,7 @@ import './form-field-polish.css';
 import './error-boundary.css';
 import './demandas-table-responsive.css';
 import './visual-evolution.css';
+import './design-shell.css';
 
 const queryClient = createAppQueryClient();
 const QueryDevtools = import.meta.env.DEV

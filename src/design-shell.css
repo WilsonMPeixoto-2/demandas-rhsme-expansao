@@ -1,0 +1,266 @@
+/* Fluxo CTRH | Visual architecture III
+   Editorial navigation shell built around the existing institutional mark.
+   Keep the approved brand, data colors and dashboard visual language intact. */
+:root {
+  --ct-rail-deep: #0c263f;
+  --ct-rail-light: #1b4b6e;
+  --ct-rail-active: #2e6388;
+  --ct-line: #d8e3ed;
+}
+.ct-shell.app-container {
+  display: grid;
+  grid-template-columns: minmax(0, 244px) minmax(0, 1fr);
+  align-items: start;
+  gap: clamp(18px, 1.7vw, 30px);
+  width: 100%;
+  max-width: 1830px;
+  padding: 20px clamp(16px, 1.8vw, 34px) 56px;
+}
+.ct-main { min-width: 0; }
+.ct-sidebar { position: sticky; top: 20px; align-self: start; min-width: 0; z-index: 12; }
+.ct-sidebar-surface {
+  display: flex;
+  flex-direction: column;
+  min-height: min(760px, calc(100dvh - 40px));
+  max-height: calc(100dvh - 40px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 23px 13px 13px;
+  color: #fff;
+  border: 1px solid #2b536f;
+  border-radius: 21px;
+  background:
+    radial-gradient(ellipse at 115% -5%, rgba(120, 181, 220, .19), transparent 45%),
+    linear-gradient(155deg, var(--ct-rail-deep) 5%, #133a5a 62%, #164465 100%);
+  box-shadow: 0 22px 45px rgba(18, 48, 73, .16);
+  scrollbar-width: thin;
+  scrollbar-color: #537b94 transparent;
+}
+.ct-sidebar-brand { padding: 4px 10px 22px; min-width: 0; }
+.ct-sidebar-brand .brand-primary { gap: 9px; }
+.ct-sidebar-brand .brand-lockup--compact .brand-symbol { width: 37px; height: 37px; }
+.ct-sidebar-brand .brand-lockup--compact .brand-name {
+  font-family: Georgia, 'Times New Roman', serif;
+  color: #fff;
+  font-size: 1.43rem;
+  letter-spacing: -.045em;
+}
+.ct-sidebar-brand-rule { display:block; height: 1px; margin-top: 24px; background: linear-gradient(90deg, rgba(210,230,245,.38),rgba(210,230,245,.04)); }
+.ct-sidebar-section-label { padding: 6px 11px 12px; color: #a9c4d9; font-size: .67rem; font-weight: 750; letter-spacing: .135em; }
+.ct-sidebar-nav { display: flex; flex-direction: column; gap: 7px; }
+.ct-sidebar .ct-nav-button {
+  position: relative;
+  display: flex;
+  width: 100%;
+  min-height: 66px;
+  align-items: center;
+  gap: 11px;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  padding: 11px 10px;
+  color: #e0edf7;
+  background: transparent;
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: background .16s ease, border-color .16s ease, box-shadow .16s ease;
+}
+.ct-sidebar .ct-nav-button:hover { background: rgba(205,233,252,.12); border-color: rgba(210,236,250,.18); }
+.ct-sidebar .ct-nav-button.is-current {
+  background: linear-gradient(105deg, rgba(62,130,177,.7), rgba(51,111,151,.44));
+  border-color: rgba(172,213,240,.34);
+  box-shadow: inset 3px 0 0 #8bc5ed, 0 5px 18px rgba(4,20,39,.12);
+  color: #fff;
+}
+.ct-nav-icon {
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border: 1px solid rgba(210,235,252,.16);
+  border-radius: 10px;
+  background: rgba(210,235,252,.07);
+  color: #bfdcf0;
+  font-size: 1.05rem;
+}
+.is-current .ct-nav-icon { color: #fff; border-color: rgba(230,242,252,.3); background: rgba(240,248,255,.17); }
+.ct-nav-button-content { min-width:0; display: flex; flex-direction:column; gap: 3px; flex:1; }
+.ct-nav-button-content strong { font-size: .84rem; line-height: 1.27; font-weight: 700; }
+.ct-nav-button-content small { color:#afc6d8; font-size:.68rem; line-height: 1.35; }
+.is-current .ct-nav-button-content small { color:#e2eef7; }
+.ct-nav-chevron { color:#a6bfd4; font-size:.64rem; opacity:0; }
+.ct-nav-button:hover .ct-nav-chevron, .ct-nav-button.is-current .ct-nav-chevron { opacity:1; }
+.ct-sidebar-bottom { margin-top:auto; padding-top:25px; }
+.ct-sidebar-caption { display:flex; align-items:center; gap:10px; padding:13px 10px 18px; color:#acc8da; font-size:.69rem; line-height:1.45; border-top:1px solid rgba(208,232,249,.17); }
+.ct-sidebar-caption-icon { color:#9ed0ef; font-size:1rem; }
+.ct-sidebar-toggle { display:flex; align-items:center; gap:9px; width:100%; min-height:42px; padding:10px 13px; border:1px solid rgba(220,240,255,.22); border-radius:10px; background:rgba(219,241,255,.07); color:#deebf6; font:600 .75rem inherit; cursor:pointer; }
+.ct-sidebar-toggle:hover { background:rgba(219,241,255,.17); }
+.ct-sidebar-toggle:focus-visible, .ct-nav-button:focus-visible { outline:3px solid #a2dcff; outline-offset:3px; }
+.ct-sidebar.is-collapsed .ct-sidebar-brand { padding-inline: 0; text-align:center; }
+.ct-sidebar.is-collapsed .ct-sidebar-brand .brand-lockup { display:block; width:45px; height:45px; margin:auto; }
+.ct-sidebar.is-collapsed .ct-sidebar-section-label { text-align:center; letter-spacing:0; }
+.ct-sidebar.is-collapsed .ct-nav-button { justify-content:center; padding:10px 5px; min-height:59px; }
+.ct-sidebar.is-collapsed .ct-nav-button-content, .ct-sidebar.is-collapsed .ct-nav-chevron { display:none; }
+.ct-sidebar.is-collapsed .ct-sidebar-toggle { justify-content:center; }
+.ct-shell:has(.ct-sidebar.is-collapsed) { grid-template-columns: 78px minmax(0, 1fr); }
+.ct-mobile-nav { display:none; }
+
+/* Make the pre-approved logotype the principal desktop brand in the rail. */
+@media (min-width: 941px) {
+  .ct-shell .header-brand-row { display:none; }
+  .ct-shell .institucional-bar { justify-content:flex-end; }
+}
+.ct-shell .institucional-bar {
+  margin:0 0 25px;
+  padding: 10px 0 16px;
+  border-bottom: 1px solid var(--ct-line);
+  background: transparent;
+}
+.ct-shell .title-action-row { margin-bottom: 27px; }
+.ct-header-workspace .title-action-row {
+  margin-bottom: 16px;
+  padding: 8px 0 15px;
+  border-bottom: 1px solid #dce6ee;
+}
+.ct-header-workspace .governance-header-mark { width:47px; height:47px; }
+.ct-header-workspace .title-area h1 { font-size:1.8rem; }
+.ct-header-dashboard .stats-grid {
+  grid-template-columns: repeat(4, minmax(0,1fr));
+  gap: 15px;
+  margin-bottom: 12px;
+}
+.ct-header-dashboard .stats-grid .personal-workspace-card { grid-column: 1 / -1; min-height: 82px; height: auto; }
+.ct-header-dashboard .stats-grid .personal-workspace-card .personal-workspace-card-icon { width:39px; height:39px; }
+.ct-header-dashboard .stats-grid .personal-workspace-card .personal-workspace-card-copy { flex-direction:row; align-items:baseline; flex-wrap:wrap; gap:4px 13px; }
+.ct-header-dashboard .stats-grid .personal-workspace-card .personal-workspace-card-copy small { display:block; }
+.ct-header-dashboard .stat-card:not(.personal-workspace-card) { min-height: 135px; height:auto; padding:17px 18px; }
+.ct-header-dashboard .stat-card .stat-number { font-size:clamp(1.95rem,2.25vw,2.6rem); margin-top: 9px; }
+.ct-header-dashboard .stat-card .stat-card-decor { width:32px; height:32px; }
+.ct-header-dashboard .stat-card .stat-card-footer { margin-top: 8px; }
+.ct-header-dashboard .urgency-legend { padding: 0 3px; margin-bottom: 24px; }
+
+/* New rhythm below the approved blue operational panorama. */
+.ct-main .governance-composition-grid .governance-card:nth-child(even) { background:linear-gradient(168deg,#fff 58%,#f4f8fc); }
+.ct-main .governance-composition-grid .governance-card:nth-child(odd) { background:linear-gradient(168deg,#fff 58%,#f8fafd); }
+.ct-main .governance-card-title .governance-card-icon { background:#e7f2f9; color:#23648f; }
+.ct-main .governance-section-heading h2 { letter-spacing:-.026em; }
+.ct-main .governance-kicker { letter-spacing:.105em; }
+
+/* Expandable analytics: full functionality remains mounted, visible on demand. */
+.ct-analytics-disclosure {
+  background:#fff;
+  border:1px solid var(--ct-panel-border);
+  border-radius:17px;
+  box-shadow: 0 9px 27px rgba(18,48,73,.065);
+  overflow:hidden;
+}
+.ct-analytics-disclosure > summary {
+  list-style:none;
+  display:flex;
+  align-items:center;
+  gap:17px;
+  min-height:99px;
+  padding:20px 24px;
+  cursor:pointer;
+  background:linear-gradient(112deg,#fff,#f3f8fc);
+}
+.ct-analytics-disclosure > summary::-webkit-details-marker { display:none; }
+.ct-analytics-disclosure > summary:hover { background:#edf5fb; }
+.ct-analytics-disclosure > summary:focus-visible { outline:3px solid #2f6fa5; outline-offset:-3px; }
+.ct-disclosure-icon {
+  flex:0 0 auto;
+  display:grid;
+  place-items:center;
+  width:46px;
+  height:46px;
+  border-radius:13px;
+  background:#e6f0f8;
+  color:#24618f;
+  font-size:1.1rem;
+}
+.ct-disclosure-title { display:flex; flex:1; min-width:0; flex-direction:column; gap:5px; }
+.ct-disclosure-title strong { color:#193b56; font-weight:720; font-size:1.04rem; line-height:1.35; letter-spacing:-.01em; }
+.ct-disclosure-title small { color:#536b7e; font-size:.82rem; line-height:1.45; }
+.ct-disclosure-action { display:inline-flex; align-items:center; gap:13px; color:#27618d; font-size:.77rem; font-weight:730; white-space:nowrap; }
+.ct-disclosure-action i { transition:transform .18s ease; }
+.ct-analytics-disclosure[open] .ct-disclosure-action i { transform:rotate(180deg); }
+.ct-disclosure-body { display:flex; flex-direction:column; gap:25px; padding:25px 22px 26px; border-top:1px solid #dbe5ed; background:linear-gradient(#f9fbfd,#fff); }
+.ct-disclosure-body .governance-section-heading { margin-bottom:5px; }
+.ct-disclosure-body .governance-section { gap:14px; }
+.ct-history-disclosure > summary { background:linear-gradient(110deg,#fff,#f2f7f9); }
+.ct-history-disclosure .ct-disclosure-icon { background:#edf1fa; color:#466b95; }
+.ct-history-disclosure .governance-section-heading.compact { display:none; }
+
+/* Administrative analyses retain their exact original visual language. */
+.admin-panel-container .responsible-distribution-card {
+  border-top:3px solid #2f6fa5;
+  background:linear-gradient(160deg,#fff 84%,#f4f8fc);
+}
+.admin-panel-container #responsible-title { font-size:1.25rem; }
+.admin-panel-container .responsible-legend { padding:6px 0; }
+.admin-panel-container .responsible-row { min-width:0; }
+
+/* Tablet: vertical navigation becomes a compact fixed bottom destination bar. */
+@media (max-width: 940px) {
+  .ct-shell.app-container { display:block; padding: 18px 16px calc(114px + env(safe-area-inset-bottom,0px)); }
+  .ct-sidebar { display:none; }
+  .ct-main { width:100%; }
+  .ct-shell .institucional-bar { margin:-18px -16px 23px; padding:13px 16px; background:#fff; }
+  .ct-shell .header-brand-row { display:flex; }
+  .ct-mobile-nav {
+    position:fixed;
+    z-index:70;
+    display:grid;
+    grid-template-columns:repeat(4,minmax(0,1fr));
+    left:10px;
+    right:10px;
+    bottom:calc(9px + env(safe-area-inset-bottom,0px));
+    min-height:71px;
+    padding:7px;
+    gap:3px;
+    border:1px solid rgba(197,219,233,.64);
+    border-radius:19px;
+    background:rgba(16,44,69,.97);
+    box-shadow:0 18px 45px rgba(11,34,54,.26);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+  }
+  .ct-mobile-nav .ct-nav-button {
+    display:flex;
+    min-width:0;
+    min-height:56px;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:3px;
+    border:1px solid transparent;
+    border-radius:13px;
+    background:transparent;
+    color:#dcebf5;
+    font-family:inherit;
+    cursor:pointer;
+  }
+  .ct-mobile-nav .ct-nav-button.is-current { color:#fff; background:linear-gradient(145deg,#316f9b,#275476); border-color:rgba(164,208,237,.35); box-shadow:inset 0 2px rgba(178,222,246,.26); }
+  .ct-mobile-nav .ct-nav-icon { width:29px; height:29px; border:0; background:transparent; font-size:1.02rem; }
+  .ct-mobile-nav .ct-nav-mobile-label { color:inherit; font-size:.69rem; font-weight:680; line-height:1.1; }
+  .ct-header-dashboard .stats-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .ct-header-dashboard .stats-grid .personal-workspace-card { grid-column:1 / -1; }
+}
+@media (max-width: 540px) {
+  .ct-shell.app-container { padding:14px 14px calc(110px + env(safe-area-inset-bottom,0px)); }
+  .ct-shell .institucional-bar { margin:-14px -14px 20px; padding:10px 14px; }
+  .ct-header-dashboard .stat-card:not(.personal-workspace-card) { min-height:129px; padding:14px; }
+  .ct-header-dashboard .stat-card .stat-card-footer { font-size:.69rem; }
+  .ct-header-dashboard .stats-grid .personal-workspace-card { min-height:81px; }
+  .ct-analytics-disclosure > summary { min-height:91px; padding:15px; gap:11px; }
+  .ct-disclosure-icon { width:38px; height:38px; border-radius:10px; font-size:.98rem; }
+  .ct-disclosure-title strong { font-size:.94rem; }
+  .ct-disclosure-title small { font-size:.76rem; }
+  .ct-disclosure-action { font-size:0; gap:0; }
+  .ct-disclosure-action i { font-size:.85rem; }
+  .ct-disclosure-body { padding:17px 13px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ct-sidebar .ct-nav-button, .ct-disclosure-action i { transition:none; }
+}

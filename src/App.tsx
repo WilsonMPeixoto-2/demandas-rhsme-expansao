@@ -18,6 +18,7 @@ import { useAppSession } from './hooks/useAppSession';
 import { useDemandasData } from './hooks/useDemandasData';
 import { createAppServices, type AppServices } from './services/createAppServices';
 import { Header } from './components/Header';
+import { SiteNavigation } from './components/SiteNavigation';
 import { CarteiraContextHeader } from './components/CarteiraContextHeader';
 import { FilterPanel } from './components/FilterPanel';
 import { AtencaoImediata } from './components/AtencaoImediata';
@@ -608,7 +609,9 @@ const AppContent: React.FC<AppProps> = ({ services }) => {
 
   return (
     <Suspense fallback={activeTab === 'admin' ? <AdminSkeleton /> : isDemandWorkspace ? <TableSkeleton /> : null}>
-      <div className="app-container">
+      <div className="app-container ct-shell">
+        <SiteNavigation activeArea={activeTab} canAccessAdmin={canAccessAdmin} onNavigate={setActiveTab} />
+        <div className="ct-main">
         <Header
           activeArea={activeTab}
           userEmail={userEmail}
@@ -638,51 +641,6 @@ const AppContent: React.FC<AppProps> = ({ services }) => {
           canEdit={canEdit}
           connectionStatus={connectionStatus}
         />
-
-        <nav className="nav-tabs" aria-label="Áreas do sistema">
-          <button
-            type="button"
-            className={`nav-tab-link ${activeTab === 'visao-geral' ? 'active' : ''}`}
-            aria-current={activeTab === 'visao-geral' ? 'page' : undefined}
-            onClick={() => setActiveTab('visao-geral')}
-            title="Abrir o Radar de Governança"
-          >
-            <i className="fa-solid fa-chart-pie" aria-hidden="true" />
-            <span>Radar de Governança</span>
-          </button>
-          <button
-            type="button"
-            className={`nav-tab-link ${activeTab === 'demandas' ? 'active' : ''}`}
-            aria-current={activeTab === 'demandas' ? 'page' : undefined}
-            onClick={() => setActiveTab('demandas')}
-            title="Ver a carteira completa da equipe"
-          >
-            <i className="fa-solid fa-list-check" aria-hidden="true" />
-            <span>Todas as demandas</span>
-          </button>
-          <button
-            type="button"
-            className={`nav-tab-link ${activeTab === 'minhas-demandas' ? 'active' : ''}`}
-            aria-current={activeTab === 'minhas-demandas' ? 'page' : undefined}
-            onClick={() => setActiveTab('minhas-demandas')}
-            title="Ver somente as demandas atribuídas a você"
-          >
-            <i className="fa-solid fa-folder-open" aria-hidden="true" />
-            <span>Minhas demandas</span>
-          </button>
-          {canAccessAdmin && (
-            <button
-              type="button"
-              className={`nav-tab-link ${activeTab === 'admin' ? 'active' : ''}`}
-              aria-current={activeTab === 'admin' ? 'page' : undefined}
-              onClick={() => setActiveTab('admin')}
-              title="Ver e gerenciar configurações e perfis de servidores"
-            >
-              <i className="fa-solid fa-sliders" aria-hidden="true" />
-              <span>Administração</span>
-            </button>
-          )}
-        </nav>
 
         {data.error && (
           <div style={{ padding: '0 24px', marginTop: '20px' }}>
@@ -794,8 +752,8 @@ const AppContent: React.FC<AppProps> = ({ services }) => {
                 }}
               >
                 {appServices.mode === 'supabase'
-                  ? <AdminPanel perfis={perfis} onUpdatePerfil={handleUpdatePerfil} />
-                  : <AdminPanel />}
+                  ? <AdminPanel perfis={perfis} demandas={demandas} onUpdatePerfil={handleUpdatePerfil} />
+                  : <AdminPanel demandas={demandas} />}
               </ErrorBoundary>
             )}
           </>
@@ -921,6 +879,7 @@ const AppContent: React.FC<AppProps> = ({ services }) => {
             onStatus={() => setModalStatusAberto(true)}
           />
         </ErrorBoundary>
+        </div>
       </div>
     </Suspense>
   );

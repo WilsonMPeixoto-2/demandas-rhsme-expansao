@@ -2,12 +2,9 @@ import React from 'react';
 import { ComentarioHistorico, Demanda, DemandStatus } from '../types';
 import { isTechnicalHistoryEvent, presentHistoryEvent } from '../domain/historyPresentation';
 import {
-  GOVERNANCE_STATUS_ORDER,
   getDeadlineCoverage,
   getDefinedFinalDeadlineSituation,
-  getResponsibleDistribution,
   type DeadlineCoverage,
-  type ResponsibleDistributionItem,
 } from '../domain/governanceAnalytics';
 import { getTodayString } from '../utils/date';
 import type { DemandFilters } from '../filters/filterTypes';
@@ -109,49 +106,6 @@ function DeadlineCoverageCard({
   );
 }
 
-function ResponsibleRow({ item }: { item: ResponsibleDistributionItem }) {
-  return (
-    <div className="responsible-row">
-      <div className="responsible-identity">
-        <div className={`responsible-avatar ${item.vinculo !== 'oficial' ? 'pending' : ''}`} aria-hidden="true">
-          {item.nome === 'Sem responsável'
-            ? <i className="fa-solid fa-user-slash" />
-            : item.nome.split(/\s+/).slice(0, 2).map((part) => part[0]).join('').toUpperCase()}
-        </div>
-        <div className="responsible-copy">
-          <strong>{item.nome}</strong>
-          {item.vinculo === 'legado_pendente' && <span className="legacy-link-badge">Responsável não vinculado</span>}
-          {item.vinculo === 'nao_atribuido' && <span className="unassigned-badge">Não atribuído</span>}
-        </div>
-      </div>
-
-      <div className="responsible-volume">
-        <strong>{item.total}</strong>
-        <span>{item.total === 1 ? 'demanda' : 'demandas'}</span>
-      </div>
-
-      <div
-        className="responsible-status-bar"
-        role="img"
-        aria-label={`${item.nome}: ${item.total} demandas distribuídas por status`}
-      >
-        {GOVERNANCE_STATUS_ORDER.map((status) => {
-          const count = item.status[status];
-          if (count === 0) return null;
-          return (
-            <span
-              key={status}
-              className={`responsible-status-segment ${STATUS_CLASS[status]}`}
-              style={{ width: `${percentage(count, item.total)}%` }}
-              title={`${status}: ${count}`}
-            />
-          );
-        })}
-      </div>
-    </div>
-  );
-}
-
 export const VisaoGeral: React.FC<VisaoGeralProps> = ({
   demandas,
   historico,
@@ -191,7 +145,6 @@ export const VisaoGeral: React.FC<VisaoGeralProps> = ({
   const prazoInterno = getDeadlineCoverage(demandas, 'interno');
   const prazoFinal = getDeadlineCoverage(demandas, 'final');
   const situacaoPrazoFinal = getDefinedFinalDeadlineSituation(demandas, getTodayString());
-  const responsaveis = getResponsibleDistribution(demandas);
 
   const ultimasMovimentacoes = historico
     .filter((item) => !isTechnicalHistoryEvent(item))
@@ -259,6 +212,14 @@ export const VisaoGeral: React.FC<VisaoGeralProps> = ({
         </div>
       </section>
 
+      <details className="ct-analytics-disclosure">
+        <summary>
+          <span className="ct-disclosure-icon" aria-hidden="true"><i className="fa-solid fa-chart-column" /></span>
+          <span className="ct-disclosure-title"><strong>Qualidade dos dados e situação dos prazos</strong>
+            <small>Indicadores de preenchimento e vencimentos do acervo, disponíveis para análise detalhada.</small></span>
+          <span className="ct-disclosure-action">Explorar dados <i className="fa-solid fa-chevron-down" aria-hidden="true" /></span>
+        </summary>
+        <div className="ct-disclosure-body">
       <section className="governance-section" aria-labelledby="operational-coverage-title">
         <div className="governance-section-heading">
           <div>
@@ -323,28 +284,17 @@ export const VisaoGeral: React.FC<VisaoGeralProps> = ({
         </article>
       </section>
 
-      <section className="governance-section" aria-labelledby="responsible-title">
-        <div className="governance-section-heading">
-          <div>
-            <span className="governance-kicker">Distribuição da carteira</span>
-            <h2 id="responsible-title">Distribuição por responsável</h2>
-          </div>
         </div>
+      </details>
 
-        <article className="governance-card responsible-distribution-card">
-          <div className="responsible-legend" aria-label="Legenda dos status">
-            {GOVERNANCE_STATUS_ORDER.map((status) => (
-              <span key={status}><i className={`legend-dot status-${STATUS_CLASS[status]}`} />{status}</span>
-            ))}
-          </div>
-          <div className="responsible-list">
-            {responsaveis.length > 0
-              ? responsaveis.map((item) => <ResponsibleRow key={item.key} item={item} />)
-              : <div className="governance-empty">Nenhum responsável disponível.</div>}
-          </div>
-        </article>
-      </section>
-
+      <details className="ct-analytics-disclosure ct-history-disclosure">
+        <summary>
+          <span className="ct-disclosure-icon" aria-hidden="true"><i className="fa-solid fa-clock-rotate-left" /></span>
+          <span className="ct-disclosure-title"><strong>Registros recentes do histórico</strong>
+            <small>Últimas movimentações operacionais e acesso aos processos correspondentes.</small></span>
+          <span className="ct-disclosure-action">Consultar histórico <i className="fa-solid fa-chevron-down" aria-hidden="true" /></span>
+        </summary>
+        <div className="ct-disclosure-body">
       <section className="governance-section" aria-labelledby="history-title">
         <div className="governance-section-heading compact">
           <div>
@@ -382,6 +332,8 @@ export const VisaoGeral: React.FC<VisaoGeralProps> = ({
           ) : <div className="governance-empty">Nenhuma movimentação operacional registrada.</div>}
         </article>
       </section>
+        </div>
+      </details>
     </main>
   );
 };

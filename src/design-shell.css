@@ -297,3 +297,31 @@
   .ct-header-workspace .stat-card:not(.personal-workspace-card) { min-height:86px; padding:12px; }
   .ct-header-workspace .stat-card .stat-number { font-size:1.5rem; }
 }
+
+/* Notebook compact rail: full table width, same navigation and original symbol. */
+.ct-shell.app-container .institucional-bar { margin:0 0 25px; }
+@media (min-width:941px) and (max-width:1450px) {
+  .ct-shell.app-container {
+    grid-template-columns:68px minmax(0,1fr);
+    gap:11px;
+    padding-left:7px;
+    padding-right:7px;
+  }
+  .ct-shell.app-container:has(.ct-sidebar.is-collapsed) { grid-template-columns:68px minmax(0,1fr); }
+  .ct-sidebar-surface { padding:19px 7px 11px; }
+  .ct-sidebar-brand { padding:5px 0 16px; text-align:center; }
+  .ct-sidebar-brand .brand-primary { justify-content:center; }
+  .ct-sidebar-brand .brand-lockup--compact .brand-symbol { width:37px; height:37px; }
+  .ct-sidebar-brand .brand-name { display:none; }
+  .ct-sidebar-brand-rule { margin-top:18px; }
+  .ct-sidebar-section-label { font-size:0; text-align:center; padding:4px 0 11px; }
+  .ct-sidebar-section-label::after { content:"•••"; font-size:.72rem; letter-spacing:.16em; }
+  .ct-sidebar .ct-nav-button { justify-content:center; min-height:57px; padding:7px 4px; gap:0; }
+  .ct-sidebar .ct-nav-button-content {
+    position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+    overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap;
+  }
+  .ct-sidebar.is-collapsed .ct-nav-button-content { display:block; }
+  .ct-sidebar .ct-nav-chevron, .ct-sidebar-caption, .ct-sidebar-toggle span { display:none; }
+  .ct-sidebar-toggle { justify-content:center; padding:11px 4px; }
+}

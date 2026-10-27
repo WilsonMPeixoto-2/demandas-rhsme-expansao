@@ -42,7 +42,7 @@ test('fluxos críticos funcionam sem erros, dependências externas ou estouro ho
   await expect(page.getByText('Modo de demonstração', { exact: true })).toBeVisible();
   await expectNoHorizontalOverflow(page);
 
-  const navigation = page.locator('.nav-tabs');
+  const navigation = page.getByRole('navigation', { name: 'Áreas do sistema' });
   const compositionRegion = page.getByRole('region', { name: 'Composição da carteira' });
   await expect(page.getByRole('button', { name: /^todas as demandas$/i })).toBeVisible();
   await expect(page.getByText('Composição atual', { exact: true })).toHaveCount(0);
@@ -54,7 +54,7 @@ test('fluxos críticos funcionam sem erros, dependências externas ou estouro ho
     const navigationColumnCount = await navigation.evaluate((element) => (
       getComputedStyle(element).gridTemplateColumns.split(/\s+/).filter(Boolean).length
     ));
-    expect(navigationColumnCount).toBe(2);
+    expect(navigationColumnCount).toBe(4);
   }
 
   await testInfo.attach(`navegacao-${testInfo.project.name}`, {

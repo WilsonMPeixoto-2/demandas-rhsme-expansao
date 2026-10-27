@@ -226,6 +226,7 @@
     backdrop-filter:blur(18px);
     -webkit-backdrop-filter:blur(18px);
   }
+  .ct-mobile-nav--3 { grid-template-columns:repeat(3,minmax(0,1fr)); }
   .ct-mobile-nav .ct-nav-button {
     display:flex;
     min-width:0;

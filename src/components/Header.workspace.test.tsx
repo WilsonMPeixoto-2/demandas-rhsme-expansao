@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { describe, expect, it, vi } from 'vitest';
+import { expect, it, vi } from 'vitest';
 import { Header } from './Header';
 
 it('mostra atalhos gerenciais somente no Radar e conserva ações globais', () => {

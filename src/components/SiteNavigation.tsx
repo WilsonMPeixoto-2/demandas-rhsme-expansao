@@ -16,7 +16,7 @@ const AREAS: ReadonlyArray<{ area: SiteArea; text: string; compact: string; icon
     description: 'Carteira completa e filtros' },
   { area: 'minhas-demandas', text: 'Minhas demandas', compact: 'Minhas', icon: 'fa-folder-open',
     description: 'Carteira pessoal de acompanhamento' },
-  { area: 'admin', text: 'Administração', compact: 'Gestão', icon: 'fa-sliders',
+  { area: 'admin', text: 'Administração', compact: 'Admin', icon: 'fa-sliders',
     description: 'Acessos e análises administrativas' },
 ];
 
@@ -67,7 +67,7 @@ export function SiteNavigation({ activeArea, canAccessAdmin, onNavigate }: SiteN
           </div>
         </div>
       </aside>
-      <nav className="ct-mobile-nav" aria-label="Áreas do sistema">
+      <nav className={`ct-mobile-nav ct-mobile-nav--${areas.length}`} aria-label="Áreas do sistema">
         {areas.map((item) => renderButton(item, true))}
       </nav>
     </>

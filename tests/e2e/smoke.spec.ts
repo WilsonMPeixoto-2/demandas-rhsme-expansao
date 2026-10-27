@@ -5,6 +5,22 @@ async function expectNoHorizontalOverflow(page: import('@playwright/test').Page)
     viewport: document.documentElement.clientWidth,
     content: document.documentElement.scrollWidth,
   }));
+  if (overflow.content > overflow.viewport + 1) {
+    const offenders = await page.evaluate(() => {
+      const rightEdge = document.documentElement.clientWidth + 1;
+      return Array.from(document.querySelectorAll<HTMLElement>('body *'))
+        .map((element) => ({ element, rect: element.getBoundingClientRect() }))
+        .filter(({ element, rect }) => rect.width > 0 && rect.right > rightEdge
+          && getComputedStyle(element).position !== 'fixed')
+        .slice(0, 15)
+        .map(({ element, rect }) => ({
+          tag: element.tagName, cssClass: String(element.className).slice(0, 110),
+          left: Math.round(rect.left * 10) / 10, right: Math.round(rect.right * 10) / 10,
+          width: Math.round(rect.width * 10) / 10,
+        }));
+    });
+    console.info('Diagnóstico de transbordamento móvel:', JSON.stringify(offenders));
+  }
   expect(overflow.content).toBeLessThanOrEqual(overflow.viewport + 1);
 }
 

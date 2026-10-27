@@ -325,3 +325,9 @@
   .ct-sidebar .ct-nav-chevron, .ct-sidebar-caption, .ct-sidebar-toggle span { display:none; }
   .ct-sidebar-toggle { justify-content:center; padding:11px 4px; }
 }
+
+/* Mobile workspace containment, independent of the fixed destination rail. */
+@media (max-width: 540px) {
+  .ct-main { width: 100%; max-width: 100%; }
+  .ct-shell .header-container { min-width: 0; }
+}

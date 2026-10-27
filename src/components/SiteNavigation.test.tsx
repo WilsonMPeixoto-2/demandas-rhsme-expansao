@@ -16,6 +16,7 @@ describe('Navegação institucional do CTRH', () => {
     expect(onNavigate).toHaveBeenCalledWith('demandas');
     await userEvent.setup().click(screen.getByRole('button', { name: 'Recolher menu lateral' }));
     expect(screen.getByRole('button', { name: 'Expandir menu lateral' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Todas as demandas' })).toBeInTheDocument();
   });
 
   it('não disponibiliza Administração para perfil sem acesso', () => {

@@ -39,6 +39,7 @@ export function SiteNavigation({ activeArea, canAccessAdmin, onNavigate }: SiteN
               type="button"
               className={`ct-nav-button ${activeArea === area ? 'is-current active' : ''}`}
               aria-current={activeArea === area ? 'page' : undefined}
+              aria-label={collapsed ? text : undefined}
               title={description}
               onClick={() => onNavigate(area)}
             >

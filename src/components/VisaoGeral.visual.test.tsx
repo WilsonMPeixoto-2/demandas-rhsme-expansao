@@ -19,7 +19,7 @@ describe('Radar visual e navegação gerencial', () => {
     const onFilterStatus = vi.fn();
     render(<VisaoGeral demandas={demandas} historico={[]} onOpenEditar={vi.fn()}
       onFilterStatus={onFilterStatus} renderAtencaoImediata={() => null} />);
-    await userEvent.setup().click(screen.getByRole('button', { name: 'Ver 1 demanda com status Tramitado' }));
+    await userEvent.setup().click(screen.getByRole('button', { name: /Tramitado.*1 demanda/ }));
     expect(onFilterStatus).toHaveBeenCalledWith('Tramitado');
   });
 

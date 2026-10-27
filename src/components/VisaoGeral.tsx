@@ -220,7 +220,6 @@ export const VisaoGeral: React.FC<VisaoGeralProps> = ({
                 <div key={item.label} className="progress-bar-group">
                   <button type="button" className="governance-chart-link"
                     onClick={() => onFilterStatus(item.label as DemandStatus)}
-                    aria-label={`Ver ${item.count} ${item.count === 1 ? 'demanda' : 'demandas'} com status ${item.label}`}
                     title={`Abrir carteira filtrada: ${item.label}`}>
                     <div className="progress-bar-labels">
                       <span>{item.label}</span>

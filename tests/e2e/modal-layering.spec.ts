@@ -1,3 +1,4 @@
+import { navigateUsingSiteMenu } from './helpers/siteNavigation';
 import { expect, test } from '@playwright/test';
 
 async function login(page: import('@playwright/test').Page) {
@@ -10,7 +11,7 @@ async function login(page: import('@playwright/test').Page) {
 
 test('modal de edição permanece interativo acima do drawer', async ({ page }) => {
   await login(page);
-  await page.getByRole('button', { name: /^todas as demandas$/i }).click();
+  await navigateUsingSiteMenu(page, /^todas as demandas$/i);
   await page.getByRole('button', { name: /^abrir$/i }).first().click();
   await page.getByRole('button', { name: /^editar$/i }).click();
   await expect(page.getByRole('heading', { name: /editar dados da demanda/i })).toBeVisible();

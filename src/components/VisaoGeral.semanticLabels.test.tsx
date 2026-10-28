@@ -2,6 +2,7 @@ import { cleanup, render, screen } from '@testing-library/react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { createMinimalDemandFixture } from '../test/expandedFixtures';
 import { VisaoGeral } from './VisaoGeral';
+import { ResponsibleDistribution } from './ResponsibleDistribution';
 
 const demandas = [
   createMinimalDemandFixture({
@@ -47,16 +48,22 @@ describe('semânticas do Radar de Governança', () => {
     expect(screen.queryByRole('heading', { name: 'Leitura da carteira' })).not.toBeInTheDocument();
     expect(screen.getByRole('region', { name: 'Composição da carteira' })).toBeVisible();
     expect(screen.queryByText('Visão estratégica do fluxo de trabalho, com análise de dados e monitoramento da carteira de demandas.')).not.toBeInTheDocument();
-    expect(screen.getByRole('heading', { name: 'Cobertura dos prazos' })).toBeVisible();
-    expect(screen.getByRole('heading', { name: 'Distribuição por responsável' })).toBeVisible();
+    expect(screen.getByText('Qualidade dos dados e situação dos prazos')).toBeVisible();
+    expect(screen.queryByRole('heading', { name: 'Distribuição por responsável' })).not.toBeInTheDocument();
     expect(screen.getByRole('heading', { name: 'Demandas por setor informado' })).toBeVisible();
-    expect(screen.getByText('Vanessa Migrado')).toBeVisible();
-    expect(screen.getByText('Responsável não vinculado')).toBeVisible();
+    expect(screen.queryByText('Vanessa Migrado')).not.toBeInTheDocument();
     expect(screen.queryByText(/vínculo legado/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/setores mais ativos/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/ranking/i)).not.toBeInTheDocument();
     expect(screen.queryByText('Distribuições calculadas sobre as demandas atualmente registradas, sem inferência de produtividade ou desempenho.')).not.toBeInTheDocument();
     expect(screen.queryByText('A ausência de prazo é apresentada como ausência de informação e não como situação regular.')).not.toBeInTheDocument();
     expect(screen.queryByText('Volume e composição por status. A leitura não representa produtividade, desempenho ou carga equivalente de trabalho.')).not.toBeInTheDocument();
+  });
+
+  it('mantém a análise por servidor no componente administrativo', () => {
+    render(<ResponsibleDistribution demandas={demandas} />);
+    expect(screen.getByRole('heading', { name: 'Distribuição por responsável' })).toBeVisible();
+    expect(screen.getByText('Vanessa Migrado')).toBeVisible();
+    expect(screen.getByText('Responsável não vinculado')).toBeVisible();
   });
 });

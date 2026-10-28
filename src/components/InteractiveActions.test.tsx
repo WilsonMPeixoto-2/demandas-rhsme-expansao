@@ -177,6 +177,7 @@ describe('ações interativas da interface', () => {
       />,
     );
 
+    await userEvent.setup().click(screen.getByText('Consultar histórico').closest('summary')!);
     await userEvent.setup().click(screen.getByRole('button', { name: /ver processo/i }));
     expect(onOpen).toHaveBeenCalledWith(demanda);
   });

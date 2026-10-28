@@ -1,3 +1,4 @@
+import { navigateUsingSiteMenu, openSiteMenu } from './helpers/siteNavigation';
 import { expect, test } from '@playwright/test';
 
 async function expectNoHorizontalOverflow(page: import('@playwright/test').Page) {
@@ -5,6 +6,22 @@ async function expectNoHorizontalOverflow(page: import('@playwright/test').Page)
     viewport: document.documentElement.clientWidth,
     content: document.documentElement.scrollWidth,
   }));
+  if (overflow.content > overflow.viewport + 1) {
+    const offenders = await page.evaluate(() => {
+      const rightEdge = document.documentElement.clientWidth + 1;
+      return Array.from(document.querySelectorAll<HTMLElement>('body *'))
+        .map((element) => ({ element, rect: element.getBoundingClientRect() }))
+        .filter(({ element, rect }) => rect.width > 0 && rect.right > rightEdge
+          && getComputedStyle(element).position !== 'fixed')
+        .slice(0, 15)
+        .map(({ element, rect }) => ({
+          tag: element.tagName, cssClass: String(element.className).slice(0, 110),
+          left: Math.round(rect.left * 10) / 10, right: Math.round(rect.right * 10) / 10,
+          width: Math.round(rect.width * 10) / 10,
+        }));
+    });
+    console.info('Diagnóstico de transbordamento móvel:', JSON.stringify(offenders));
+  }
   expect(overflow.content).toBeLessThanOrEqual(overflow.viewport + 1);
 }
 
@@ -42,19 +59,21 @@ test('fluxos críticos funcionam sem erros, dependências externas ou estouro ho
   await expect(page.getByText('Modo de demonstração', { exact: true })).toBeVisible();
   await expectNoHorizontalOverflow(page);
 
-  const navigation = page.locator('.nav-tabs');
+  const navigation = page.getByRole('navigation', { name: 'Áreas do sistema' });
   const compositionRegion = page.getByRole('region', { name: 'Composição da carteira' });
-  await expect(page.getByRole('button', { name: /^todas as demandas$/i })).toBeVisible();
+  await openSiteMenu(page);
+  await expect(navigation.getByRole('button', { name: /^todas as demandas$/i })).toBeVisible();
   await expect(page.getByText('Composição atual', { exact: true })).toHaveCount(0);
   await expect(page.getByRole('heading', { name: 'Leitura da carteira' })).toHaveCount(0);
   await expect(compositionRegion).toBeVisible();
   await expectNoHorizontalOverflow(page);
 
   if (testInfo.project.name === 'chromium-mobile') {
-    const navigationColumnCount = await navigation.evaluate((element) => (
-      getComputedStyle(element).gridTemplateColumns.split(/\s+/).filter(Boolean).length
-    ));
-    expect(navigationColumnCount).toBe(2);
+    const layout = await navigation.evaluate((element) => ({
+      display: getComputedStyle(element).display,
+      direction: getComputedStyle(element).flexDirection,
+    }));
+    expect(layout).toEqual({ display: 'flex', direction: 'column' });
   }
 
   await testInfo.attach(`navegacao-${testInfo.project.name}`, {
@@ -66,6 +85,9 @@ test('fluxos críticos funcionam sem erros, dependências externas ou estouro ho
     contentType: 'image/png',
   });
 
+  const menuCloser = page.getByRole('button', { name: 'Fechar menu lateral' });
+  if (await menuCloser.isVisible()) await menuCloser.click();
+
   const downloadPromise = page.waitForEvent('download');
   await page.getByRole('button', { name: /exportar excel/i }).click();
   const download = await downloadPromise;
@@ -75,7 +97,7 @@ test('fluxos críticos funcionam sem erros, dependências externas ou estouro ho
   await expect(page.getByRole('heading', { name: /nova demanda/i })).toBeVisible();
   await page.getByRole('button', { name: /^cancelar$/i }).click();
 
-  await page.getByRole('button', { name: /^todas as demandas$/i }).click();
+  await navigateUsingSiteMenu(page, /^todas as demandas$/i);
   await page.getByRole('button', { name: /^abrir$/i }).first().click();
   await expect(page.getByRole('heading', { name: /processo nº/i })).toBeVisible();
   await page.getByRole('button', { name: /^editar$/i }).click();

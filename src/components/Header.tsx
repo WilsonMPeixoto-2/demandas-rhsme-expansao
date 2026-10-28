@@ -111,7 +111,7 @@ export const Header: React.FC<HeaderProps> = ({
   const activeAreaPresentation = HEADER_AREA[activeArea];
 
   return (
-    <header className="header-container">
+    <header className={`header-container ${activeArea === 'visao-geral' ? 'ct-header-dashboard' : 'ct-header-workspace'}`}>
       <div className="institucional-bar">
         <div className="inst-left header-brand-row">
           <BrandLogo variant="full" />
@@ -206,6 +206,8 @@ export const Header: React.FC<HeaderProps> = ({
         </div>
       </div>
 
+      {activeArea !== 'admin' && (
+        <>
       <div className="stats-grid">
         <button
           type="button"
@@ -288,6 +290,8 @@ export const Header: React.FC<HeaderProps> = ({
         />
         <span>{legendaCriticas}</span>
       </div>
+        </>
+      )}
     </header>
   );
 };

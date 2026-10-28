@@ -1,3 +1,4 @@
+import { expectSiteAreaActive, navigateUsingSiteMenu } from './helpers/siteNavigation';
 import { expect, test, type Page } from '@playwright/test';
 
 async function login(page: Page) {
@@ -10,7 +11,7 @@ async function login(page: Page) {
 
 test('rotas e filtros preservam o contexto de navegação', async ({ page }) => {
   await login(page);
-  await page.getByRole('button', { name: /^todas as demandas$/i }).click();
+  await navigateUsingSiteMenu(page, /^todas as demandas$/i);
   await page.getByLabel(/^status$/i).selectOption('todos');
   await expect.poll(() => new URL(page.url()).searchParams.get('status')).toBe('todos');
 
@@ -32,6 +33,6 @@ test('URL legada de escopo pessoal migra para a rota própria', async ({ page })
   await page.goto('/demandas?escopo=meu&status=todos');
 
   await expect(page).toHaveURL(/\/minhas-demandas\?status=todos$/);
-  await expect(page.getByRole('button', { name: /^minhas demandas$/i })).toHaveAttribute('aria-current', 'page');
+  await expectSiteAreaActive(page, /^minhas demandas$/i);
   await expect(page.getByRole('heading', { name: 'Minhas demandas' })).toBeVisible();
 });

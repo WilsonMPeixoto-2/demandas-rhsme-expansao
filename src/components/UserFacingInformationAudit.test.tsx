@@ -4,6 +4,7 @@ import { createDemandFixture, createHistoryFixture } from '../test/expandedFixtu
 import { DemandDetailDrawer } from './DemandDetailDrawer';
 import { ModalEditar } from './ModalEditar';
 import { VisaoGeral } from './VisaoGeral';
+import { ResponsibleDistribution } from './ResponsibleDistribution';
 
 const legacyDemand = createDemandFixture({
   id: 42,
@@ -126,15 +127,7 @@ describe('informações apresentadas ao usuário', () => {
   });
 
   it('usa linguagem neutra para cadastros de responsável ainda não associados', () => {
-    render(
-      <VisaoGeral
-        demandas={[legacyDemand]}
-        historico={[]}
-        onOpenEditar={vi.fn()}
-        onFilterStatus={vi.fn()}
-        renderAtencaoImediata={() => null}
-      />,
-    );
+    render(<ResponsibleDistribution demandas={[legacyDemand]} />);
 
     expect(screen.getByText('Responsável não vinculado')).toBeVisible();
     expect(screen.queryByText(/vínculo legado/i)).not.toBeInTheDocument();
@@ -161,6 +154,7 @@ describe('informações apresentadas ao usuário', () => {
       />,
     );
 
+    fireEvent.click(screen.getByText('Consultar histórico').closest('summary')!);
     expect(screen.getByText('Processo não localizado')).toBeVisible();
     expect(screen.queryByText(/Processo #999/i)).not.toBeInTheDocument();
   });

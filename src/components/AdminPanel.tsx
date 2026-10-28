@@ -4,6 +4,7 @@ import type { ComentarioHistorico, Demanda, PerfilUsuario } from '../types';
 import { getUserFacingError } from '../domain/userFacingErrors';
 import { AdminProfileDialog } from './AdminProfileDialog';
 import { AdminTrashPanel } from './AdminTrashPanel';
+import { ResponsibleDistribution } from './ResponsibleDistribution';
 
 export interface ServidorPerfil {
   id: string;
@@ -18,6 +19,7 @@ export interface ServidorPerfil {
 
 interface AdminPanelProps {
   perfis?: PerfilUsuario[];
+  demandas?: Demanda[];
   onUpdatePerfil?: (
     id: string,
     patch: Partial<Pick<PerfilUsuario, 'nivel' | 'status' | 'setor'>>,
@@ -100,7 +102,7 @@ export function analyzeAccessIntegrity(servidores: ServidorPerfil[]): AccessInte
   };
 }
 
-export const AdminPanel: React.FC<AdminPanelProps> = ({ perfis, onUpdatePerfil }) => {
+export const AdminPanel: React.FC<AdminPanelProps> = ({ perfis, demandas = [], onUpdatePerfil }) => {
   const isSupabase = perfis !== undefined;
   const [perfilEmEdicao, setPerfilEmEdicao] = useState<PerfilUsuario | null>(null);
   const [trashDemandas, setTrashDemandas] = useState<Demanda[]>([]);
@@ -227,6 +229,8 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ perfis, onUpdatePerfil }
           </div>
         </div>
       </div>
+
+      <ResponsibleDistribution demandas={demandas} />
 
       {isSupabase && (
         <AdminTrashPanel

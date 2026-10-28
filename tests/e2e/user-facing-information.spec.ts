@@ -1,3 +1,4 @@
+import { navigateUsingSiteMenu } from './helpers/siteNavigation';
 import { expect, test } from '@playwright/test';
 
 async function signIn(page: import('@playwright/test').Page) {
@@ -44,7 +45,7 @@ async function expectProfessionalControlLayout(dialog: import('@playwright/test'
 
 test('edição apresenta somente informações úteis, motivo contextual e orientação ao salvar', async ({ page }, testInfo) => {
   await signIn(page);
-  await page.getByRole('button', { name: /^todas as demandas$/i }).click();
+  await navigateUsingSiteMenu(page, /^todas as demandas$/i);
 
   const search = page.getByRole('combobox', { name: /busca por texto/i });
   await search.fill('DEMO-OUT-2026-005');

@@ -1,4 +1,4 @@
-import { cleanup, render, screen } from '@testing-library/react';
+import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { createMinimalDemandFixture } from '../test/expandedFixtures';
@@ -39,6 +39,7 @@ describe('Radar visual e navegação gerencial', () => {
   it('apresenta cobertura real, sem inferir atraso do legado', () => {
     render(<VisaoGeral demandas={demandas} historico={[]} onOpenEditar={vi.fn()}
       onFilterStatus={vi.fn()} renderAtencaoImediata={() => null} />);
+    fireEvent.click(screen.getByText('Explorar dados').closest('summary')!);
     expect(screen.getByRole('progressbar', { name: 'Próxima providência programada' }))
       .toHaveAttribute('aria-valuenow', '50');
     expect(screen.getByRole('progressbar', { name: 'Vínculo com o processo oficial' }))

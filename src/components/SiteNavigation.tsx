@@ -63,6 +63,7 @@ export function SiteNavigation({ activeArea, canAccessAdmin, onNavigate }: SiteN
   }, [mobileOpen]);
 
   useEffect(() => {
+    if (!window.matchMedia) return;
     const media = window.matchMedia('(min-width: 941px)');
     const onDesktop = (event: MediaQueryListEvent) => {
       if (event.matches) setMobileOpen(false);

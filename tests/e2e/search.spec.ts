@@ -1,3 +1,4 @@
+import { expectSiteAreaActive, navigateUsingSiteMenu } from './helpers/siteNavigation';
 import { expect, test } from '@playwright/test';
 
 async function login(page: import('@playwright/test').Page) {
@@ -10,7 +11,7 @@ async function login(page: import('@playwright/test').Page) {
 
 test('busca avançada encontra campos distribuídos, histórico e número sem pontuação', async ({ page }) => {
   await login(page);
-  await page.getByRole('button', { name: /^todas as demandas$/i }).click();
+  await navigateUsingSiteMenu(page, /^todas as demandas$/i);
 
   const search = page.getByRole('combobox', { name: /busca por texto/i });
   await search.fill('cessao demonstracao 2026');
@@ -29,7 +30,7 @@ test('busca avançada encontra campos distribuídos, histórico e número sem po
 
 test('busca sem resultado exato apresenta sugestões próximas explicadas', async ({ page }) => {
   await login(page);
-  await page.getByRole('button', { name: /^todas as demandas$/i }).click();
+  await navigateUsingSiteMenu(page, /^todas as demandas$/i);
 
   const search = page.getByRole('combobox', { name: /busca por texto/i });
   await search.fill('cessao demonstracao 2099');
@@ -45,7 +46,7 @@ test('busca sem resultado exato apresenta sugestões próximas explicadas', asyn
 
 test('buscas recentes, atalho e período funcionam por teclado', async ({ page }) => {
   await login(page);
-  await page.getByRole('button', { name: /^todas as demandas$/i }).click();
+  await navigateUsingSiteMenu(page, /^todas as demandas$/i);
 
   const search = page.getByRole('combobox', { name: /busca por texto/i });
   await search.fill('cessao demonstracao 2026');
@@ -53,9 +54,9 @@ test('buscas recentes, atalho e período funcionam por teclado', async ({ page }
   await search.fill('');
   await expect(page.getByRole('button', { name: /cessao demonstracao 2026/i })).toBeVisible();
 
-  await page.getByRole('button', { name: /^radar de governança$/i }).click();
+  await navigateUsingSiteMenu(page, /^radar de governança$/i);
   await page.keyboard.press(process.platform === 'darwin' ? 'Meta+K' : 'Control+K');
-  await expect(page.getByRole('button', { name: /^todas as demandas$/i })).toHaveAttribute('aria-current', 'page');
+  await expectSiteAreaActive(page, /^todas as demandas$/i);
   await expect(page.getByRole('combobox', { name: /busca por texto/i })).toBeFocused();
 
   await page.getByRole('button', { name: /^mais filtros$/i }).click();

@@ -1,3 +1,4 @@
+import { navigateUsingSiteMenu } from './helpers/siteNavigation';
 import { expect, test, type Page } from '@playwright/test';
 
 async function login(page: Page) {
@@ -9,7 +10,7 @@ async function login(page: Page) {
 }
 
 async function openAllDemands(page: Page) {
-  await page.getByRole('button', { name: /^todas as demandas$/i }).click();
+  await navigateUsingSiteMenu(page, /^todas as demandas$/i);
   await expect(page.getByRole('heading', { name: 'Todas as demandas' })).toBeVisible();
 }
 

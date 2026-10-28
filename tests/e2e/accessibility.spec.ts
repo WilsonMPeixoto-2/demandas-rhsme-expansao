@@ -1,3 +1,4 @@
+import { navigateUsingSiteMenu } from './helpers/siteNavigation';
 import AxeBuilder from '@axe-core/playwright';
 import { expect, test, type Page } from '@playwright/test';
 
@@ -55,11 +56,11 @@ test('visão geral, demandas e administração são acessíveis', async ({ page 
   await login(page);
   await expectAccessible(page, 'visão geral');
 
-  await page.getByRole('button', { name: /^todas as demandas$/i }).click();
+  await navigateUsingSiteMenu(page, /^todas as demandas$/i);
   await expect(page.getByLabel(/^status$/i)).toBeVisible();
   await expectAccessible(page, 'demandas');
 
-  await page.getByRole('button', { name: /^administração$/i }).click();
+  await navigateUsingSiteMenu(page, /^administração$/i);
   await expect(page.getByRole('heading', { name: /segurança e integridade/i })).toBeVisible();
   await expectAccessible(page, 'administração');
 });
@@ -72,7 +73,7 @@ test('diálogo e painel de detalhes são acessíveis', async ({ page }) => {
   await expectAccessible(page, 'nova demanda', '.radix-dialog-content');
   await page.getByRole('button', { name: /^cancelar$/i }).click();
 
-  await page.getByRole('button', { name: /^todas as demandas$/i }).click();
+  await navigateUsingSiteMenu(page, /^todas as demandas$/i);
   await page.getByRole('row').nth(1).getByRole('button', { name: /^abrir$/i }).click();
   await expect(page.getByRole('heading', { name: /processo nº/i })).toBeVisible();
   await expectAccessible(page, 'detalhe da demanda', '.drawer-content');

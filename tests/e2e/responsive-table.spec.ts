@@ -1,3 +1,4 @@
+import { navigateUsingSiteMenu } from './helpers/siteNavigation';
 import { expect, test, type Page, type TestInfo } from '@playwright/test';
 
 async function loginAndOpenDemandas(page: Page) {
@@ -6,7 +7,7 @@ async function loginAndOpenDemandas(page: Page) {
   await page.getByPlaceholder('••••••••').first().fill('senha-local-teste');
   await page.getByRole('button', { name: /acessar sistema/i }).click();
   await expect(page.getByRole('button', { name: /sair/i })).toBeVisible();
-  await page.getByRole('button', { name: /^todas as demandas$/i }).click();
+  await navigateUsingSiteMenu(page, /^todas as demandas$/i);
   await expect(page.getByRole('region', { name: /tabela de demandas/i })).toBeVisible();
 }
 

@@ -1,3 +1,4 @@
+import { navigateUsingSiteMenu, openSiteMenu } from './helpers/siteNavigation';
 import { expect, test } from '@playwright/test';
 
 async function expectNoHorizontalOverflow(page: import('@playwright/test').Page) {
@@ -60,7 +61,8 @@ test('fluxos críticos funcionam sem erros, dependências externas ou estouro ho
 
   const navigation = page.getByRole('navigation', { name: 'Áreas do sistema' });
   const compositionRegion = page.getByRole('region', { name: 'Composição da carteira' });
-  await expect(page.getByRole('button', { name: /^todas as demandas$/i })).toBeVisible();
+  await openSiteMenu(page);
+  await expect(navigation.getByRole('button', { name: /^todas as demandas$/i })).toBeVisible();
   await expect(page.getByText('Composição atual', { exact: true })).toHaveCount(0);
   await expect(page.getByRole('heading', { name: 'Leitura da carteira' })).toHaveCount(0);
   await expect(compositionRegion).toBeVisible();
@@ -70,7 +72,7 @@ test('fluxos críticos funcionam sem erros, dependências externas ou estouro ho
     const navigationColumnCount = await navigation.evaluate((element) => (
       getComputedStyle(element).gridTemplateColumns.split(/\s+/).filter(Boolean).length
     ));
-    expect(navigationColumnCount).toBe(4);
+    expect(navigationColumnCount).toBe(1);
   }
 
   await testInfo.attach(`navegacao-${testInfo.project.name}`, {
@@ -82,6 +84,9 @@ test('fluxos críticos funcionam sem erros, dependências externas ou estouro ho
     contentType: 'image/png',
   });
 
+  const menuCloser = page.getByRole('button', { name: 'Fechar menu lateral' });
+  if (await menuCloser.isVisible()) await menuCloser.click();
+
   const downloadPromise = page.waitForEvent('download');
   await page.getByRole('button', { name: /exportar excel/i }).click();
   const download = await downloadPromise;
@@ -91,7 +96,7 @@ test('fluxos críticos funcionam sem erros, dependências externas ou estouro ho
   await expect(page.getByRole('heading', { name: /nova demanda/i })).toBeVisible();
   await page.getByRole('button', { name: /^cancelar$/i }).click();
 
-  await page.getByRole('button', { name: /^todas as demandas$/i }).click();
+  await navigateUsingSiteMenu(page, /^todas as demandas$/i);
   await page.getByRole('button', { name: /^abrir$/i }).first().click();
   await expect(page.getByRole('heading', { name: /processo nº/i })).toBeVisible();
   await page.getByRole('button', { name: /^editar$/i }).click();

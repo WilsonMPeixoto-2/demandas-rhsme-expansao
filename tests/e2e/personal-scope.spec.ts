@@ -1,3 +1,4 @@
+import { expectSiteAreaActive, navigateUsingSiteMenu } from './helpers/siteNavigation';
 import { expect, test, type Page } from '@playwright/test';
 
 async function login(page: Page) {
@@ -18,20 +19,20 @@ test('cartão, aba e alternador conectam as duas carteiras', async ({ page }) =>
   await personalCard.click();
 
   await expect(page).toHaveURL(/\/minhas-demandas(?:\?|$)/);
-  await expect(page.getByRole('button', { name: /^minhas demandas$/i })).toHaveAttribute('aria-current', 'page');
+  await expectSiteAreaActive(page, /^minhas demandas$/i);
   await expect(page.getByRole('heading', { name: 'Minhas demandas' })).toBeVisible();
   await expect(page.getByRole('button', { name: 'Demandas Equipe CTRH' })).toBeVisible();
-  await expect(page.getByRole('button', { name: /^minhas demandas$/i })).toHaveAttribute('aria-current', 'page');
+  await expectSiteAreaActive(page, /^minhas demandas$/i);
   await expect(page.getByRole('button', { name: /em acompanhamento/i })).toBeVisible();
 
   await page.getByRole('button', { name: 'Demandas Equipe CTRH' }).click();
 
   await expect(page).toHaveURL(/\/demandas(?:\?|$)/);
-  await expect(page.getByRole('button', { name: /^todas as demandas$/i })).toHaveAttribute('aria-current', 'page');
+  await expectSiteAreaActive(page, /^todas as demandas$/i);
   await expect(page.getByRole('heading', { name: 'Todas as demandas' })).toBeVisible();
   await expect(page.getByRole('button', { name: 'Ver minhas demandas' })).toBeVisible();
 
-  await page.getByRole('button', { name: /^minhas demandas$/i }).click();
+  await navigateUsingSiteMenu(page, /^minhas demandas$/i);
   await expect(page).toHaveURL(/\/minhas-demandas(?:\?|$)/);
 
   await page.getByLabel(/busca por texto/i).fill('processo');

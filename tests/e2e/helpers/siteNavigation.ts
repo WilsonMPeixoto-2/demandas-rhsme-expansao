@@ -2,7 +2,8 @@ import { expect, type Page } from '@playwright/test';
 
 export async function openSiteMenu(page: Page) {
   const opener = page.getByRole('button', { name: 'Abrir menu principal' });
-  if (await opener.isVisible()) {
+  if ((page.viewportSize()?.width ?? 1280) <= 940) {
+    await expect(opener).toBeVisible();
     await opener.click();
     await expect(page.getByRole('button', { name: 'Fechar menu lateral' })).toBeVisible();
   }

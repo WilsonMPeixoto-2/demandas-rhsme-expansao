@@ -55,8 +55,9 @@ test('buscas recentes, atalho e período funcionam por teclado', async ({ page }
   await expect(page.getByRole('button', { name: /cessao demonstracao 2026/i })).toBeVisible();
 
   await navigateUsingSiteMenu(page, /^radar de governança$/i);
+  await expectSiteAreaActive(page, /^radar de governança$/i);
   await page.keyboard.press(process.platform === 'darwin' ? 'Meta+K' : 'Control+K');
-  await expectSiteAreaActive(page, /^todas as demandas$/i);
+  await expect(page.getByRole('heading', { name: 'Todas as demandas' })).toBeVisible();
   await expect(page.getByRole('combobox', { name: /busca por texto/i })).toBeFocused();
 
   await page.getByRole('button', { name: /^mais filtros$/i }).click();

@@ -69,10 +69,11 @@ test('fluxos críticos funcionam sem erros, dependências externas ou estouro ho
   await expectNoHorizontalOverflow(page);
 
   if (testInfo.project.name === 'chromium-mobile') {
-    const navigationColumnCount = await navigation.evaluate((element) => (
-      getComputedStyle(element).gridTemplateColumns.split(/\s+/).filter(Boolean).length
-    ));
-    expect(navigationColumnCount).toBe(1);
+    const layout = await navigation.evaluate((element) => ({
+      display: getComputedStyle(element).display,
+      direction: getComputedStyle(element).flexDirection,
+    }));
+    expect(layout).toEqual({ display: 'flex', direction: 'column' });
   }
 
   await testInfo.attach(`navegacao-${testInfo.project.name}`, {

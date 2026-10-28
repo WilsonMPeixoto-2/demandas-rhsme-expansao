@@ -2,6 +2,7 @@ import React, { lazy, Suspense, useEffect, useMemo, useRef, useState } from 'rea
 import { BrowserRouter, useInRouterContext, useLocation, useNavigate, useSearchParams } from 'react-router';
 import { Toaster, toast } from 'sonner';
 import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 import type {
   CreateDemandaInput,
   DeleteDemandaInput,
@@ -903,6 +904,7 @@ export const App: React.FC<AppProps> = (props) => {
       </ErrorBoundary>
       <Toaster richColors position="top-right" closeButton duration={4200} />
       <Analytics />
+      <SpeedInsights />
     </>
   );
 };

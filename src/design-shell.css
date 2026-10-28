@@ -333,3 +333,204 @@
   .ct-main { width: 100%; max-width: 100%; }
   .ct-shell .header-container { min-width: 0; }
 }
+
+
+/* Fluxo CTRH: navegação lateral retrátil também em telas estreitas.
+   Esta camada substitui exclusivamente o padrão anterior de barra inferior. */
+.ct-mobile-menu-bar, .ct-mobile-menu-backdrop, .ct-mobile-sidebar-close { display: none; }
+
+@media (max-width: 940px) {
+  .ct-shell.app-container {
+    padding-bottom: 30px;
+  }
+  .ct-mobile-menu-bar {
+    display: flex;
+    position: sticky;
+    top: 0;
+    z-index: 68;
+    margin: -18px -16px 18px;
+    padding: 12px 16px;
+    min-height: 68px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    background: rgba(248, 251, 253, .97);
+    border-bottom: 1px solid #d7e3ee;
+    box-shadow: 0 9px 26px rgba(20, 54, 80, .08);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+  .ct-mobile-menu-trigger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 9px 16px;
+    gap: 10px;
+    border: 1px solid #2c628b;
+    border-radius: 11px;
+    color: #fff;
+    background: linear-gradient(133deg, #17324d, #245b81);
+    box-shadow: 0 6px 15px rgba(22, 55, 82, .18);
+    font: 700 .86rem inherit;
+    cursor: pointer;
+  }
+  .ct-mobile-menu-trigger i { font-size: 1rem; }
+  .ct-mobile-menu-context {
+    display:flex;
+    align-items:center;
+    justify-content: flex-end;
+    min-width: 0;
+    gap: 10px;
+    font-size: .85rem;
+    color: #17324d;
+  }
+  .ct-mobile-menu-context .brand-symbol { width: 29px; height: 29px; flex-shrink: 0; }
+  .ct-mobile-menu-context strong { white-space: nowrap; }
+  .ct-mobile-menu-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 90;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border: 0;
+    background: rgba(6, 27, 44, .53);
+    cursor: pointer;
+  }
+  .ct-sidebar, .ct-sidebar.is-collapsed {
+    position: fixed;
+    z-index: 95;
+    top: 0;
+    left: 0;
+    right: auto;
+    bottom: 0;
+    display: block;
+    width: min(86vw, 320px);
+    height: 100dvh;
+    max-height: 100dvh;
+    transform: translateX(-105%);
+    visibility: hidden;
+    pointer-events: none;
+    transition: transform .22s ease, visibility .22s ease;
+  }
+  .ct-sidebar--open, .ct-sidebar.is-collapsed.ct-sidebar--open {
+    transform: translateX(0);
+    visibility: visible;
+    pointer-events: auto;
+  }
+  .ct-sidebar-surface {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    max-height: 100%;
+    padding: 25px 14px 16px;
+    border-radius: 0 21px 21px 0;
+    background:
+      radial-gradient(ellipse at 110% -8%, rgba(120, 181, 220, .2), transparent 48%),
+      linear-gradient(155deg, #0c263f 5%, #133a5a 65%, #164465);
+    box-shadow: 12px 0 44px rgba(5, 23, 39, .24);
+  }
+  .ct-sidebar-brand, .ct-sidebar.is-collapsed .ct-sidebar-brand {
+    position:relative;
+    display:block;
+    padding: 7px 44px 22px 9px;
+    text-align:left;
+  }
+  .ct-sidebar-brand .brand-lockup,
+  .ct-sidebar.is-collapsed .ct-sidebar-brand .brand-lockup {
+    display:flex;
+    align-items:center;
+    height: auto;
+    width: auto;
+    margin: 0;
+  }
+  .ct-mobile-sidebar-close {
+    display:grid;
+    position:absolute;
+    top:4px;
+    right:-1px;
+    width:41px;
+    height:41px;
+    place-items:center;
+    border:1px solid rgba(211,236,251,.28);
+    border-radius:11px;
+    color:#fff;
+    background:rgba(213,237,251,.1);
+    cursor:pointer;
+    font-size:1.1rem;
+  }
+  .ct-sidebar-section-label, .ct-sidebar.is-collapsed .ct-sidebar-section-label {
+    display:block;
+    padding: 5px 10px 13px;
+    font-size:.68rem;
+    text-align:left;
+    letter-spacing:.13em;
+  }
+  .ct-sidebar-nav, .ct-sidebar-nav--3, .ct-sidebar-nav--4 {
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+  }
+  .ct-sidebar .ct-nav-button, .ct-sidebar.is-collapsed .ct-nav-button {
+    display:flex;
+    justify-content:flex-start;
+    flex-direction:row;
+    align-items:center;
+    min-height:66px;
+    gap:11px;
+    padding:11px 10px;
+    background:transparent;
+    border:1px solid transparent;
+    text-align:left;
+  }
+  .ct-sidebar .ct-nav-button.is-current {
+    background:linear-gradient(105deg,rgba(62,130,177,.7),rgba(51,111,151,.44));
+    border-color:rgba(172,213,240,.34);
+  }
+  .ct-sidebar .ct-nav-icon {
+    flex:0 0 auto;
+    width:38px;
+    height:38px;
+    border:1px solid rgba(210,235,252,.16);
+    background:rgba(210,235,252,.07);
+    border-radius:10px;
+    font-size:1.03rem;
+  }
+  .ct-sidebar .ct-nav-button-content, .ct-sidebar.is-collapsed .ct-nav-button-content {
+    position:static;
+    display:flex;
+    flex:1;
+    width:auto;
+    height:auto;
+    min-width:0;
+    margin:0;
+    padding:0;
+    border:0;
+    overflow:visible;
+    clip:auto;
+    white-space:normal;
+  }
+  .ct-sidebar .ct-nav-chevron, .ct-sidebar.is-collapsed .ct-nav-chevron {
+    display:block;
+    opacity:0;
+  }
+  .ct-sidebar .ct-nav-button.is-current .ct-nav-chevron { opacity:1; }
+  .ct-sidebar-bottom, .ct-sidebar.is-collapsed .ct-sidebar-bottom { display:block; }
+  .ct-sidebar .ct-sidebar-caption { display:flex; }
+  .ct-sidebar .ct-sidebar-toggle { display:none; }
+  .ct-mobile-menu-trigger:focus-visible,
+  .ct-mobile-sidebar-close:focus-visible { outline:3px solid #79b9e7; outline-offset:3px; }
+}
+@media (max-width: 540px) {
+  .ct-mobile-menu-bar {
+    margin:-14px -14px 17px;
+    padding: 10px 14px;
+    min-height: 64px;
+  }
+  .ct-mobile-menu-context { font-size:.81rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ct-sidebar, .ct-sidebar.is-collapsed { transition:none; }
+}

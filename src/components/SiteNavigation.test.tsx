@@ -19,6 +19,29 @@ describe('Navegação institucional do CTRH', () => {
     expect(screen.getByRole('button', { name: 'Todas as demandas' })).toBeInTheDocument();
   });
 
+  it('abre e fecha o menu lateral pelo controle do topo', async () => {
+    const user = userEvent.setup();
+    render(<SiteNavigation activeArea="visao-geral" canAccessAdmin onNavigate={vi.fn()} />);
+    const trigger = screen.getByRole('button', { name: 'Abrir menu principal' });
+    expect(trigger).toHaveAttribute('aria-expanded', 'false');
+    await user.click(trigger);
+    expect(trigger).toHaveAttribute('aria-expanded', 'true');
+    expect(screen.getByRole('button', { name: 'Fechar menu lateral' })).toBeInTheDocument();
+    await user.click(screen.getByRole('button', { name: 'Fechar menu lateral' }));
+    expect(trigger).toHaveAttribute('aria-expanded', 'false');
+  });
+
+  it('fecha o menu após escolher uma área e preserva a rota', async () => {
+    const onNavigate = vi.fn();
+    const user = userEvent.setup();
+    render(<SiteNavigation activeArea="visao-geral" canAccessAdmin onNavigate={onNavigate} />);
+    await user.click(screen.getByRole('button', { name: 'Abrir menu principal' }));
+    await user.click(screen.getByRole('navigation', { name: 'Áreas do sistema' })
+      .querySelector<HTMLButtonElement>('.ct-nav-button:not(.is-current)')!);
+    expect(onNavigate).toHaveBeenCalledWith('demandas');
+    expect(screen.getByRole('button', { name: 'Abrir menu principal' })).toHaveAttribute('aria-expanded', 'false');
+  });
+
   it('não disponibiliza Administração para perfil sem acesso', () => {
     render(<SiteNavigation activeArea="minhas-demandas" canAccessAdmin={false} onNavigate={vi.fn()} />);
     expect(screen.queryByRole('button', { name: 'Administração' })).not.toBeInTheDocument();

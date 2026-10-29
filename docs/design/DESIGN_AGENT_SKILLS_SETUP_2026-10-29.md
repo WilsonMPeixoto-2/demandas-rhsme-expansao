@@ -38,7 +38,7 @@ Estas skills são arquivos versionados no repositório, legíveis por agentes co
 
 ## Processo de validação
 
-Executar `node --test scripts/design/agent-skills.test.mjs`. A workflow `agent-design-skills.yml` executa o mesmo gate de estrutura. A validação estrutural **não** demonstra qualidade artística, fidelidade de interface ou compatibilidade de runtime.
+Executar `node --test scripts/design/agent-skills.check.mjs`. A workflow `agent-design-skills.yml` executa o mesmo gate de estrutura. A validação estrutural **não** demonstra qualidade artística, fidelidade de interface ou compatibilidade de runtime.
 
 Para o trabalho visual real:
 1. Revisar o PR #208 de infraestrutura visual sem ampliar seu escopo;

@@ -1,0 +1,23 @@
+name: Agent Design Skills - Validation
+
+on:
+  pull_request:
+    paths:
+      - '.agents/skills/**'
+      - 'scripts/design/agent-skills.test.mjs'
+      - '.github/workflows/agent-design-skills.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  structural-validation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Validate design skill files
+        run: node --test scripts/design/agent-skills.test.mjs

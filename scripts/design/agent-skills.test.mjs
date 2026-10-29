@@ -7,7 +7,8 @@ const root = process.cwd();
 const skills = [
   ['frontend-design', 'frontend-design'],
   ['web-design-guidelines', 'web-design-guidelines'],
-  ['cthr-sidebar-visual-quality', 'cthr-sidebar-visual-quality']
+  ['cthr-sidebar-visual-quality', 'cthr-sidebar-visual-quality'],
+  ['apple-inspired-web-design', 'apple-inspired-web-design']
 ];
 
 for (const [folder, name] of skills) {

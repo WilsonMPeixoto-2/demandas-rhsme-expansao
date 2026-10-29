@@ -4,7 +4,7 @@ on:
   pull_request:
     paths:
       - '.agents/skills/**'
-      - 'scripts/design/agent-skills.test.mjs'
+      - 'scripts/design/agent-skills.check.mjs'
       - '.github/workflows/agent-design-skills.yml'
   workflow_dispatch:
 
@@ -20,4 +20,4 @@ jobs:
         with:
           node-version: '24'
       - name: Validate design skill files
-        run: node --test scripts/design/agent-skills.test.mjs
+        run: node --test scripts/design/agent-skills.check.mjs

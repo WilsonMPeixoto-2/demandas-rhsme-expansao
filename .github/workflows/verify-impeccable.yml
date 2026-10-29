@@ -1,0 +1,26 @@
+name: Verify Impeccable project skill
+on:
+  pull_request:
+    paths:
+      - '.agents/skills/impeccable/**'
+      - '.github/workflows/verify-impeccable.yml'
+permissions:
+  contents: read
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+      - name: Validate installed skill, references and license
+        run: |
+          test -s .agents/skills/impeccable/SKILL.md
+          test -s .agents/skills/impeccable/LICENSE
+          grep -q 'name: impeccable' .agents/skills/impeccable/SKILL.md
+          grep -q 'version: 4.8.0' .agents/skills/impeccable/SKILL.md
+          test -d .agents/skills/impeccable/reference
+          test -d .agents/skills/impeccable/scripts
+          node --input-type=module -e "import fs from 'node:fs'; let x=fs.readFileSync('.agents/skills/impeccable/SKILL.md','utf8'); if(x.length<4000)process.exit(1)"

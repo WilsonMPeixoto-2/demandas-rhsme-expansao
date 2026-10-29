@@ -52,3 +52,27 @@ test('registra os estados visuais da navegação sem alterar seu comportamento',
     contentType: 'image/png',
   });
 });
+
+
+test('ateliê iconográfico carrega SVGs profissionais e registra comparação na escala de uso', async ({ page }, testInfo) => {
+  await page.goto('/design/sidebar-icon-atlas.html');
+  await expect(page.getByRole('heading', { name: 'Ateliê iconográfico' })).toBeVisible();
+  await expect(page.locator('.icon-grid .specimen')).toHaveCount(4);
+  const loaded = await page.locator('.icon-grid img').evaluateAll((items) =>
+    items.every((item) => item instanceof HTMLImageElement && item.complete && item.naturalWidth > 0),
+  );
+  expect(loaded).toBe(true);
+
+  const navigation = page.getByRole('navigation', { name: 'Destinos da barra lateral' });
+  await expect(navigation.locator('[aria-current="page"]')).toContainText('Radar de Governança');
+  await navigation.getByRole('button', { name: /Todas as demandas/i }).click();
+  await expect(navigation.locator('[aria-current="page"]')).toContainText('Todas as demandas');
+  await page.locator('#size').fill('20');
+  await expect(page.locator('#sizeVal')).toHaveText('20 px');
+  await page.evaluate(async () => { await document.fonts.ready; });
+
+  await testInfo.attach(`atlas-sidebar-${testInfo.project.name}`, {
+    body: await page.screenshot({ animations: 'disabled', fullPage: true }),
+    contentType: 'image/png',
+  });
+});

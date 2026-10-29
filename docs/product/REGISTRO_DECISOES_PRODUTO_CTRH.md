@@ -885,3 +885,12 @@ O responsável pelo produto aprovou a estruturação de ferramentas profissionai
 **Limites:** não altera Supabase, rotas, navegação real, tela de login, logomarca, campos, regras de negócio nem componentes visuais aprovados. A imagem dos Arcos da Lapa e a identidade original continuam referências preservadas. Nenhuma reconfiguração da conta ChatGPT ou disponibilização automática a outros repositórios é presumida. A implantação visual da barra lateral exige preview e aprovação estética próprios.
 
 **Validação e reversibilidade:** os workflows GitHub Actions exercitam os recursos de design e capturam telas reais; a implementação está em branch isolada com reversão por revert do merge. Publicação do PR #208 foi autorizada condicionalmente à revisão da skill proposta e aos gates de CI pelo responsável em 29/10/2026.
+
+### TECH-DESIGN-002 — Storybook isolado para componentes reais
+
+**Data:** 29 de outubro de 2026  
+**Decisão:** APROVADO PARA INSTALAÇÃO TÉCNICA, sem alteração de aparência ou comportamento em Production.
+
+O responsável pelo produto autorizou a utilização de ferramentas profissionais de criação e validação visual, entre elas o Storybook, para todos os componentes do projeto. A primeira aplicação é a barra lateral real. O escopo consiste em adicionar Storybook React/Vite e complementos de acessibilidade/documentação **somente em devDependencies**, com `package-lock.json` e scripts próprios; criar histórias isoladas de `SiteNavigation` e `BrandLogo`; e verificar build, lint, testes e CI antes da integração.
+
+Não são autorizados nesta decisão novos ícones operacionais, alterações da logomarca, grafismos, rotas, permissões, Supabase ou publicação de redesenho sem aprovação visual. O PR de execução é #213, sobre a `main` corrente, substituindo o antigo PR demonstrativo #212.

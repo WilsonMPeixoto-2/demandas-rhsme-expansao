@@ -15,6 +15,7 @@ export default tseslint.config(
   {
     ignores: [
       'coverage/**',
+      'storybook-static/**',
       'dist/**',
       'node_modules/**',
       'playwright-report/**',

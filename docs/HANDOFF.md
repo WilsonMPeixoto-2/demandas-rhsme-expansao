@@ -663,3 +663,9 @@ O projeto segue a sequência discutir, decidir, registrar, implementar e homolog
 Além disso, toda tarefa deve incluir avaliação de limites tecnológicos: quando uma atualização ou instalação puder produzir solução substantivamente superior, ela deve ser apresentada como proposta, sem instalação silenciosa e sem transformar recomendação em autorização.
 
 Depois da manutenção de 29–30 de agosto, nenhuma nova modernização se abre automaticamente. O próximo trabalho técnico retorna ao Trilho B de migração, sem perder a regra de avaliar atualizações por valor, risco e limite comprovado.
+
+## Ateliê Storybook de componentes reais — 29 de outubro de 2026
+
+Em complemento à infraestrutura de design do PR #208, o PR #213 integra Storybook 10.6.x somente como dependência de desenvolvimento, mantendo os scripts Playwright já publicados. Suas histórias importam `SiteNavigation` e `BrandLogo` reais, sem reconstrução do produto e sem alterar a aparência operacional. A documentação técnica fica em `docs/design/STORYBOOK_CTRH_INTEGRACAO_REAL.md`; o registro de autorização é `TECH-DESIGN-002`.
+
+O PR anterior #212 contém arquivos de exemplo do gerador e foi superado pela versão focada nos componentes reais. A execução de build e CI é obrigatória antes do merge, e a arte dos Arcos da Lapa permanece referência ainda não integrada à sidebar.

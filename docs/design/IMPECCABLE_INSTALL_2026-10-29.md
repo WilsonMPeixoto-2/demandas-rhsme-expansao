@@ -22,3 +22,9 @@ O instalador pode sugerir `PostToolUse` / `Stop` hooks e gerar configuração em
 
 ## Rollback
 Reversão do PR remove a skill e os arquivos versionados; sem rollback de produção nem alteração em banco.
+
+## Resultado da instalação e revisão automática
+
+A instalação oficial Codex (4.8.0) foi executada com sucesso no GitHub Actions e produziu arquivos em `.agents/skills/impeccable/`. A licença original foi incluída. O ESLint agora ignora exclusivamente `.agents/skills/**`, scripts de fornecedores que não integram o runtime React, preservando o rigor sobre `src/`.
+
+Adicionalmente, `.github/workflows/impeccable-design-review.yml` faz verificação consultiva automática de arquivos `src/` alterados em PRs, com relatório JSON. Achados visuais não bloqueiam a aplicação e não dispensam análise de screenshots; erro de execução do scanner é reportado separadamente. A configuração de hooks locais do Codex permanece dependente de revisão e autorização no cliente.

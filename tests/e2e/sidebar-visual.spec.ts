@@ -1,3 +1,4 @@
+import { openSiteMenu } from './helpers/siteNavigation';
 import { expect, test } from '@playwright/test';
 
 /**
@@ -17,6 +18,7 @@ test('registra os estados visuais da navegação sem alterar seu comportamento',
   const current = navigation.locator('[aria-current="page"]');
   const isMobile = testInfo.project.name.includes('mobile');
 
+  await openSiteMenu(page);
   await expect(sidebar).toBeVisible();
   await expect(navigation.getByRole('button', { name: /^Radar de Governança$/i })).toHaveCount(1);
   await expect(navigation.getByRole('button', { name: /^Todas as demandas$/i })).toHaveCount(1);
@@ -46,6 +48,7 @@ test('registra os estados visuais da navegação sem alterar seu comportamento',
   }
 
   await navigation.getByRole('button', { name: /^Todas as demandas$/i }).click();
+  await openSiteMenu(page);
   await expect(navigation.locator('[aria-current="page"]')).toContainText('Todas as demandas');
   await testInfo.attach(`sidebar-${testInfo.project.name}-carteira`, {
     body: await sidebar.screenshot({ animations: 'disabled' }),
@@ -67,7 +70,11 @@ test('ateliê iconográfico carrega SVGs profissionais e registra comparação n
   await expect(navigation.locator('[aria-current="page"]')).toContainText('Radar de Governança');
   await navigation.getByRole('button', { name: /Todas as demandas/i }).click();
   await expect(navigation.locator('[aria-current="page"]')).toContainText('Todas as demandas');
-  await page.locator('#size').fill('20');
+  await page.locator('#size').evaluate((element) => {
+    const range = element as HTMLInputElement;
+    range.value = '20';
+    range.dispatchEvent(new Event('input', { bubbles: true }));
+  });
   await expect(page.locator('#sizeVal')).toHaveText('20 px');
   await page.evaluate(async () => { await document.fonts.ready; });
 

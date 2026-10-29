@@ -23,7 +23,8 @@
           "Use Visual Quality para revisar este PR com análise técnica, evidências e link do preview.",
           "Use Visual Quality para refinar a barra lateral preservando o design aprovado."
         ]
-      }
+      },
+      "onboardingSkill": "./skills/setup/SKILL.md"
     }
   }
 }

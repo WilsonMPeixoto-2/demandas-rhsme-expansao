@@ -19,3 +19,11 @@ Não modificar `src/components` nem a imagem aprovada dos Arcos da Lapa, marca, 
 
 ## Riscos e rollback
 O gerador altera dependências de desenvolvimento, npm lockfile e arquivos de configuração. Revisar pares npm, size do build, Vite e TypeScript. Rollback: reverter este PR (o ambiente publicado permanece inalterado até merge e deploy autorizado).
+
+## Instalação realizada
+
+GitHub Actions concluiu a inicialização do Storybook **10.6.5**, com `storybook`, `@storybook/react-vite`, `@storybook/addon-a11y` e `@storybook/addon-docs` como dependências de desenvolvimento e respectivas entradas no lockfile. Foram gerados `.storybook/main.ts`, `.storybook/preview.tsx` e histórias demonstrativas em `src/stories`.
+
+O build da biblioteca de componentes (`npm run build-storybook`), lint, `npm run build` e cobertura de testes foram concluídos no job instalador, antes do commit de geração. Foram realizadas duas adequações estritamente necessárias à pilha existente: remover imports React ociosos dos exemplos gerados e excluir `storybook-static/**` do ESLint, preservando a análise de código-fonte e os requisitos TypeScript.
+
+O instalador com permissão de escrita foi removido. A verificação permanente `.github/workflows/verify-storybook-workbench.yml` usa apenas permissão `contents: read` e executa os principais gates. Não representa aprovação de UI nem substitui o Playwright de referência real da barra lateral.

@@ -39,7 +39,7 @@ npm run test:sidebar-visual
 npm run test:visual-inventory
 ```
 
-A habilidade Impeccable foi versionada com os roteiros essenciais, e o launcher oficial está em `.agents/skills/impeccable/scripts/impeccable`. **O binário não é versionado nem executado automaticamente**. O uso de sua CLI depende de instalação/obtenção no ambiente do agente, de análise de confiança do executável e de autorização para executar download; os roteiros de crítica e polimento podem ser lidos diretamente do repositório. Não confundir instruções disponíveis com binário já executado.
+A habilidade Impeccable foi versionada com os roteiros essenciais, e o launcher oficial está em `.agents/skills/impeccable/scripts/impeccable`. **O binário não é versionado no repositório.** O workflow de integridade de design executa `engine-probe` em ambiente isolado de CI, após download e conferência do SHA-256 oficial, e confirmou que o motor responde corretamente. O agente local pode precisar obter sua cópia verificada ao primeiro uso. O CI não habilita hooks nem altera a aplicação. Não confundir instruções disponíveis com binário já executado.
 
 As capturas HTML do estudo iconográfico ficam em `/design/sidebar-icon-atlas.html` no ambiente Preview; ícones nessa pasta são **candidatos de repertório**, não a identidade aprovada.
 

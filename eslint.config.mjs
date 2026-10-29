@@ -20,6 +20,8 @@ export default tseslint.config(
       'playwright-report/**',
       'test-results/**',
       '.migration/**',
+      // Scripts de fornecedores usados por agentes, fora do código-fonte da aplicação.
+      '.agents/skills/**',
     ],
   },
   {

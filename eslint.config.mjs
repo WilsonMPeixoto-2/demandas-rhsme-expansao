@@ -16,6 +16,8 @@ export default tseslint.config(
     ignores: [
       'coverage/**',
       'dist/**',
+      // Output compilado do Storybook; ESLint continua cobrindo stories e fonte.
+      'storybook-static/**',
       'node_modules/**',
       'playwright-report/**',
       'test-results/**',

@@ -253,6 +253,7 @@ Ao concluir cada pacote, registre: decisões aprovadas, escopo implementado e ex
 Para trabalhos autorizados de qualidade visual, carregar as skills de `.agents/skills/` conforme a tarefa:
 - `frontend-design` para direção de arte intencional;
 - `web-design-guidelines` para auditoria técnica;
-- `cthr-sidebar-visual-quality` para a barra lateral do Fluxo CTRH.
+- `cthr-sidebar-visual-quality` para a barra lateral do Fluxo CTRH;
+- `apple-inspired-web-design` para revisão qualitativa de hierarquia, material e iconografia web sem importar APIs nativas.
 
 Essas skills não revogam o protocolo de decisões e não autorizam mudanças na UI, novas dependências, alteração de ícones, merge ou deploy. A referência dos Arcos da Lapa e as quatro rotas existentes devem ser preservadas. Consulte `docs/design/DESIGN_AGENT_SKILLS_SETUP_2026-10-29.md` antes de propor outra ferramenta.

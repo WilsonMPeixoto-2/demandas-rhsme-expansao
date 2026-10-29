@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ateliê de ícones da barra lateral · Fluxo CTRH</title>
+<style>
+:root { color-scheme: light; --navy:#0C263F; --navy2:#164465; --active:#286184; --bronze:#C39A68; --icon-size:24px; font-family:Inter,system-ui,-apple-system,sans-serif; }
+*{box-sizing:border-box}
+body{margin:0;background:#F3F4F2;color:#162D42}
+header{padding:30px clamp(22px,4vw,56px) 22px;border-bottom:1px solid #D8DFE1;background:#FAFAF8}
+header h1{font-family:Georgia,serif;font-size:clamp(1.75rem,3vw,2.6rem);margin:.2rem 0 .35rem}
+header p{color:#607180;margin:0;line-height:1.5}
+.kicker{font-size:.7rem;font-weight:750;letter-spacing:.18em;color:#87603D}
+main{display:grid;grid-template-columns:minmax(0,1fr) minmax(260px,310px);gap:30px;max-width:1240px;padding:30px 26px 65px;margin:auto;align-items:start}
+.workbench{min-width:0}
+.toolbar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:18px}
+.toolbar label{display:flex;align-items:center;gap:12px;font-size:.86rem;font-weight:650}
+.toolbar output{font-variant-numeric:tabular-nums;min-width:40px}
+button{font:inherit;cursor:pointer}
+.btn{background:#fff;border:1px solid #D4DDE1;padding:10px 14px;border-radius:8px;color:#163A56}
+.btn:focus-visible, .nav-button:focus-visible {outline:3px solid #88C7FA;outline-offset:3px}
+.card{background:#fff;border:1px solid #DCE2E6;border-radius:14px;padding:25px;box-shadow:0 10px 30px rgba(27,54,72,.045);margin-bottom:16px}
+.card h2{font-family:Georgia,serif;font-size:1.4rem;margin:0 0 6px}
+.muted{color:#657684;font-size:.83rem}
+.icon-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:22px}
+.specimen{background:#F7F8F8;min-height:195px;border-radius:12px;display:flex;align-items:center;flex-direction:column;justify-content:center;gap:12px;text-align:center;padding:16px 8px;border:1px solid #E7EBED}
+.specimen .sample-large{width:72px;height:72px}
+.sample-small{width:var(--icon-size);height:var(--icon-size)}
+.icon-white{filter:brightness(0) invert(1)}
+.specimen strong{font-size:.85rem}
+.specimen span{font-size:.74rem;color:#748392}
+.real-scale{background:#09263D;padding:15px 12px;display:flex;align-items:center;justify-content:space-between;border-radius:11px;margin-top:20px;gap:8px}
+.real-scale small{color:#A9C6D9}
+.real-scale img{width:var(--icon-size);height:var(--icon-size);filter:brightness(0) invert(1)}
+.sidebar{min-height:610px;border-radius:17px;position:relative;overflow:hidden;padding:23px 13px 15px;color:#fff;background:linear-gradient(155deg,#08243A,#123B57 67%,#164465);box-shadow:0 20px 36px rgba(17,46,70,.16)}
+.sidebar:before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 105% -5%,rgba(160,206,229,.14),transparent 52%);pointer-events:none}
+.sidebar>*{position:relative;z-index:1}
+.brand{display:flex;align-items:center;gap:10px;padding:6px 9px 20px;border-bottom:1px solid #50758C}
+.brand svg{width:43px;height:43px;flex:0 0 43px}
+.brand h2{font-family:Georgia,serif;font-size:1.5rem;font-weight:400;margin:0;white-space:nowrap}
+.brand small{font-size:.6rem;color:#BCD3E0}
+.institutional{padding:12px 9px 8px}
+.institutional img{width:156px;max-width:100%;height:auto}
+.section{padding:22px 10px 12px;color:#B2CBDB;font-size:.65rem;font-weight:700;letter-spacing:.14em}
+.nav{display:flex;flex-direction:column;gap:7px}
+.nav-button{width:100%;min-height:60px;display:flex;align-items:center;gap:13px;text-align:left;border-radius:10px;padding:11px 12px;color:#E8F1F6;background:transparent;border:1px solid transparent;position:relative}
+.nav-button img{width:var(--icon-size);height:var(--icon-size);filter:brightness(0) invert(1);flex:0 0 auto}
+.nav-button strong{font-size:.85rem;line-height:1.3}
+.nav-button small{font-size:.67rem;color:#BDD2E0;display:block;margin-top:3px;line-height:1.25}
+.nav-button[aria-current="page"]{background:linear-gradient(90deg,#275D7F,#235372);color:white}
+.nav-button[aria-current="page"]:before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--bronze);border-radius:10px 0 0 10px}
+.nav-button:hover{background:#245776}
+.caption{border-top:1px solid #50758C;padding-top:14px;margin:20px 8px 0;font-size:.66rem;line-height:1.5;color:#B2C7D7}
+.no-art{margin-top:16px;padding:12px;color:#B3CBD8;border:1px dashed #648BA1;border-radius:8px;font-size:.7rem;line-height:1.45}
+.smallprint{font-size:.75rem;color:#607180;line-height:1.6;margin-top:16px}
+@media(max-width:800px){main{grid-template-columns:1fr}.icon-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.sidebar{max-width:370px;width:100%;margin:auto}header{padding-inline:20px}}
+</style>
+</head>
+<body>
+<header>
+  <span class="kicker">FLUXO CTRH · ESTUDO RESTRITO DA SIDEBAR</span>
+  <h1>Ateliê iconográfico</h1>
+  <p>Quatro símbolos profissionais aplicados aos destinos reais. É uma experiência de comparação, não uma substituição aprovada.</p>
+</header>
+<main>
+<section class="workbench" aria-label="Prancha de inspeção">
+  <div class="toolbar">
+    <label for="size">Tamanho de uso <input type="range" id="size" min="20" max="28" value="24" step="2"><output id="sizeVal">24 px</output></label>
+    <button class="btn" id="reset" type="button">Voltar ao Radar</button>
+  </div>
+  <article class="card">
+    <h2>Desenhos vetoriais originais</h2>
+    <p class="muted">Família Phosphor Regular, MIT. Comparar significado, peso óptico e legibilidade sem depender da aparência de um mockup gerado.</p>
+    <div class="icon-grid">
+      <div class="specimen"><img class="sample-large" src="./sidebar-icons/phosphor-radar.svg" alt="Símbolo de mira concêntrica"><strong>Radar de Governança</strong><span>Crosshair</span></div>
+      <div class="specimen"><img class="sample-large" src="./sidebar-icons/phosphor-demandas.svg" alt="Símbolo de documentos"><strong>Todas as demandas</strong><span>Files</span></div>
+      <div class="specimen"><img class="sample-large" src="./sidebar-icons/phosphor-minhas.svg" alt="Símbolo de usuário em foco"><strong>Minhas demandas</strong><span>User Focus</span></div>
+      <div class="specimen"><img class="sample-large" src="./sidebar-icons/phosphor-admin.svg" alt="Símbolo de controles deslizantes"><strong>Administração</strong><span>Sliders Horizontal</span></div>
+    </div>
+    <div class="real-scale" aria-label="Ícones no tamanho real">
+      <small>Tamanho real</small>
+      <img src="./sidebar-icons/phosphor-radar.svg" alt="Radar">
+      <img src="./sidebar-icons/phosphor-demandas.svg" alt="Demandas">
+      <img src="./sidebar-icons/phosphor-minhas.svg" alt="Minhas">
+      <img src="./sidebar-icons/phosphor-admin.svg" alt="Administração">
+    </div>
+    <p class="smallprint">A avaliação cromática e o equilíbrio entre ícones requerem comparação com as capturas geradas pelo Playwright. A arte arquitetônica escolhida não foi recriada nesta prancha.</p>
+  </article>
+</section>
+<section aria-label="Aplicação no componente">
+  <div class="sidebar" id="sidebar">
+    <div class="brand">
+      <svg viewBox="0 0 96 96" fill="currentColor" aria-label="Símbolo original do Fluxo CTRH" role="img">
+        <path d="M19 15C19 9.5 23.5 5 29 5h54c0 12.7-10.3 23-23 23H30c-6.1 0-11 4.9-11 11V15Z"/>
+        <path d="M19 42c0-5.5 4.5-10 10-10h47c0 12.7-10.3 23-23 23H30c-6.1 0-11 4.9-11 11V42Z" opacity=".92"/>
+        <path d="M19 69c0-5.5 4.5-10 10-10h20c0 17.7-14.3 32-32 32h-2V73c0-2.2 1.8-4 4-4Z" opacity=".82"/>
+      </svg>
+      <div><h2>Fluxo CTRH</h2><small>Gestão inteligente de processos e pessoas</small></div>
+    </div>
+    <div class="institutional"><img src="/prefeitura-rio-educacao.svg" alt="Prefeitura do Rio — Educação"></div>
+    <div class="section">ESPAÇO DE TRABALHO</div>
+    <nav class="nav" aria-label="Destinos da barra lateral">
+      <button class="nav-button" type="button" aria-current="page"><img src="./sidebar-icons/phosphor-radar.svg" alt=""><span><strong>Radar de Governança</strong><small>Panorama operacional e análises de gestão</small></span></button>
+      <button class="nav-button" type="button"><img src="./sidebar-icons/phosphor-demandas.svg" alt=""><span><strong>Todas as demandas</strong><small>Carteira completa e filtros</small></span></button>
+      <button class="nav-button" type="button"><img src="./sidebar-icons/phosphor-minhas.svg" alt=""><span><strong>Minhas demandas</strong><small>Carteira pessoal de acompanhamento</small></span></button>
+      <button class="nav-button" type="button"><img src="./sidebar-icons/phosphor-admin.svg" alt=""><span><strong>Administração</strong><small>Acessos e análises administrativas</small></span></button>
+    </nav>
+    <div class="caption">Gestão institucional de processos e pessoas</div>
+    <div class="no-art">Arte dos Arcos da Lapa preservada como referência, não substituída por uma aproximação. Sua aplicação exige o arquivo original na integração visual.</div>
+  </div>
+  <p class="smallprint">Clique em cada destino para avaliar o estado ativo. Os botões desta prancha não alteram rotas nem dados.</p>
+</section>
+</main>
+<script>
+const nav = document.querySelectorAll('.nav-button');
+nav.forEach(button => button.addEventListener('click', () => {
+  nav.forEach(other => other.removeAttribute('aria-current'));
+  button.setAttribute('aria-current','page');
+}));
+document.getElementById('reset').addEventListener('click', () => nav[0].click());
+const size = document.getElementById('size');
+size.addEventListener('input', () => {
+  document.documentElement.style.setProperty('--icon-size', size.value+'px');
+  document.getElementById('sizeVal').textContent = size.value+' px';
+});
+</script>
+</body>
+</html>

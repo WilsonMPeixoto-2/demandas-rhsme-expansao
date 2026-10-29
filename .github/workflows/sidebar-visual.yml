@@ -1,0 +1,46 @@
+name: Revisão visual — barra lateral CTRH
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'src/components/SiteNavigation.tsx'
+      - 'src/components/BrandLogo.tsx'
+      - 'src/design-shell.css'
+      - 'src/brand.css'
+      - 'tests/e2e/sidebar-visual.spec.ts'
+      - 'public/design/sidebar-icon-atlas.html'
+      - 'public/design/sidebar-icons/**'
+      - '.github/workflows/sidebar-visual.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  sidebar-visual:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - name: Instalar dependências fixadas
+        run: npm ci
+      - name: Instalar navegador de teste
+        run: npx playwright install --with-deps chromium
+      - name: Capturar barra lateral e verificar estados
+        run: npm run test:sidebar-visual
+      - name: Capturar inventário visual de todo o produto
+        run: npm run test:visual-inventory
+      - name: Preservar relatório e capturas para revisão artística
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fluxo-ctrh-sidebar-visual
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 14
+          if-no-files-found: warn

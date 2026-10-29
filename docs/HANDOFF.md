@@ -613,6 +613,16 @@ Observabilidade, Lighthouse CI, MSW, TanStack Table 9, ESLint 10 e TypeScript 7 
 
 Nenhuma extensão funcional do R5 avançado, R1 residual, R2 ou ciclos posteriores é autorizada por inferência. E2, segurança final e homologação consolidada do R12 permanecem gates antes da entrega final do produto.
 
+## Ateliê profissional de design e infraestrutura visual — 29 de outubro de 2026
+
+Aprovada pelo responsável do produto a implantação do repertório de ferramentas de design **para todo o CTRH**, com primeira alteração artística limitada à **barra lateral** e sujeita a aprovação visual independente.
+
+O PR #208 introduz `impeccable-frontend-design` como skill coordenadora, mantendo Frontend Design, UI/UX Pro Max, Impeccable e Vercel Web Interface Guidelines como fontes especializadas; Apple HIG é referência estética. `AGENTS.md` passa a acionar esse método em tarefas visuais. Os recursos são **infraestrutura de trabalho de agente**, não bibliotecas importadas pelo runtime do aplicativo.
+
+O Playwright fornece capturas do componente real e um inventário visual do produto em ambiente de teste. Os quatro SVGs Phosphor e o atlas HTML são candidatos de estudo; não substituem a marca, os ícones, as rotas ou a arte aprovada na operação. A publicação do PR não representa homologação de uma sidebar redesenhada.
+
+As verificações de design e o fluxo de screenshots estão em `.github/workflows/design-tooling-check.yml` e `.github/workflows/sidebar-visual.yml`, respectivamente. O registro vinculante é `TECH-DESIGN-001`; a política vigente de homologação e publicação permanece aplicável.
+
 ## Documentação vigente
 
 1. `docs/execution/ADENDO_GOVERNANCA_POR_ETAPA_CTRH_v2.0.4.md`;

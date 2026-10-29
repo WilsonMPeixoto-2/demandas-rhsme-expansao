@@ -41,6 +41,14 @@ O conteúdo proposto no PR #115 também é histórico de preparação: permanece
 - A presença de uma possibilidade em plano, checklist ou recomendação não basta para incluí-la no lançamento; a função deve resolver um trabalho central, risco ou limite comprovado.
 - Uma nova descoberta interrompe somente o item materialmente afetado; o restante prossegue apenas quando independente, seguro e sem antecipar a decisão pendente.
 
+## Produção visual com qualidade verificável
+
+Em qualquer atividade que envolva UI, layout, cores, tipografia, ícones, ilustração integrada, responsividade ou revisão gráfica, consultar `.agents/skills/impeccable-frontend-design/SKILL.md` **antes de propor ou alterar a interface**. Esta skill coordena Frontend Design (direção artística), UI/UX Pro Max (repertório), Impeccable (crítica e polimento), Vercel Web Interface Guidelines (auditoria técnica) e Apple HIG (referência de acabamento), cada uma na sua função.
+
+As decisões e imagens aprovadas, a marca oficial e os dados reais do produto prevalecem sobre sugestões de skills. Em trabalhos visuais, apresentar renderização real e comparação visual, não apenas descrições ou mockups inventados. O uso de ferramentas é permanente em todo o CTRH; **o escopo de alterações artísticas é aprovado por componente**, e a primeira experiência permanece restrita à barra lateral. Este procedimento não autoriza merge, mudança de produção, instalação adicional ou revisão funcional fora do escopo homologado.
+
+Consulte `docs/design/SISTEMA_PROFISSIONAL_DESIGN_CTRH.md` e o registro `TECH-DESIGN-001`.
+
 ## Modernização proativa e limites tecnológicos
 
 A avaliação de atualizações e novas dependências não ocorre apenas em rodadas específicas de manutenção.

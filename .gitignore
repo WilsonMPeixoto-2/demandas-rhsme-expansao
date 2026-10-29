@@ -43,3 +43,5 @@ dry-run-receipt.json
 
 # Artefatos gerados pela bancada Storybook (não são código-fonte)
 storybook-static/
+
+*storybook.log

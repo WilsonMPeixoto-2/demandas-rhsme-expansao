@@ -1,0 +1,44 @@
+name: Install Impeccable (Codex project skill)
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - '.github/workflows/install-impeccable.yml'
+      - 'docs/design/IMPECCABLE_INSTALL_2026-10-29.md'
+      - '.agents/skills/impeccable/**'
+permissions:
+  contents: write
+jobs:
+  install:
+    if: ${{ github.event.pull_request.head.repo.full_name == github.repository && github.head_ref == 'chore/install-impeccable-20261029' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    env:
+      CI: 'true'
+      DO_NOT_TRACK: '1'
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.head_ref }}
+          persist-credentials: true
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+      - name: Install project-scoped Impeccable with pinned official CLI
+        run: npx --yes impeccable@4.8.0 install --providers=codex --scope=project
+      - name: Inspect only generated skill (hooks remain subject to Codex trust)
+        run: |
+          git status --short
+          test -f .agents/skills/impeccable/SKILL.md
+          du -sh .agents/skills/impeccable
+          find .agents/skills/impeccable -type f | wc -l
+          git add .agents/skills/impeccable
+          # Do not automatically commit agent-level hook configuration or local binaries.
+          if git diff --cached --quiet; then
+            echo 'Impeccable project skill already current.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'chore(design): vendor Impeccable Codex project skill'
+          git push origin HEAD:${{ github.head_ref }}

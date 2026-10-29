@@ -1,0 +1,44 @@
+name: Impeccable design review (advisory)
+on:
+  pull_request:
+    paths:
+      - 'src/**/*.tsx'
+      - 'src/**/*.ts'
+      - 'src/**/*.css'
+      - '.github/workflows/impeccable-design-review.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  detect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    env:
+      CI: 'true'
+      DO_NOT_TRACK: '1'
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+      - name: Run advisory visual anti-pattern check
+        run: |
+          set +e
+          npx --yes impeccable@4.8.0 detect src/ --json > impeccable-design-review.json
+          status=$?
+          set -e
+          if [ "$status" -eq 1 ]; then
+            echo "Impeccable could not scan the sources"
+            exit 1
+          fi
+          if [ "$status" -eq 2 ]; then
+            echo "::notice::Design findings were detected; see the downloadable report. Findings are non-blocking pending visual review."
+          fi
+          test -s impeccable-design-review.json
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: impeccable-design-review
+          path: impeccable-design-review.json
+          if-no-files-found: ignore
+          retention-days: 7

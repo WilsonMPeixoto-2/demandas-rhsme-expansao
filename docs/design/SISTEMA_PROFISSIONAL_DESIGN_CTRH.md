@@ -11,6 +11,15 @@ A metodologia reutilizável está em [`impeccable-frontend-design`](../../.agent
 
 A skill é portátil para outros repositórios via `.agents/skills/impeccable-frontend-design/SKILL.md`, mas precisa ser explicitamente disponibilizada na configuração do outro projeto ou do agente; o merge do CTRH não a instala automaticamente em todos os projetos e tampouco configura uma memória global do ChatGPT.
 
+
+## Repertório complementar consolidado
+
+- [Apple Inspired Web Design](../../.agents/skills/apple-inspired-web-design/SKILL.md): critérios de hierarquia, superfícies e interação; referência, não imposição estética.
+- [CTRH Sidebar Visual Quality](../../.agents/skills/cthr-sidebar-visual-quality/SKILL.md): critérios do primeiro experimento, subordinados à marca real e às capturas aprovadas.
+- Impeccable possui agora roteiros adicionais de critique, animate, distill, polish, harden, onboarding, auditoria responsiva e operação para seleção por necessidade. O runner `engine-probe` já era testado; a presença de guias não significa que todas as operações da CLI foram executadas.
+- UI/UX Pro Max inclui consulta de padrões para React, Next.js, Vue, Svelte, Astro e HTML/Tailwind. A ampliação é apenas dados e instruções, sem dependências npm adicionais.
+- Os PRs antigos #209, #210 e #211 nasceram antes da publicação #208; arquivos sobrepostos não devem ser mesclados integralmente para não desfazer a skill coordenadora ou reescrever as dependências validadas.
+
 ## Regras de precedência
 
 1. A experiência real, a marca Fluxo CTRH e a assinatura SME-RJ constituem o estado preservado.

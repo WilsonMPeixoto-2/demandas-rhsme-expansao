@@ -40,3 +40,5 @@ dry-run-receipt.json
 .env.bootstrap.local
 
 .vercel
+
+storybook-static/

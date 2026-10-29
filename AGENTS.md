@@ -246,3 +246,13 @@ Pare quando:
 - uma instalação proposta tiver impacto material não avaliado em segurança, privacidade, dados, bundle, compatibilidade ou manutenção.
 
 Ao concluir cada pacote, registre: decisões aprovadas, escopo implementado e excluído, branch, commits, PR, Preview e SHA quando aplicável, testes, migrations, impacto nos Trilhos A e B, impacto em dados, acessibilidade, homologação, documentos sincronizados, documentos históricos preservados, rollback, riscos e próxima atividade autorizada.
+
+
+## Habilidades de design versionadas (proposta em branch específica de 29/10/2026)
+
+Para trabalhos autorizados de qualidade visual, carregar as skills de `.agents/skills/` conforme a tarefa:
+- `frontend-design` para direção de arte intencional;
+- `web-design-guidelines` para auditoria técnica;
+- `cthr-sidebar-visual-quality` para a barra lateral do Fluxo CTRH.
+
+Essas skills não revogam o protocolo de decisões e não autorizam mudanças na UI, novas dependências, alteração de ícones, merge ou deploy. A referência dos Arcos da Lapa e as quatro rotas existentes devem ser preservadas. Consulte `docs/design/DESIGN_AGENT_SKILLS_SETUP_2026-10-29.md` antes de propor outra ferramenta.

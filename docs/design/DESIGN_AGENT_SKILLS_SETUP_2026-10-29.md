@@ -10,6 +10,7 @@
 | `.agents/skills/frontend-design/` | Anthropic, Apache-2.0 | Direção de arte e identidade específica do produto |
 | `.agents/skills/web-design-guidelines/` | Vercel, licença MIT informada pelo projeto | Auditoria de acessibilidade e práticas web |
 | `.agents/skills/cthr-sidebar-visual-quality/` | Instruções do projeto | Barra lateral, estudo original dos Arcos, quatro destinos e iconografia |
+| `.agents/skills/apple-inspired-web-design/` | Adaptação própria das Apple HIG | Hierarquia, materiais, legibilidade e iconografia para a web (não SwiftUI) |
 
 Estas skills são arquivos versionados no repositório, legíveis por agentes compatíveis com a convenção `.agents/skills`. Não são plugins do ChatGPT nem garantem ativação global de um Codex instalado em outra máquina. A instalação só estará disponível aos leitores dessa branch até eventual merge aprovado.
 
@@ -48,7 +49,7 @@ Para o trabalho visual real:
 ## Fontes e atribuições
 
 - Anthropic Frontend Design: https://github.com/anthropics/skills/tree/main/skills/frontend-design (arquivo copiado sem alterações; licença Apache 2.0 incluída).
-- Vercel Web Design Guidelines: https://github.com/vercel-labs/agent-skills/tree/main/skills/web-design-guidelines (arquivo copiado sem alterações; projeto anuncia MIT).
+- Vercel Web Design Guidelines: https://github.com/vercel-labs/agent-skills/tree/main/skills/web-design-guidelines (arquivo copiado sem alterações; projeto anuncia MIT; licença e fonte documentadas).
 - Apple HIG (referência, não instalada como skill nativa): https://developer.apple.com/design/human-interface-guidelines/
 - Impeccable (candidato futuro): https://github.com/pbakaus/impeccable
 - UI/UX Pro Max (candidato futuro): https://github.com/nextlevelbuilder/ui-ux-pro-max-skill

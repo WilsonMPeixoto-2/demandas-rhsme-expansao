@@ -1,0 +1,45 @@
+name: Integridade do repertório de design
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - '.agents/skills/**'
+      - 'docs/design/SISTEMA_PROFISSIONAL_DESIGN_CTRH.md'
+      - '.github/workflows/design-tooling-check.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  design-skills:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verificar leitura das skills oficiais
+        run: |
+          test -s .agents/skills/frontend-design/SKILL.md
+          test -s .agents/skills/impeccable/SKILL.md
+          test -s .agents/skills/ui-ux-pro-max/SKILL.md
+          test -s .agents/skills/web-design-guidelines/SKILL.md
+      - name: Pesquisar UX da aplicação com UIUX Pro Max
+        run: |
+          python3 .agents/skills/ui-ux-pro-max/scripts/search.py "administrative dashboard navigation" --domain ux > /tmp/ctrh-ux.txt
+          grep -q 'UI Pro Max Search Results' /tmp/ctrh-ux.txt
+          python3 .agents/skills/ui-ux-pro-max/scripts/search.py "navigation sidebar icon" --domain icons > /tmp/ctrh-icons.txt
+          grep -q 'UI Pro Max Search Results' /tmp/ctrh-icons.txt
+          python3 .agents/skills/ui-ux-pro-max/scripts/search.py "react accessible dashboard" --stack react > /tmp/ctrh-react.txt
+          grep -q 'UI Pro Max Stack Guidelines' /tmp/ctrh-react.txt
+      - name: Conferir gerador de design-system sem persistir alterações
+        run: |
+          python3 .agents/skills/ui-ux-pro-max/scripts/search.py "public administration process dashboard" --design-system -p "Fluxo CTRH" > /tmp/ctrh-design-system.txt
+          test -s /tmp/ctrh-design-system.txt
+      - name: Arquivar pesquisas para auditoria
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: repertorio-ctrh
+          path: /tmp/ctrh-*.txt
+          retention-days: 7
+          if-no-files-found: warn

@@ -40,3 +40,6 @@ dry-run-receipt.json
 .env.bootstrap.local
 
 .vercel
+
+# Artefatos gerados pela bancada Storybook (não são código-fonte)
+storybook-static/

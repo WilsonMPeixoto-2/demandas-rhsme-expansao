@@ -5,6 +5,12 @@
 **Escopo da primeira intervenção visual:** apenas a barra lateral.  
 **Governança:** `AGENTS.md`, Registro de Decisões e Adendo v2.0.4 continuam prevalecendo. Nenhuma skill aprova mudanças de produto.
 
+## Skill coordenadora obrigatória
+
+A metodologia reutilizável está em [`impeccable-frontend-design`](../../.agents/skills/impeccable-frontend-design/SKILL.md). É uma **skill de orquestração**: não duplica a lógica interna das quatro skills, mas decide o papel de cada recurso e exige prova visual. Para novas tarefas de aparência, ler primeiro essa skill e só então as fontes especializadas pertinentes. A ativação no CTRH ocorre por `AGENTS.md`.
+
+A skill é portátil para outros repositórios via `.agents/skills/impeccable-frontend-design/SKILL.md`, mas precisa ser explicitamente disponibilizada na configuração do outro projeto ou do agente; o merge do CTRH não a instala automaticamente em todos os projetos e tampouco configura uma memória global do ChatGPT.
+
 ## Regras de precedência
 
 1. A experiência real, a marca Fluxo CTRH e a assinatura SME-RJ constituem o estado preservado.

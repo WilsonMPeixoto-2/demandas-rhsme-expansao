@@ -653,3 +653,8 @@ O projeto segue a sequência discutir, decidir, registrar, implementar e homolog
 Além disso, toda tarefa deve incluir avaliação de limites tecnológicos: quando uma atualização ou instalação puder produzir solução substantivamente superior, ela deve ser apresentada como proposta, sem instalação silenciosa e sem transformar recomendação em autorização.
 
 Depois da manutenção de 29–30 de agosto, nenhuma nova modernização se abre automaticamente. O próximo trabalho técnico retorna ao Trilho B de migração, sem perder a regra de avaliar atualizações por valor, risco e limite comprovado.
+## Candidatura de ferramenta de design: Storybook (PR #212, 29/10/2026)
+
+Storybook 10.6.5 instalado como dependência exclusivamente de desenvolvimento; npm lockfile atualizado e Storybook de teste compilado. Build, lint e cobertura aprovados no job de instalação; validação de PR e testes de navegador estão sujeitos ao gate. Nenhuma mudança de componente operacional, dados ou deploy.
+
+**Estado:** branch de avaliação em PR rascunho, sem merge. A inclusão dessa ferramenta no repositório principal permanece condicionada à aprovação do PR e aos controles de governança. Este registro não altera o estado de Production ou Supabase.

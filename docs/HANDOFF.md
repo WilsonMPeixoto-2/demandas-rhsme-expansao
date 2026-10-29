@@ -660,6 +660,7 @@ Em branch exclusiva `chore/agent-design-skills-20261029`, foi preparada integra�
 - Frontend Design da Anthropic, com licença Apache-2.0 preservada;
 - Web Design Guidelines da Vercel;
 - skill específica para revisão da barra lateral do Fluxo CTRH;
+- skill própria de refinamento web inspirada nas Apple HIG, sem código nativo Apple;
 - teste estrutural de skills e workflow de validação;
 - documentação em `docs/design/DESIGN_AGENT_SKILLS_SETUP_2026-10-29.md`.
 

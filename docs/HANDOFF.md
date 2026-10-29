@@ -653,3 +653,14 @@ O projeto segue a sequência discutir, decidir, registrar, implementar e homolog
 Além disso, toda tarefa deve incluir avaliação de limites tecnológicos: quando uma atualização ou instalação puder produzir solução substantivamente superior, ela deve ser apresentada como proposta, sem instalação silenciosa e sem transformar recomendação em autorização.
 
 Depois da manutenção de 29–30 de agosto, nenhuma nova modernização se abre automaticamente. O próximo trabalho técnico retorna ao Trilho B de migração, sem perder a regra de avaliar atualizações por valor, risco e limite comprovado.
+
+## Candidatura de integração de skills de design — 29/10/2026 (não publicada)
+
+Em branch exclusiva `chore/agent-design-skills-20261029`, foi preparada integração **somente documental e de instruções para agentes**:
+- Frontend Design da Anthropic, com licença Apache-2.0 preservada;
+- Web Design Guidelines da Vercel;
+- skill específica para revisão da barra lateral do Fluxo CTRH;
+- teste estrutural de skills e workflow de validação;
+- documentação em `docs/design/DESIGN_AGENT_SKILLS_SETUP_2026-10-29.md`.
+
+**Estado deste Handoff:** registro de alteração pendente de aprovação, não confirmação de merge. Nenhuma dependência npm, componente do produto, regra, dado, deployment ou configuração Supabase/Vercel foi modificada. O PR #208 da revisão visual continua independente. A validação artística seguirá a referência aprovada e exigirá autorização antes da alteração da sidebar operacional.

@@ -32,6 +32,8 @@ jobs:
         run: npx playwright install --with-deps chromium
       - name: Capturar barra lateral e verificar estados
         run: npm run test:sidebar-visual
+      - name: Capturar inventário visual de todo o produto
+        run: npm run test:visual-inventory
       - name: Preservar relatório e capturas para revisão artística
         if: always()
         uses: actions/upload-artifact@v4

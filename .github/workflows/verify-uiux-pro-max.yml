@@ -1,0 +1,28 @@
+name: Verify UI UX Pro Max skill
+on:
+  pull_request:
+    paths:
+      - '.agents/skills/ui-ux-pro-max/**'
+      - '.github/workflows/verify-uiux-pro-max.yml'
+permissions:
+  contents: read
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v7
+      - name: Check bundled skill and upstream license
+        run: |
+          test -s .agents/skills/ui-ux-pro-max/SKILL.md
+          test -s .agents/skills/ui-ux-pro-max/LICENSE
+          test -s .agents/skills/ui-ux-pro-max/data/styles.csv
+          test -s .agents/skills/ui-ux-pro-max/scripts/search.py
+          grep -q 'name: ui-ux-pro-max' .agents/skills/ui-ux-pro-max/SKILL.md
+      - name: Exercise local Python design search and recommendations
+        run: |
+          python3 .agents/skills/ui-ux-pro-max/scripts/search.py 'government dashboard navigation sidebar' --domain ux --max-results 2 > /tmp/ux-smoke.txt
+          test -s /tmp/ux-smoke.txt
+          python3 .agents/skills/ui-ux-pro-max/scripts/search.py 'public administration dashboard' --design-system -p 'Fluxo CTRH' > /tmp/design-system-smoke.txt
+          test -s /tmp/design-system-smoke.txt
+          head -20 /tmp/design-system-smoke.txt

@@ -653,3 +653,8 @@ O projeto segue a sequência discutir, decidir, registrar, implementar e homolog
 Além disso, toda tarefa deve incluir avaliação de limites tecnológicos: quando uma atualização ou instalação puder produzir solução substantivamente superior, ela deve ser apresentada como proposta, sem instalação silenciosa e sem transformar recomendação em autorização.
 
 Depois da manutenção de 29–30 de agosto, nenhuma nova modernização se abre automaticamente. O próximo trabalho técnico retorna ao Trilho B de migração, sem perder a regra de avaliar atualizações por valor, risco e limite comprovado.
+## Candidatura de ferramenta de design: UI/UX Pro Max (PR #210, 29/10/2026)
+
+Instalação offline da skill e scripts no diretório .agents/skills/ui-ux-pro-max; verificador de pesquisa Python, CodeQL e gate integral aprovados na branch. Sem pacotes npm de runtime, alteração de UI ou deploy.
+
+**Estado:** branch de avaliação em PR rascunho, sem merge. A inclusão dessa ferramenta no repositório principal permanece condicionada à aprovação do PR e aos controles de governança. Este registro não altera o estado de Production ou Supabase.

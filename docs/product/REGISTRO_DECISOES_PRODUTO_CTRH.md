@@ -863,3 +863,25 @@ Está autorizada a configuração da branch `main` para impedir integração sem
 5. exigir resolução de discussões de revisão quando suportado pela configuração do repositório.
 
 A configuração não altera código, banco, dados, regras de negócio ou Production. A ativação deve ser comprovada diretamente no estado do GitHub, pois não é representada por arquivo versionado.
+
+
+### TECH-DESIGN-001 — Repertório de design profissional reutilizável e verificação visual
+
+**Data:** 29 de outubro de 2026  
+**Classificação:** necessidade técnica de qualidade visual e governança do processo de design.  
+**Decisão:** APROVADA PARA IMPLEMENTAÇÃO E PUBLICAÇÃO, limitada ao escopo técnico do PR #208.
+
+O responsável pelo produto aprovou a estruturação de ferramentas profissionais de design e sua aplicação **em todo o projeto** sempre que houver trabalho visual. A implementação inicial restringe-se à infraestrutura reutilizável e à instrumentação da **barra lateral** como primeiro componente de avaliação; não aprova nenhuma mudança artística específica no componente de produção.
+
+**Escopo autorizado:**
+
+1. Versionar as skills originais de Frontend Design, UI/UX Pro Max e Impeccable, com a auditoria Vercel Web Interface Guidelines como complemento e Apple HIG como referência de refinamento.
+2. Criar a skill coordenadora `impeccable-frontend-design`, destinada a orientar seleção de ferramentas, consistência e crítica visual sem instruções conflitantes.
+3. Inserir referência obrigatória à skill coordenadora em `AGENTS.md`, para trabalhos de interface, ícones, layout e comunicação visual em todo o CTRH.
+4. Acrescentar consultas testadas à base UI/UX Pro Max e o launcher/roteiros do Impeccable, sem instalar bibliotecas concorrentes de ícones no runtime.
+5. Acrescentar testes Playwright, capturas automatizadas e atlas de candidatos iconográficos em ambiente de estudo; manter os componentes operacionais intactos.
+6. Manter documentação de uso, licenças, limitações, gates de aprovação e instruções portáteis para outros projetos.
+
+**Limites:** não altera Supabase, rotas, navegação real, tela de login, logomarca, campos, regras de negócio nem componentes visuais aprovados. A imagem dos Arcos da Lapa e a identidade original continuam referências preservadas. Nenhuma reconfiguração da conta ChatGPT ou disponibilização automática a outros repositórios é presumida. A implantação visual da barra lateral exige preview e aprovação estética próprios.
+
+**Validação e reversibilidade:** os workflows GitHub Actions exercitam os recursos de design e capturam telas reais; a implementação está em branch isolada com reversão por revert do merge. Publicação do PR #208 foi autorizada condicionalmente à revisão da skill proposta e aos gates de CI pelo responsável em 29/10/2026.

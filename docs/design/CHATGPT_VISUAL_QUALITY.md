@@ -36,3 +36,11 @@ Referências oficiais:
 ## Escopo da instalação no repositório
 
 Nenhuma alteração operacional em React, CSS, auth, banco, infraestrutura ou PR de redesign. As skills podem residir simultaneamente na pasta de agentes do repositório e como cópia empacotada para distribuição. Para evitar divergência, comparar as duas cópias quando atualizar.
+
+## Protocolo permanente: testes evolutivos e evidência visual
+
+Todas as futuras tarefas de design devem executar o protocolo obrigatório em `docs/design/PROTOCOLO_PERMANENTE_EVOLUCAO_VISUAL_CTRH.md`, também representado na referência transversal `plugins/visual-quality/skills/impeccable-frontend-design/references/protocolo-evidencias-visuais.md`.
+
+O agente deve classificar falhas reais versus testes desatualizados, preservar requisitos funcionais, atualizar no mesmo PR apenas expectativas legitimamente superadas e apresentar preview autêntico com imagens reais antes/depois. A aprovação estética é do responsável pelo produto; logs, screenshots de CI em DEV e automações não substituem essa homologação. O comportamento móvel já aprovado é preservado, com foco de validação nos notebooks e monitores usados no trabalho.
+
+O plugin pessoal do ChatGPT deve receber uma nova release com este mesmo protocolo. **Publicar arquivos no repositório não atualiza automaticamente o plugin instalado na conta.**

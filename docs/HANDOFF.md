@@ -6,7 +6,7 @@ Atualizado em: **30 de outubro de 2026 — reconciliação pontual de referênci
 
 ## Continuidade pós-publicação TECH-DESIGN-005 — 30/10/2026
 
-PR #215 integrado na main no commit `62304923dafa5b0448944c7a7845a703b27d474b`, Vercel Production READY. A inspeção autenticada posterior identificou limite indevido de 1.830 px no desktop, ações ocultadas em menu, compressão de carteiras e imagem Prefeitura Rio/Educação inválida no login. TECH-DESIGN-005 autorizou a correção localizada na branch `fix/desktop-density-actions-official-mark-20261030`. Preservar a sidebar Opção 2, permissões e dados. **Pré-visualização ainda não homologada; produção não deve ser alterada sem novo aceite.**
+PR #215 integrado na main no commit `62304923dafa5b0448944c7a7845a703b27d474b`, Vercel Production READY. A inspeção autenticada posterior identificou limite indevido de 1.830 px no desktop, ações ocultadas em menu, compressão de carteiras e imagem Prefeitura Rio/Educação inválida no login. TECH-DESIGN-005 autorizou a correção localizada na branch `fix/desktop-density-actions-official-mark-20261030`. Preservar a sidebar Opção 2, permissões e dados. **Homologação concedida em 30/10/2026:** o responsável pelo produto examinou o Preview Vercel do PR #222 (SHA `367cb0597a8ac7bc9fe0d25000d51944b5e0b954`) e autorizou expressamente a promoção para Production. Os checks aplicáveis estavam verdes no SHA homologado. A autorização abrange exclusivamente o pacote TECH-DESIGN-005, sem mudanças funcionais ou artísticas adicionais. O PR ainda precisa ser integrado e o deployment de produção confirmado por SHA, READY e alias oficial antes de declarar a publicação concluída.
 
 ## Checkpoint de retomada do PR #215 — 30/10/2026
 

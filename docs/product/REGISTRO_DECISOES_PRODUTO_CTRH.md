@@ -3,7 +3,7 @@
 <!-- IMPLEMENTATION_AUTHORIZATION: V1-E-A01 -->
 
 **Status:** vigente  
-**Atualizado em:** 29 de outubro de 2026
+**Atualizado em:** 30 de outubro de 2026
 **Finalidade:** registrar somente decisões expressamente aprovadas pelo responsável pelo produto antes da implementação de cada pacote.
 
 ## 1. Regra de uso
@@ -933,4 +933,4 @@ A autorização específica de correção e publicação já foi dada; não é a
 
 **Condições de aceite:** evidências reais nos viewports desktop 1280, 1366, 1920 e 2560 px CSS, uso horizontal adequado e ações diretas visíveis; preservação do acesso via menu em espaços pequenos e rolagem interna, foco, títulos acessíveis, testes de rotas/permissões; verificação real de decodificação e pixels da marca, não apenas HTTP 200; CI completa no SHA do PR; Preview para homologação estética expressa **antes de integração em Production**.
 
-**Estado:** implementação autorizada, ainda não homologada nem publicada. Documento registra a decisão antes do pacote de código.
+**Homologação artística expressa e autorização de publicação — 30/10/2026:** após examinar o Preview do PR #222 (`https://demandas-rhsme-expansao-q1j9iw3qe-wilson-m-peixotos-projects.vercel.app/`), o responsável pelo produto declarou **“PR 222 aprovado para produção”**. A aprovação corresponde ao SHA de interface `367cb0597a8ac7bc9fe0d25000d51944b5e0b954` da branch `fix/desktop-density-actions-official-mark-20261030`. As verificações de CI aplicáveis ao SHA foram concluídas com sucesso, inclusive build, testes, Storybook, análise de dependências, CodeQL e auditoria visual. **Está autorizada a integração do PR #222 e a publicação na Production**, sem ampliar escopo nem alterar a composição homologada. A efetiva publicação só pode ser declarada depois do merge, do deployment `READY` no SHA integrado e da conferência do domínio e dos assets.

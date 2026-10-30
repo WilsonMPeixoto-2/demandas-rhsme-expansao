@@ -440,3 +440,8 @@ Depois da implementação, confirmar na tela, papel e cenário afetados:
 6. se os documentos vigentes descrevem exatamente a regra entregue.
 
 Toda mudança deve cumprir a `POLITICA_SINCRONIZACAO_DOCUMENTAL_CTRH_v1.1.md`. Quando o plano não define um detalhe, derive apenas a menor decisão reversível que não altere comportamento substancial. Duas opções plausíveis com efeitos diferentes exigem parada e decisão do responsável pelo produto.
+
+
+## Reposição da legibilidade operacional TECH-DESIGN-005 (30/10/2026)
+
+Em telas desktop, usar efetivamente a largura disponível em monitores grandes e preservar a tabela de oito colunas, com rolagem interna quando necessária e ações acessíveis. Mostrar diretamente os comandos permitidos de andamento, mudança de status/reabertura e histórico na coluna Ações. O menu secundário continua acessível em mobile e para operações como exclusão, sujeitas às permissões. Preservar sidebar Opção 2 e navegação móvel. A assinatura do login utiliza asset original íntegro da Prefeitura do Rio, sem recriação. Esta regra está em implementação e depende de homologação visual no Preview.

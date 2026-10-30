@@ -291,6 +291,23 @@ export const DemandasTable: React.FC<DemandasTableProps> = ({
         return (
           <div className="actions-wrapper">
             <button type="button" className="btn btn-abrir-tabela" onClick={() => onOpenEditar(demanda)} title="Abrir detalhes da demanda">Abrir</button>
+            {canEdit && !isClosed(demanda) && (
+              <button type="button" className="table-action-shortcut" onClick={() => onOpenProgress(demanda)}
+                aria-label={`Registrar andamento da demanda ${demanda.numero}`} title="Registrar andamento">
+                <i className="fa-solid fa-list-check" aria-hidden="true" />
+              </button>
+            )}
+            {canEdit && (
+              <button type="button" className="table-action-shortcut" onClick={() => onOpenStatus(demanda)}
+                aria-label={`${isClosed(demanda) ? 'Reabrir a' : 'Alterar status da'} demanda ${demanda.numero}`}
+                title={isClosed(demanda) ? 'Reabrir demanda' : 'Alterar status'}>
+                <i className="fa-solid fa-arrows-rotate" aria-hidden="true" />
+              </button>
+            )}
+            <button type="button" className="table-action-shortcut" onClick={() => onOpenHistorico(demanda)}
+              aria-label={`Histórico da demanda ${demanda.numero}`} title="Consultar histórico">
+              <i className="fa-solid fa-clock-rotate-left" aria-hidden="true" />
+            </button>
             <DropdownMenu.Root>
               <DropdownMenu.Trigger asChild>
                 <button
@@ -331,7 +348,7 @@ export const DemandasTable: React.FC<DemandasTableProps> = ({
           </div>
         );
       },
-      size: 96,
+      size: 220,
     }),
   ]), [canDelete, canEdit, onOpenEditar, onOpenHistorico, onOpenProgress, onOpenStatus, searchMatches, searchQuery]);
 

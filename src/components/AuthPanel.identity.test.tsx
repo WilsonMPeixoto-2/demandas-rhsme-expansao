@@ -22,7 +22,7 @@ describe('AuthPanel — identidade única do produto', () => {
       name: 'Prefeitura do Rio de Janeiro — Educação',
     });
     expect(endorsements).toHaveLength(2);
-    expect(endorsements[0]).toHaveAttribute('src', '/prefeitura-rio-educacao.svg');
-    expect(endorsements[1]).toHaveAttribute('src', '/prefeitura-rio-educacao.svg');
+    expect(endorsements[0]).toHaveAttribute('src', '/prefeitura-rio-educacao-oficial.png');
+    expect(endorsements[1]).toHaveAttribute('src', '/prefeitura-rio-educacao-oficial.png');
   });
 });

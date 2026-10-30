@@ -1,7 +1,7 @@
 /* Carteira de demandas: usa o espaço real da tela e preserva acesso às ações. */
 .app-container:has(.demandas-table) {
   --workspace-gutter: clamp(16px, 2vw, 32px);
-  max-width: 1760px;
+  max-width: 3200px;
   padding-inline: var(--workspace-gutter);
 }
 
@@ -81,4 +81,49 @@
     --workspace-gutter: 16px;
     max-width: 100%;
   }
+}
+
+/* TECH-DESIGN-005: desktop operational commands stay in direct sight. */
+.demandas-table .column-actions { min-width: 220px; }
+.demandas-table .actions-wrapper { flex-wrap: nowrap; justify-content: center; gap: 5px; }
+.demandas-table .btn-abrir-tabela {
+  min-height: 34px;
+  padding-inline: 11px;
+  font-size: .78rem;
+  font-weight: 650;
+}
+.demandas-table .table-action-shortcut,
+.demandas-table .btn-ellipsis {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid transparent;
+  border-radius: 9px;
+  background: transparent;
+  color: #304e68;
+  font-size: .98rem;
+  cursor: pointer;
+  transition: background-color .15s ease, border-color .15s ease, color .15s ease;
+}
+.demandas-table .table-action-shortcut:hover,
+.demandas-table .btn-ellipsis:hover {
+  color: #123b5d;
+  border-color: #cadbe8;
+  background: #edf5fb;
+}
+.demandas-table .table-action-shortcut:focus-visible,
+.demandas-table .btn-ellipsis:focus-visible,
+.demandas-table .btn-abrir-tabela:focus-visible {
+  outline: 2px solid #236fa6;
+  outline-offset: 2px;
+}
+@media (max-width: 940px) {
+  .demandas-table .table-action-shortcut { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .demandas-table .table-action-shortcut,
+  .demandas-table .btn-ellipsis { transition: none; }
 }

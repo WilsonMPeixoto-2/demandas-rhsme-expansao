@@ -233,15 +233,12 @@ export function SiteNavigation({ activeArea, canAccessAdmin, onNavigate }: SiteN
                       aria-label="Prefeitura da Cidade do Rio de Janeiro — Educação"
                     >
                       <img
-                        src="/design/sidebar-brasao-rio.png"
+                        src="/prefeitura-rio-educacao-oficial.png"
                         alt=""
                         className="ct-brasao-inline-img"
                         aria-hidden="true"
+                        loading="eager"
                       />
-                      <span className="ct-pref-word">PREFEITURA</span>
-                      <span className="ct-rio-word">RIO</span>
-                      <span className="ct-pref-pipe" aria-hidden="true" />
-                      <span className="ct-edu-word">Educação</span>
                     </div>
                   </div>
                 )}

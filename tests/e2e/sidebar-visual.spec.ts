@@ -20,6 +20,15 @@ test('registra os estados visuais da navegação sem alterar seu comportamento',
 
   await openSiteMenu(page);
   await expect(sidebar).toBeVisible();
+  const municipalMark = sidebar.locator('img.ct-brasao-inline-img');
+  await expect(municipalMark).toBeVisible();
+  await expect(municipalMark).toHaveAttribute('src', '/prefeitura-rio-educacao-oficial.png');
+  const markSize = await municipalMark.evaluate(async (image: HTMLImageElement) => {
+    await image.decode();
+    return { assetWidth: image.naturalWidth, visibleWidth: image.getBoundingClientRect().width };
+  });
+  expect(markSize.assetWidth).toBeGreaterThanOrEqual(700);
+  expect(markSize.visibleWidth).toBeGreaterThan(100);
   await expect(navigation.getByRole('button', { name: /^Radar de Governança$/i })).toHaveCount(1);
   await expect(navigation.getByRole('button', { name: /^Todas as demandas$/i })).toHaveCount(1);
   await expect(navigation.getByRole('button', { name: /^Minhas demandas$/i })).toHaveCount(1);

@@ -64,6 +64,10 @@ Também revisar:
 - Sincronização final pendente: PRODUCT_CONTEXT descreve menu estreito em duas colunas, precisa refletir drawer aprovado; atualizar Handoff final, docs/design/SISTEMA_PROFISSIONAL_DESIGN_CTRH.md, sidebar-visual-workflow.md e referência Storybook se afetadas. Histórico datado deve ser preservado.
 - Registro TECH-DESIGN-004 neste checkpoint documenta autorização e estado de trabalho; completar resultados somente após validação.
 
+## Continuação após o checkpoint — 30/10/2026
+
+A falha móvel foi reproduzida em Chromium isolado: a transição de `visibility` impedia focar o botão de fechar durante a abertura, mesmo com `getComputedStyle(...).visibility` igual a `visible`. A correção CSS torna a abertura imediatamente focalizável e adia a ocultação até terminar o fechamento animado. O teste isolado passou; **o E2E completo do CTRH e a homologação visual continuam pendentes nesta etapa**. A documentação também foi sincronizada quanto ao drawer móvel, ícones do runtime e Storybook.
+
 ## Continuação até a publicação autorizada
 
 1. Fazer checkout da branch remota; ler AGENTS, registro TECH-DESIGN-004 e este checkpoint. Não sobrescrever trabalho concorrente.

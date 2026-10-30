@@ -1,7 +1,7 @@
 # Fluxo CTRH · Ateliê de revisão visual da barra lateral
 
 **Escopo único:** navegação lateral implementada por `SiteNavigation.tsx` e `design-shell.css`.  
-**Estado atual em 29/10/2026:** documento de referência do ateliê inicial. As ferramentas de verificação e o Storybook já foram integrados; o PR #215 permanece aberto e **sua alteração artística ainda não foi homologada nem publicada**. Para todo trabalho novo, aplicar `docs/design/PROTOCOLO_PERMANENTE_EVOLUCAO_VISUAL_CTRH.md` e as instruções vigentes de `AGENTS.md`.
+**Referência histórica de 29/10 e continuidade em 30/10:** as ferramentas de verificação e o Storybook estão integrados. O PR #215 contém a Opção 2 original do usuário, com quatro ícones lineares, brasão e Arcos originais; a alteração ainda depende dos gates e da homologação artística antes de produção. Para todo trabalho novo, aplicar `docs/design/PROTOCOLO_PERMANENTE_EVOLUCAO_VISUAL_CTRH.md` e as instruções vigentes de `AGENTS.md`.
 
 ## Referência que não deve ser reinterpretada
 
@@ -41,4 +41,4 @@ Capturas esperadas:
 
 O workflow `sidebar-visual.yml` arquiva o relatório, inclusive capturas, como artifact de GitHub Actions. Esses arquivos documentam estados técnicos, mas **não comprovam, por si só, fidelidade ao preview autenticado ou à composição aprovada**. A inspeção real e a decisão humana permanecem obrigatórias.
 
-**Escopo do ateliê original (registro histórico):** não incluiu nova arte dos Arcos da Lapa, alteração de componentes operacionais, Storybook ou publicação do redesenho. O Storybook foi incorporado depois, no PR #213; o PR #215 é uma proposta visual independente ainda em revisão.
+**Escopo do ateliê original (registro histórico):** não incluiu nova arte dos Arcos da Lapa, alteração de componentes operacionais, Storybook ou publicação do redesenho. O Storybook foi incorporado depois, no PR #213; o PR #215 é uma proposta visual independente ainda em revisão. O atlas antigo não comprova o desenho atual dos ícones; inspecionar o componente real `SiteNavigation.tsx` e sua história no Storybook.

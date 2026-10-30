@@ -6,7 +6,7 @@ Atualizado em: **30 de outubro de 2026 — reconciliação pontual de referênci
 
 ## Checkpoint de retomada do PR #215 — 30/10/2026
 
-**Trabalho em andamento salvo a pedido do usuário por término próximo da cota.** Branch `feat/sidebar-impeccable`, base `main cbcbebbb` (PR #220). A integração da Opção 2 original Gemini e os assets estão salvos; o teste de notebook passou, mas o teste de foco inicial do menu móvel ainda falha. Não houve merge nem publicação em produção. O gate integral e a sincronização documental final continuam pendentes.
+**Checkpoint histórico de início de 30/10:** a Opção 2 original Gemini e seus assets foram preservados na branch `feat/sidebar-impeccable`, sobre `main cbcbebbb` (PR #220). O teste de notebook passou; o foco móvel falhou. **Continuação em validação:** a causa foi reproduzida isoladamente no Chromium, vinculada à transição CSS de `visibility`, agora alterada para abertura imediatamente focalizável e ocultação após o fechamento animado. Ainda é necessário confirmar pelo E2E do projeto e pela CI. Não houve merge nem publicação em produção.
 
 **Próximo agente: ler primeiro [RETOMADA_PR215_CHECKPOINT_2026-10-30.md](design/RETOMADA_PR215_CHECKPOINT_2026-10-30.md).** O arquivo registra código, decisões, autorização expressa de correção e publicação, testes realmente executados, falha exata e passos restantes. Esta nota atual supera somente a indicação de “próximo passo visual” da fotografia de 29/10 abaixo; preserva as fotografias como histórico.
 

@@ -33,21 +33,27 @@ jobs:
       - name: Instalar navegador de teste
         run: npx playwright install --with-deps chromium
       - name: Capturar barra lateral e verificar estados
-        run: npm run test:sidebar-visual -- --output=test-results/sidebar
+        run: |
+          npm run test:sidebar-visual -- --output=test-results/sidebar
+          mkdir -p visual-evidence/sidebar
+          cp -R playwright-report/data/. visual-evidence/sidebar/
       - name: Verificar espaço útil da carteira em monitores amplos
-        run: npx playwright test tests/e2e/responsive-table.spec.ts --project=chromium-desktop --output=test-results/wide-screens
+        run: |
+          npx playwright test tests/e2e/responsive-table.spec.ts --project=chromium-desktop --output=test-results/wide-screens
+          mkdir -p visual-evidence/wide-screens
+          cp -R playwright-report/data/. visual-evidence/wide-screens/
       - name: Exportar capturas sintéticas para inspeção desta correção
         run: |
           python3 - <<'PY'
-          import base64, pathlib
-          for name, root, pattern in [
-              ('sidebar', 'test-results/sidebar', 'assinatura-1366*'),
-              ('wide', 'test-results/wide-screens', 'carteira-2560-dados-sinteticos*'),
-          ]:
-              files = sorted(pathlib.Path(root).rglob(pattern))
-              files = [p for p in files if p.is_file()]
-              assert files, (name, root, pattern)
-              path = next((p for p in files if 'chromium-desktop' in str(p)), files[0])
+          import base64, pathlib, struct
+          for name, root in [('sidebar', 'visual-evidence/sidebar'), ('wide', 'visual-evidence/wide-screens')]:
+              files = [p for p in pathlib.Path(root).rglob('*') if p.is_file()]
+              if name == 'sidebar':
+                  files = [p for p in files if p.suffix == '.png' and struct.unpack('>II', p.read_bytes()[16:24]) == (276, 728)]
+              else:
+                  files = [p for p in files if p.suffix.lower() in ['.jpg', '.jpeg']]
+              assert files, (name, [str(p) for p in pathlib.Path(root).rglob('*')])
+              path = sorted(files)[0]
               print('CTRH_REVIEW_IMAGE_BEGIN ' + name + ' ' + path.suffix)
               print(base64.encodebytes(path.read_bytes()).decode())
               print('CTRH_REVIEW_IMAGE_END ' + name)
@@ -62,5 +68,6 @@ jobs:
           path: |
             playwright-report/
             test-results/
+            visual-evidence/
           retention-days: 14
           if-no-files-found: warn

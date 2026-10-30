@@ -6,6 +6,7 @@ import '../src/index.css';
 import '../src/brand.css';
 import '../src/visual-evolution.css';
 import '../src/design-shell.css';
+import '../src/styles/sidebar-tokens.css';
 
 const preview: Preview = {
   parameters: {

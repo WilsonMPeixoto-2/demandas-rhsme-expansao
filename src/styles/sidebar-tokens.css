@@ -1,153 +1,171 @@
+/* ==========================================================================
+   Fluxo CTRH | Síntese Estética Definitiva da Barra Lateral
+   - Símbolo "F" Bicolor (Bronze + Branco) + Fluxo CTRH em Georgia
+   - Assinatura Oficial [Brasão] PREFEITURA RIO | Educação + Coordenadoria Técnica de Recursos Humanos
+   - 4 Ícones Lineares Minimalistas (1.75px) em linha única com faixa ativa Azul Petróleo e filete Bronze
+   - Arte Arquitetônica Tonal dos Arcos da Lapa em tom sobre tom Azul Petróleo / Marinho
+   ========================================================================== */
+
 :root {
-  /* 1. Superfícies e Paleta Institucional (SME-RJ / CTRH) */
-  --ct-sidebar-bg-deep: #091e32;
-  --ct-sidebar-bg-mid: #0e2b46;
-  --ct-sidebar-bg-surface: #133656;
-  --ct-sidebar-border: rgba(148, 184, 214, 0.16);
-  --ct-sidebar-divider: rgba(216, 227, 237, 0.12);
-
-  /* 2. Acento Nobre & Estados de Seleção */
-  --ct-accent-bronze: #d4a872;
-  --ct-accent-bronze-soft: rgba(212, 168, 114, 0.18);
-  --ct-accent-bronze-border: rgba(212, 168, 114, 0.34);
-  --ct-nav-active-bg: rgba(36, 82, 118, 0.52);
-  --ct-nav-hover-bg: rgba(255, 255, 255, 0.055);
-
-  /* 3. Hierarquia Tipográfica e Contraste */
-  --ct-text-primary: #ffffff;
-  --ct-text-secondary: #d4e3f0;
-  --ct-text-muted: rgba(196, 215, 232, 0.68);
-  --ct-text-section: #8fb0cc;
-
-  /* 4. Dimensões e Calibração de Equilíbrio Óptico (20px base grid) */
-  --ct-icon-size-base: 20px;
-  --ct-icon-scale-radar: 1.06;
-  --ct-icon-scale-demandas: 0.96;
-  --ct-icon-scale-minhas: 1.00;
-  --ct-icon-scale-admin: 1.02;
-  --ct-icon-optical-y-minhas: -0.5px;
-
-  /* 5. Marca d'Água Arcos da Lapa */
-  --ct-watermark-height: 112px;
-  --ct-watermark-opacity: 0.095;
-  --ct-watermark-color: #9ec2e0;
+  --ct-sidebar-navy-top: #09243a;
+  --ct-sidebar-navy-mid: #0a2840;
+  --ct-sidebar-navy-bot: #092338;
+  --ct-sidebar-bronze: #c69c6d;
 }
 
-/* Sidebar surface & layout */
-.ct-sidebar {
-  position: sticky;
-  top: 20px;
-  align-self: start;
-  min-width: 0;
-  z-index: 12;
+@media (min-width: 941px) {
+  .ct-shell.app-container {
+    grid-template-columns: minmax(0, 276px) minmax(0, 1fr);
+  }
 }
 
-.ct-sidebar-surface {
+.ct-sidebar-backdrop {
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.ct-sidebar .ct-sidebar-surface {
   position: relative;
   display: flex;
   flex-direction: column;
-  min-height: min(760px, calc(100dvh - 40px));
-  max-height: calc(100dvh - 40px);
   overflow-x: hidden;
   overflow-y: auto;
-  scrollbar-width: none;
-  padding: 20px 14px 14px;
-  color: var(--ct-text-primary);
-  border: 1px solid var(--ct-sidebar-border);
-  border-radius: 20px;
-  background:
-    radial-gradient(ellipse at 105% -8%, rgba(120, 181, 220, 0.12), transparent 46%),
-    linear-gradient(168deg, var(--ct-sidebar-bg-deep) 0%, var(--ct-sidebar-bg-mid) 62%, var(--ct-sidebar-bg-surface) 100%);
-  box-shadow: 0 20px 44px rgba(7, 22, 38, 0.18);
-}
-
-.ct-sidebar-surface::-webkit-scrollbar {
-  display: none;
+  overscroll-behavior: contain;
+  padding: 26px 0 14px;
+  border-radius: 18px;
+  border: 1px solid rgba(148, 184, 214, 0.16);
+  background: linear-gradient(
+    180deg,
+    var(--ct-sidebar-navy-top) 0%,
+    var(--ct-sidebar-navy-mid) 50%,
+    var(--ct-sidebar-navy-bot) 100%
+  );
+  box-shadow: 0 20px 44px rgba(8, 28, 46, 0.22);
+  color: #ffffff;
 }
 
 .ct-sidebar-header {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  width: 100%;
+  padding: 0 22px 16px;
+  position: relative;
+  z-index: 3;
 }
 
 .ct-sidebar-brand {
-  padding: 2px 8px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.ct-brand-bicolor-lockup {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+
+.ct-bicolor-f-symbol {
+  width: 48px;
+  height: 48px;
+  flex: 0 0 48px;
+}
+
+.ct-brand-bicolor-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
   min-width: 0;
-  width: 100%;
 }
 
-.ct-sidebar-brand .brand-lockup {
-  gap: 8px;
-  width: 100%;
-}
-
-.ct-sidebar-brand .brand-primary {
-  gap: 10px;
-  align-items: flex-start;
-}
-
-.ct-sidebar-brand .brand-symbol {
-  width: 34px;
-  height: 34px;
-  margin-top: 2px;
-  color: var(--ct-text-primary);
-  flex-shrink: 0;
-}
-
-.ct-sidebar-brand .brand-name {
+.ct-brand-serif-title {
   font-family: Georgia, 'Times New Roman', serif;
-  color: var(--ct-text-primary);
-  font-size: 1.36rem;
-  line-height: 1.04;
-  letter-spacing: -0.03em;
-}
-
-.ct-sidebar-brand .brand-tagline {
-  font-size: 0.70rem;
-  line-height: 1.3;
-  color: var(--ct-text-muted);
-  margin-top: 3px;
+  font-size: 1.58rem;
   font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  color: #ffffff;
 }
 
-.ct-sidebar-brand .brand-endorsement {
-  margin-top: 4px;
-  padding-top: 8px;
-  border-top: 1px solid rgba(212, 168, 114, 0.22);
-  width: 100%;
+.ct-prefeitura-inline {
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
-.ct-sidebar-brand .brand-endorsement-image {
-  content: url('/prefeitura-rio-educacao-negativo.png');
-  height: 22px;
-  width: auto;
-  opacity: 0.95;
+.ct-brasao-inline-img {
+  width: 18px;
+  height: 19px;
+  object-fit: contain;
+  opacity: 0.96;
 }
 
-.ct-sidebar-brand-rule {
-  display: block;
-  height: 1px;
-  margin: 2px 8px 12px;
-  background: linear-gradient(90deg, var(--ct-sidebar-divider), rgba(212, 168, 114, 0.18), transparent);
-}
-
-.ct-sidebar-section-label {
-  padding: 2px 10px 8px;
-  color: var(--ct-text-section);
-  font-size: 0.64rem;
-  font-weight: 700;
-  letter-spacing: 0.09em;
+.ct-pref-word {
+  font-size: 0.57rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: rgba(235, 243, 250, 0.92);
   text-transform: uppercase;
 }
 
-.ct-sidebar-nav {
-  position: relative;
-  z-index: 2;
+.ct-rio-word {
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: #ffffff;
+  text-transform: uppercase;
+}
+
+.ct-pref-pipe {
+  width: 1px;
+  height: 12px;
+  background: rgba(255, 255, 255, 0.38);
+  margin: 0 2px;
+}
+
+.ct-edu-word {
+  font-size: 0.65rem;
+  font-weight: 450;
+  color: rgba(235, 243, 250, 0.92);
+}
+
+/* Assinatura do Setor (CTRH — Coordenadoria Técnica de Recursos Humanos) */
+.ct-sector-footer-signature {
+  padding: 0 4px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.ct-sector-signature {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
   display: flex;
   flex-direction: column;
   gap: 5px;
+}
+
+.ct-sector-bronze-bar {
+  width: 24px;
+  height: 2px;
+  background: var(--ct-sidebar-bronze);
+  display: block;
+}
+
+.ct-sector-name {
+  font-size: 0.68rem;
+  font-weight: 450;
+  line-height: 1.35;
+  color: rgba(217, 227, 235, 0.84);
+  letter-spacing: 0.01em;
+}
+
+/* Menu de Navegação Limpo em 1 Linha (Opção C) */
+.ct-sidebar-nav {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-top: 2px;
 }
 
 .ct-sidebar .ct-nav-button {
@@ -155,253 +173,169 @@
   display: flex;
   width: 100%;
   min-height: 52px;
-  align-items: flex-start;
-  gap: 11px;
-  border: 1px solid transparent;
-  border-radius: 11px;
-  padding: 9px 11px;
-  color: var(--ct-text-secondary);
+  height: 52px;
+  align-items: center;
+  gap: 16px;
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 0 24px;
+  color: rgba(240, 246, 252, 0.92);
   background: transparent;
-  font-family: inherit;
+  box-shadow: none !important;
   text-align: left;
   cursor: pointer;
-  transition: background 0.16s ease, border-color 0.16s ease, color 0.16s ease;
+  transition: background 0.16s ease, color 0.16s ease;
 }
 
 .ct-sidebar .ct-nav-button:hover {
-  background: var(--ct-nav-hover-bg);
-  color: var(--ct-text-primary);
-}
-
-.ct-sidebar .ct-nav-button.is-active,
-.ct-sidebar .ct-nav-button.is-current {
-  background: var(--ct-nav-active-bg);
-  border-color: var(--ct-accent-bronze-border);
-  color: var(--ct-text-primary);
-  box-shadow: 0 4px 12px rgba(4, 15, 28, 0.18);
-}
-
-.ct-sidebar .ct-nav-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: var(--ct-icon-size-base);
-  height: var(--ct-icon-size-base);
-  flex: 0 0 var(--ct-icon-size-base);
-  margin-top: 1px;
-  background: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
-  color: #b4cbe0;
-  transition: color 0.16s ease, transform 0.16s ease;
-}
-
-.ct-sidebar .ct-nav-button:hover .ct-nav-icon {
+  background: rgba(255, 255, 255, 0.05);
   color: #ffffff;
 }
 
-.ct-sidebar .ct-nav-button.is-active .ct-nav-icon,
-.ct-sidebar .ct-nav-button.is-current .ct-nav-icon {
-  color: var(--ct-accent-bronze);
+.ct-sidebar .ct-nav-button.is-active {
+  background: rgba(36, 75, 104, 0.48);
+  color: #ffffff;
+}
+
+.ct-sidebar .ct-nav-button.is-active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4.5px;
+  background: var(--ct-sidebar-bronze);
+}
+
+.ct-sidebar .ct-nav-icon {
+  width: 24px;
+  height: 24px;
+  flex: 0 0 24px;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .ct-nav-svg {
-  width: var(--ct-icon-size-base);
-  height: var(--ct-icon-size-base);
+  width: 23px;
+  height: 23px;
   display: block;
 }
 
-.ct-nav-svg--visao-geral {
-  transform: scale(var(--ct-icon-scale-radar));
-}
-
-.ct-nav-svg--demandas {
-  transform: scale(var(--ct-icon-scale-demandas));
-}
-
-.ct-nav-svg--minhas-demandas {
-  transform: scale(var(--ct-icon-scale-minhas)) translateY(var(--ct-icon-optical-y-minhas));
-}
-
-.ct-nav-svg--admin {
-  transform: scale(var(--ct-icon-scale-admin));
-}
-
-.ct-nav-svg .duotone-layer {
-  opacity: 0;
-  transition: opacity 0.18s ease;
-}
-
-.ct-sidebar .ct-nav-button.is-active .ct-nav-svg .duotone-layer,
-.ct-sidebar .ct-nav-button.is-current .ct-nav-svg .duotone-layer {
-  opacity: 0.24;
-}
-
-.ct-sidebar .ct-nav-button:hover:not(.is-active):not(.is-current) .ct-nav-svg .duotone-layer {
-  opacity: 0.08;
-}
-
-.ct-nav-copy {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  min-width: 0;
-}
-
 .ct-nav-text {
-  font-size: 0.86rem;
-  font-weight: 600;
-  line-height: 1.22;
-  letter-spacing: -0.01em;
+  font-size: 0.94rem;
+  font-weight: 450;
+  line-height: 1.2;
+  letter-spacing: -0.005em;
   color: inherit;
+  white-space: nowrap;
 }
 
-.ct-nav-description {
-  font-size: 0.70rem;
-  line-height: 1.26;
-  color: var(--ct-text-muted);
+.ct-sidebar .ct-nav-button.is-active .ct-nav-text {
+  font-weight: 500;
 }
 
 .ct-nav-compact-text {
   display: none;
 }
 
-.ct-sidebar-lapa-watermark {
-  position: relative;
+/* Arte Arquitetônica Tonal dos Arcos da Lapa na Base */
+.ct-sidebar-lapa-tonal {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 36px;
+  height: 315px;
   z-index: 1;
-  margin-top: auto;
-  margin-left: -14px;
-  margin-right: -14px;
-  margin-bottom: -8px;
-  height: var(--ct-watermark-height);
-  color: var(--ct-watermark-color);
-  opacity: var(--ct-watermark-opacity);
   pointer-events: none;
-  mask-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.65) 45%, rgba(0, 0, 1) 100%);
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.65) 45%, rgba(0, 0, 1) 100%);
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(0, 0, 0, 0.55) 14%,
+    rgba(0, 0, 0, 1) 30%
+  );
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(0, 0, 0, 0.55) 14%,
+    rgba(0, 0, 0, 1) 30%
+  );
 }
 
-.ct-sidebar-lapa-watermark svg {
+.ct-sidebar-lapa-tonal img {
   width: 100%;
   height: 100%;
+  object-fit: cover;
+  object-position: center bottom;
   display: block;
+}
+
+.ct-sidebar.is-collapsed .ct-sidebar-lapa-tonal {
+  opacity: 0.35;
+  height: 160px;
 }
 
 .ct-sidebar-footer {
   position: relative;
-  z-index: 2;
-  padding-top: 4px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.ct-sidebar-caption {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 2px 8px;
-  color: var(--ct-text-muted);
-  font-size: 0.69rem;
-  line-height: 1.3;
-}
-
-.ct-footer-svg {
-  width: 15px;
-  height: 15px;
-  color: var(--ct-accent-bronze);
-  flex: 0 0 15px;
+  z-index: 3;
+  margin-top: auto;
+  padding: 16px 20px 4px;
+  background: linear-gradient(to top, rgba(7, 24, 39, 0.92) 0%, rgba(7, 24, 39, 0.5) 65%, transparent 100%);
 }
 
 .ct-sidebar-toggle {
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 9px;
+  border: 1px solid rgba(217, 227, 235, 0.16);
+  background: rgba(8, 28, 46, 0.68);
+  backdrop-filter: blur(6px);
+  color: rgba(235, 243, 250, 0.88);
+  font-size: 0.75rem;
+  font-weight: 500;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 7px;
-  width: 100%;
-  padding: 7px 10px;
-  border-radius: 9px;
-  border: 1px solid rgba(216, 227, 237, 0.14);
-  background: rgba(9, 30, 50, 0.48);
-  color: var(--ct-text-secondary);
-  font-size: 0.74rem;
-  font-weight: 500;
+  gap: 8px;
   cursor: pointer;
-  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
 }
-
-.ct-sidebar-toggle:hover {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: var(--ct-accent-bronze-border);
-  color: var(--ct-text-primary);
+/* Integration: dimensions, collapse, keyboard focus and the approved mobile drawer. */
+.ct-sidebar {
+  position: sticky;
+  top: 20px;
+  align-self: start;
+  min-width: 0;
+  z-index: 12;
 }
-
+.ct-sidebar .ct-sidebar-surface {
+  min-height: min(760px, calc(100dvh - 40px));
+  max-height: calc(100dvh - 40px);
+  scrollbar-width: thin;
+  scrollbar-color: #537b94 transparent;
+}
+.ct-bicolor-f-symbol .brand-primary { width: 100%; height: 100%; }
+.ct-bicolor-f-symbol .brand-symbol { display: block; width: 100%; height: 100%; flex: 0 0 auto; }
+.ct-nav-copy { min-width: 0; }
+.ct-sidebar .ct-nav-button:focus-visible,
 .ct-sidebar-toggle:focus-visible,
-.ct-sidebar .ct-nav-button:focus-visible {
-  outline: 3px solid rgba(212, 168, 114, 0.6);
-  outline-offset: 2px;
-}
+.ct-mobile-menu-trigger:focus-visible,
+.ct-mobile-sidebar-close:focus-visible { outline: 3px solid #dfb98b; outline-offset: -3px; }
+.ct-sidebar-toggle { min-height: 40px; }
+.ct-mobile-menu-bar, .ct-mobile-menu-backdrop, .ct-mobile-sidebar-close { display: none; }
 
-/* Collapsed state */
-.ct-sidebar.is-collapsed .ct-sidebar-brand {
-  padding-inline: 0;
-  text-align: center;
+@media (min-width: 941px) {
+  .ct-shell.app-container:has(.ct-sidebar.is-collapsed) { grid-template-columns: 84px minmax(0, 1fr); }
+  .ct-sidebar.is-collapsed .ct-sidebar-header { padding: 0 12px 16px; }
+  .ct-sidebar.is-collapsed .ct-brand-bicolor-lockup { justify-content: center; gap: 0; }
+  .ct-sidebar.is-collapsed .ct-nav-copy { display: none; }
+  .ct-sidebar.is-collapsed .ct-nav-button { justify-content: center; padding-inline: 0; gap: 0; }
+  .ct-sidebar.is-collapsed .ct-sidebar-footer { padding: 12px 10px 4px; }
 }
-
-.ct-sidebar.is-collapsed .ct-sidebar-brand .brand-lockup {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-}
-
-.ct-sidebar.is-collapsed .ct-sidebar-brand .brand-primary {
-  justify-content: center;
-}
-
-.ct-sidebar.is-collapsed .ct-sidebar-brand .brand-symbol {
-  margin: 0 auto;
-}
-
-.ct-sidebar.is-collapsed .ct-sidebar-section-label {
-  text-align: center;
-  letter-spacing: 0;
-  font-size: 0.60rem;
-}
-
-.ct-sidebar.is-collapsed .ct-nav-button {
-  justify-content: center;
-  padding: 10px 5px;
-  min-height: 52px;
-}
-
-.ct-sidebar.is-collapsed .ct-nav-copy {
-  display: none;
-}
-
-.ct-sidebar.is-collapsed .ct-sidebar-toggle {
-  justify-content: center;
-}
-
-.ct-sidebar.is-collapsed .ct-sidebar-caption {
-  display: none;
-}
-
-.ct-sidebar.is-collapsed .ct-sidebar-lapa-watermark {
-  opacity: 0.04;
-}
-
-/* Mobile & drawer styling */
-.ct-mobile-bar,
-.ct-mobile-menu-bar,
-.ct-sidebar-backdrop,
-.ct-mobile-menu-backdrop,
-.ct-sidebar-mobile-close,
-.ct-mobile-sidebar-close {
-  display: none;
-}
-
 @media (max-width: 940px) {
-  .ct-mobile-bar,
   .ct-mobile-menu-bar {
     display: flex;
     position: sticky;
@@ -409,146 +343,65 @@
     z-index: 68;
     margin: -18px -16px 18px;
     padding: 12px 16px;
-    min-height: 64px;
+    min-height: 68px;
     align-items: center;
     justify-content: space-between;
     gap: 10px;
-    background: rgba(9, 30, 50, 0.94);
-    border-bottom: 1px solid rgba(148, 184, 214, 0.2);
-    box-shadow: 0 8px 24px rgba(4, 15, 28, 0.28);
+    background: rgba(248, 251, 253, .97);
+    border-bottom: 1px solid #d7e3ee;
+    box-shadow: 0 9px 26px rgba(20, 54, 80, .08);
     backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
   }
-
-  .ct-mobile-trigger,
   .ct-mobile-menu-trigger {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 40px;
-    padding: 8px 14px;
-    gap: 8px;
-    border: 1px solid rgba(212, 168, 114, 0.35);
-    border-radius: 9px;
-    color: var(--ct-text-primary);
-    background: rgba(36, 82, 118, 0.52);
-    font: 600 0.82rem inherit;
-    cursor: pointer;
+    display: inline-flex; align-items: center; justify-content: center;
+    min-height: 44px; padding: 9px 16px; gap: 10px;
+    border: 1px solid #2c628b; border-radius: 11px; color: #fff;
+    background: linear-gradient(133deg, #17324d, #245b81);
+    box-shadow: 0 6px 15px rgba(22, 55, 82, .18);
+    font-family: inherit; font-size: .86rem; font-weight: 700; cursor: pointer;
   }
-
-  .ct-mobile-brand {
-    display: flex;
-    align-items: center;
+  .ct-mobile-menu-context {
+    display: flex; align-items: center; justify-content: flex-end;
+    min-width: 0; gap: 10px; font-size: .85rem; color: #17324d;
   }
-
-  .ct-mobile-brand .brand-name {
-    font-size: 1.15rem;
-    font-family: Georgia, 'Times New Roman', serif;
-    color: #ffffff;
-  }
-
-  .ct-mobile-brand .brand-symbol {
-    width: 28px;
-    height: 28px;
-    color: #ffffff;
-  }
-
-  .ct-mobile-current {
-    display: flex;
-    align-items: center;
-  }
-
-  .ct-mobile-current-tag {
-    font-size: 0.74rem;
-    font-weight: 700;
-    color: var(--ct-accent-bronze);
-    background: rgba(212, 168, 114, 0.12);
-    border: 1px solid rgba(212, 168, 114, 0.25);
-    padding: 3px 8px;
-    border-radius: 6px;
-  }
-
-  .ct-sidebar-backdrop,
+  .ct-mobile-menu-context .brand-symbol { width: 29px; height: 29px; flex-shrink: 0; }
+  .ct-mobile-menu-context strong { white-space: nowrap; }
   .ct-mobile-menu-backdrop {
-    display: block;
-    position: fixed;
-    inset: 0;
-    z-index: 90;
-    width: 100%;
-    height: 100%;
-    border: 0;
-    background: rgba(4, 15, 28, 0.65);
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-    cursor: pointer;
+    display: block; position: fixed; inset: 0; z-index: 90;
+    width: 100%; height: 100%; padding: 0; border: 0;
+    background: rgba(6, 27, 44, .53); cursor: pointer;
   }
-
-  .ct-sidebar,
-  .ct-sidebar.is-collapsed {
-    position: fixed;
-    z-index: 95;
-    top: 0;
-    left: 0;
-    right: auto;
-    bottom: 0;
-    display: block;
-    width: min(86vw, 320px);
-    height: 100dvh;
-    max-height: 100dvh;
-    transform: translateX(-105%);
-    visibility: hidden;
-    pointer-events: none;
-    transition: transform 0.24s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.24s ease;
+  .ct-sidebar, .ct-sidebar.is-collapsed {
+    position: fixed; z-index: 95; inset: 0 auto 0 0;
+    display: block; width: min(86vw, 320px); height: 100dvh; max-height: 100dvh;
+    transform: translateX(-105%); visibility: hidden; pointer-events: none;
+    transition: transform .22s ease, visibility .22s ease;
   }
-
-  .ct-sidebar.is-mobile-open,
-  .ct-sidebar.ct-sidebar--open,
-  .ct-sidebar.is-collapsed.is-mobile-open,
-  .ct-sidebar.is-collapsed.ct-sidebar--open {
-    transform: translateX(0);
-    visibility: visible;
-    pointer-events: auto;
+  .ct-sidebar.ct-sidebar--open, .ct-sidebar.is-collapsed.ct-sidebar--open {
+    transform: translateX(0); visibility: visible; pointer-events: auto;
   }
-
-  .ct-sidebar-surface {
-    border-radius: 0 20px 20px 0;
-    height: 100%;
-    max-height: 100%;
-    border-left: none;
-    padding: 20px 14px 14px;
+  .ct-sidebar .ct-sidebar-surface {
+    height: 100%; min-height: 100%; max-height: 100%;
+    padding: 20px 0 14px; border-radius: 0 18px 18px 0;
   }
-
-  .ct-sidebar-header {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    width: 100%;
-  }
-
-  .ct-sidebar-mobile-close,
+  .ct-sidebar-header { padding: 0 50px 16px 16px; }
+  .ct-bicolor-f-symbol { width: 40px; height: 40px; flex-basis: 40px; }
+  .ct-brand-bicolor-lockup { gap: 9px; }
+  .ct-brand-serif-title { font-size: 1.4rem; }
+  .ct-prefeitura-inline { gap: 3px; flex-wrap: wrap; }
+  .ct-brasao-inline-img { width: 16px; height: 18px; }
   .ct-mobile-sidebar-close {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 36px;
-    height: 36px;
-    border-radius: 9px;
-    border: 1px solid rgba(216, 227, 237, 0.16);
-    background: rgba(255, 255, 255, 0.06);
-    color: var(--ct-text-primary);
-    cursor: pointer;
-    font-size: 1rem;
-    flex-shrink: 0;
-    margin-top: 2px;
+    display: grid; place-items: center; position: absolute; top: 0; right: 12px;
+    width: 36px; height: 36px; padding: 0; border: 1px solid rgba(216,227,237,.25);
+    border-radius: 9px; color: #fff; background: rgba(255,255,255,.08); cursor: pointer;
   }
-
-  .ct-sidebar-mobile-close:hover,
-  .ct-mobile-sidebar-close:hover {
-    background: rgba(255, 255, 255, 0.12);
-  }
-
-  .ct-sidebar-toggle {
-    display: none;
-  }
+  .ct-sidebar-toggle { display: none; }
+}
+@media (max-width: 540px) {
+  .ct-mobile-menu-bar { margin: -14px -14px 17px; padding: 10px 14px; min-height: 64px; }
+  .ct-mobile-menu-context { font-size: .81rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ct-sidebar, .ct-nav-button { transition: none; }
 }
 

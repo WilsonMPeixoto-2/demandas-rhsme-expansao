@@ -1,0 +1,303 @@
+/* ==========================================================================
+   Fluxo CTRH | Síntese Estética Definitiva da Barra Lateral
+   - Símbolo "F" Bicolor (Bronze + Branco) + Fluxo CTRH em Georgia
+   - Assinatura Oficial [Brasão] PREFEITURA RIO | Educação + Coordenadoria Técnica de Recursos Humanos
+   - 4 Ícones Lineares Minimalistas (1.75px) em linha única com faixa ativa Azul Petróleo e filete Bronze
+   - Arte Arquitetônica Tonal dos Arcos da Lapa em tom sobre tom Azul Petróleo / Marinho
+   ========================================================================== */
+
+:root {
+  --ct-sidebar-navy-top: #09243a;
+  --ct-sidebar-navy-mid: #0a2840;
+  --ct-sidebar-navy-bot: #092338;
+  --ct-sidebar-bronze: #c69c6d;
+}
+
+@media (min-width: 941px) {
+  .ct-shell.app-container {
+    grid-template-columns: minmax(0, 276px) minmax(0, 1fr);
+  }
+}
+
+.ct-sidebar-backdrop {
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.ct-sidebar .ct-sidebar-surface {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 26px 0 14px;
+  border-radius: 18px;
+  border: 1px solid rgba(148, 184, 214, 0.16);
+  background: linear-gradient(
+    180deg,
+    var(--ct-sidebar-navy-top) 0%,
+    var(--ct-sidebar-navy-mid) 50%,
+    var(--ct-sidebar-navy-bot) 100%
+  );
+  box-shadow: 0 20px 44px rgba(8, 28, 46, 0.22);
+  color: #ffffff;
+}
+
+.ct-sidebar-header {
+  padding: 0 22px 16px;
+  position: relative;
+  z-index: 3;
+}
+
+.ct-sidebar-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.ct-brand-bicolor-lockup {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+
+.ct-bicolor-f-symbol {
+  width: 48px;
+  height: 48px;
+  flex: 0 0 48px;
+}
+
+.ct-brand-bicolor-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.ct-brand-serif-title {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 1.58rem;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  color: #ffffff;
+}
+
+.ct-prefeitura-inline {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.ct-brasao-inline-img {
+  width: 18px;
+  height: 19px;
+  object-fit: contain;
+  opacity: 0.96;
+}
+
+.ct-pref-word {
+  font-size: 0.57rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: rgba(235, 243, 250, 0.92);
+  text-transform: uppercase;
+}
+
+.ct-rio-word {
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: #ffffff;
+  text-transform: uppercase;
+}
+
+.ct-pref-pipe {
+  width: 1px;
+  height: 12px;
+  background: rgba(255, 255, 255, 0.38);
+  margin: 0 2px;
+}
+
+.ct-edu-word {
+  font-size: 0.65rem;
+  font-weight: 450;
+  color: rgba(235, 243, 250, 0.92);
+}
+
+/* Assinatura do Setor (CTRH — Coordenadoria Técnica de Recursos Humanos) */
+.ct-sector-footer-signature {
+  padding: 0 4px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.ct-sector-signature {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.ct-sector-bronze-bar {
+  width: 24px;
+  height: 2px;
+  background: var(--ct-sidebar-bronze);
+  display: block;
+}
+
+.ct-sector-name {
+  font-size: 0.68rem;
+  font-weight: 450;
+  line-height: 1.35;
+  color: rgba(217, 227, 235, 0.84);
+  letter-spacing: 0.01em;
+}
+
+/* Menu de Navegação Limpo em 1 Linha (Opção C) */
+.ct-sidebar-nav {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-top: 2px;
+}
+
+.ct-sidebar .ct-nav-button {
+  position: relative;
+  display: flex;
+  width: 100%;
+  min-height: 52px;
+  height: 52px;
+  align-items: center;
+  gap: 16px;
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 0 24px;
+  color: rgba(240, 246, 252, 0.92);
+  background: transparent;
+  box-shadow: none !important;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.16s ease, color 0.16s ease;
+}
+
+.ct-sidebar .ct-nav-button:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+}
+
+.ct-sidebar .ct-nav-button.is-active {
+  background: rgba(36, 75, 104, 0.48);
+  color: #ffffff;
+}
+
+.ct-sidebar .ct-nav-button.is-active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4.5px;
+  background: var(--ct-sidebar-bronze);
+}
+
+.ct-sidebar .ct-nav-icon {
+  width: 24px;
+  height: 24px;
+  flex: 0 0 24px;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ct-nav-svg {
+  width: 23px;
+  height: 23px;
+  display: block;
+}
+
+.ct-nav-text {
+  font-size: 0.94rem;
+  font-weight: 450;
+  line-height: 1.2;
+  letter-spacing: -0.005em;
+  color: inherit;
+  white-space: nowrap;
+}
+
+.ct-sidebar .ct-nav-button.is-active .ct-nav-text {
+  font-weight: 500;
+}
+
+.ct-nav-compact-text {
+  display: none;
+}
+
+/* Arte Arquitetônica Tonal dos Arcos da Lapa na Base */
+.ct-sidebar-lapa-tonal {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 36px;
+  height: 315px;
+  z-index: 1;
+  pointer-events: none;
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(0, 0, 0, 0.55) 14%,
+    rgba(0, 0, 0, 1) 30%
+  );
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(0, 0, 0, 0.55) 14%,
+    rgba(0, 0, 0, 1) 30%
+  );
+}
+
+.ct-sidebar-lapa-tonal img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center bottom;
+  display: block;
+}
+
+.ct-sidebar.is-collapsed .ct-sidebar-lapa-tonal {
+  opacity: 0.35;
+  height: 160px;
+}
+
+.ct-sidebar-footer {
+  position: relative;
+  z-index: 3;
+  margin-top: auto;
+  padding: 16px 20px 4px;
+  background: linear-gradient(to top, rgba(7, 24, 39, 0.92) 0%, rgba(7, 24, 39, 0.5) 65%, transparent 100%);
+}
+
+.ct-sidebar-toggle {
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 9px;
+  border: 1px solid rgba(217, 227, 235, 0.16);
+  background: rgba(8, 28, 46, 0.68);
+  backdrop-filter: blur(6px);
+  color: rgba(235, 243, 250, 0.88);
+  font-size: 0.75rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+}

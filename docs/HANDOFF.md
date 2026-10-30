@@ -1,10 +1,36 @@
 # Handoff Operacional — Central de Demandas CTRH
 
-Atualizado em: **26 de outubro de 2026 — auditoria de banco concluída; backend confirmado como Supabase, atualmente INACTIVE; lote de dependências de 26/10 em validação final no CI; Production não alterada**
+Atualizado em: **30 de outubro de 2026 — reconciliação pontual de referências documentais.** Os estados de GitHub, Vercel e Supabase registrados abaixo são fotografias datadas, não indicadores em tempo real; devem ser reconferidos antes de qualquer intervenção.
 
 <!-- IMPLEMENTATION_AUTHORIZATION: V1-E-A01 -->
 
-## Estado material
+## Checkpoint de retomada do PR #215 — 30/10/2026
+
+**Trabalho em andamento salvo a pedido do usuário por término próximo da cota.** Branch `feat/sidebar-impeccable`, base `main cbcbebbb` (PR #220). A integração da Opção 2 original Gemini e os assets estão salvos; o teste de notebook passou, mas o teste de foco inicial do menu móvel ainda falha. Não houve merge nem publicação em produção. O gate integral e a sincronização documental final continuam pendentes.
+
+**Próximo agente: ler primeiro [RETOMADA_PR215_CHECKPOINT_2026-10-30.md](design/RETOMADA_PR215_CHECKPOINT_2026-10-30.md).** O arquivo registra código, decisões, autorização expressa de correção e publicação, testes realmente executados, falha exata e passos restantes. Esta nota atual supera somente a indicação de “próximo passo visual” da fotografia de 29/10 abaixo; preserva as fotografias como histórico.
+
+
+## Fotografia operacional verificada em 29 de outubro de 2026 (antes do PR #219)
+
+Este quadro reúne verificações realizadas **antes da integração do PR #219**, quando a `main` ainda apontava para o commit do PR #218. A integração do próprio PR #219 gerou novo commit e deployment: os SHAs e deployments abaixo registram proveniência, **não representam o estado ao vivo**. Na retomada, conferir diretamente GitHub, Vercel e Supabase. A fotografia de 26/10 logo abaixo permanece preservada como histórico.
+
+| Verificação | Resultado |
+|---|---|
+| Branch `main` | `87ef08fc31d702119c281351d3b1918d18464414` — PR #218 integrado |
+| Vercel Production | Deploy do SHA `87ef08fc` em estado **READY**; alterações #216–#218 foram documentais/de ferramentas, sem redesenho operacional |
+| Supabase `CTRH PROCESSOS` | Projeto `kdhekkzwcokfrpcrsllr` consultado em 29/10: **ACTIVE_HEALTHY**. O registro `INACTIVE` abaixo refere-se exclusivamente à auditoria de 26/10 |
+| GitHub Actions | PR #218: **Integridade do repertório de design, CodeQL e Dependency health aprovados** antes do merge; o PR #216 reparou o workflow YAML defeituoso |
+| Plugin privado ChatGPT | **Visual Quality v0.1.1**, publicado como plugin pessoal, com diretrizes transversais de testes evolutivos, evidência fiel e aprovação visual humana |
+| Governança visual | `AGENTS.md`, `.github/pull_request_template.md` e `docs/design/PROTOCOLO_PERMANENTE_EVOLUCAO_VISUAL_CTRH.md` atualizados e integrados pelo PR #218 |
+| Storybook | Infraestrutura para histórias de componentes reais incorporada pelo PR #213; consultar `docs/design/STORYBOOK_CTRH_INTEGRACAO_REAL.md` |
+| PR #215 (barra lateral) | **Aberto, não integrado**, branch `feat/sidebar-impeccable`, HEAD `c96fb16e7690620d257208eee2116e5c84873f3a`. O código da Opção 2 enviado pelo Gemini na conversa não foi confirmado nessa branch |
+| Próximo passo visual | Auditar a implementação do PR #215, integrar apenas mudanças aprovadas e corrigir testes comprovadamente obsoletos, sem alterar a produção antes da homologação humana |
+
+**Separação obrigatória:** um build em CI ou captura de DEV não substitui o preview autenticado nem a aprovação da composição; comparar imagens reais equivalentes, informar SHA e URL e preservar a funcionalidade do produto. Consulte o protocolo permanente de evolução visual.
+
+## Estado material — fotografia histórica de 26 de outubro de 2026
+
 
 | Item | Estado |
 |---|---|
@@ -605,11 +631,13 @@ Evidência: `docs/maintenance/ENDURECIMENTO_TECNICO_2026-10-26.md`.
 
 ## Próxima etapa
 
-Com a rodada de manutenção concluída, a próxima frente técnica autorizada volta a ser a fundação B1 do Trilho B de migração. O trabalho deve permanecer sem carga dos 3.201 registros reais em Production e com preservação integral dos dados legados, inclusive estados hoje incompatíveis com regras de criação do sistema novo.
+Com a rodada de manutenção concluída, a próxima frente técnica de avaliação é a fundação B1 do Trilho B de migração, sujeita às decisões e autorizações específicas previstas na governança. O trabalho deve permanecer sem carga dos 3.201 registros reais em Production e com preservação integral dos dados legados, inclusive estados hoje incompatíveis com regras de criação do sistema novo.
+
+**Frente visual independente:** a próxima análise de interface é a retomada do PR #215, preservando o processo de Preview, testes evolutivos e homologação artística antes de qualquer merge. Esta manutenção documental não inicia essa análise nem autoriza alteração visual.
 
 O `fast-check` já disponível deve ser empregado nos testes gerativos das transformações quando o B1/B2 chegar a essa camada. pgTAP deve ser avaliado para invariantes locais de banco antes de qualquer adoção definitiva. `json-canonicalize` permanece reservado ao B2, quando os hashes canônicos de proveniência forem implementados.
 
-Observabilidade, Lighthouse CI, MSW, TanStack Table 9, ESLint 10 e TypeScript 7 continuam pacotes independentes, sem autorização automática. CodeQL passou a integrar a rodada de endurecimento técnico de 26/10.
+A migração estrutural para TanStack Table 9 **já foi concluída** pelo PR #178; eventuais atualizações futuras são distintas dessa migração. Observabilidade, Lighthouse CI, MSW, ESLint 10 e TypeScript 7 permanecem frentes independentes, sem autorização automática. CodeQL passou a integrar a rodada de endurecimento técnico de 26/10.
 
 Nenhuma extensão funcional do R5 avançado, R1 residual, R2 ou ciclos posteriores é autorizada por inferência. E2, segurança final e homologação consolidada do R12 permanecem gates antes da entrega final do produto.
 
@@ -623,7 +651,9 @@ O Playwright fornece capturas do componente real e um inventário visual do prod
 
 As verificações de design e o fluxo de screenshots estão em `.github/workflows/design-tooling-check.yml` e `.github/workflows/sidebar-visual.yml`, respectivamente. O registro vinculante é `TECH-DESIGN-001`; a política vigente de homologação e publicação permanece aplicável.
 
-## Documentação vigente
+## Referências documentais — governança, operação e registros históricos
+
+Esta relação reúne fontes de natureza diferente: documentos vinculantes, referências técnicas e relatórios datados de execução. A autoridade e a ordem de leitura são as de `AGENTS.md` e do Registro de Decisões; a presença de um relatório nesta lista não o torna norma vigente. Para alterações visuais, aplica-se também `docs/design/PROTOCOLO_PERMANENTE_EVOLUCAO_VISUAL_CTRH.md`.
 
 1. `docs/execution/ADENDO_GOVERNANCA_POR_ETAPA_CTRH_v2.0.4.md`;
 2. `docs/product/PROTOCOLO_HOMOLOGACAO_DECISOES_PRODUTO_CTRH_v1.3.md`;
@@ -654,7 +684,8 @@ As verificações de design e o fluxo de screenshots estão em `.github/workflow
 27. `docs/maintenance/DEPENDENCY_UPDATES_2026-08-29.md`;
 28. `docs/maintenance/G1_QUERY_TOOLING_2026-08-29.md`;
 29. `docs/maintenance/SUPABASE_CLI_2_116_0_2026-08-30.md`;
-30. este Handoff.
+30. `docs/design/PROTOCOLO_PERMANENTE_EVOLUCAO_VISUAL_CTRH.md`;
+31. este Handoff.
 
 ## Regra de continuidade
 
@@ -662,7 +693,15 @@ O projeto segue a sequência discutir, decidir, registrar, implementar e homolog
 
 Além disso, toda tarefa deve incluir avaliação de limites tecnológicos: quando uma atualização ou instalação puder produzir solução substantivamente superior, ela deve ser apresentada como proposta, sem instalação silenciosa e sem transformar recomendação em autorização.
 
-Depois da manutenção de 29–30 de agosto, nenhuma nova modernização se abre automaticamente. O próximo trabalho técnico retorna ao Trilho B de migração, sem perder a regra de avaliar atualizações por valor, risco e limite comprovado.
+Depois da manutenção de 29–30 de agosto, nenhuma nova modernização se abre automaticamente. A retomada dos trabalhos deve respeitar as autorizações em vigor: Trilho B de migração e a evolução visual específica expressamente aprovada podem ser planejados de forma independente, sem inferir autorização para novos ciclos. A próxima análise de interface é o PR #215; não implica autorização de merge.
+
+## Governança visual permanente e ferramentas ChatGPT — 29 de outubro de 2026
+
+- **PR #216:** corrigiu o YAML de `.github/workflows/design-tooling-check.yml`, com validação verde e integração à `main`.
+- **PR #217:** preparou o plugin privado Visual Quality e a habilidade técnica de revisão de PRs. O plugin ChatGPT foi posteriormente atualizado à **versão 0.1.1**, de maneira independente da atualização do repositório.
+- **PR #218:** publicou, com CI aprovado, o protocolo `docs/design/PROTOCOLO_PERMANENTE_EVOLUCAO_VISUAL_CTRH.md`, as regras no `AGENTS.md`, as skills coordenadoras e o checklist do template de PR.
+- **Uso obrigatório:** sempre avaliar se a reprovação de teste é regressão, expectativa obsoleta, ambiente incompatível ou instabilidade; alterar testes somente para refletir decisões aprovadas, nunca ocultar defeitos; preferir notebooks/monitores de trabalho com mobile essencial; entregar preview real e capturas antes/depois identificadas para homologação humana.
+- O **PR #215 continua isolado**, sem merge nem publicação artística. Na retomada, comparar o material do Gemini com o código efetivo antes de qualquer alteração.
 
 ## Ateliê Storybook de componentes reais — 29 de outubro de 2026
 

@@ -345,6 +345,22 @@ export const DemandasTable: React.FC<DemandasTableProps> = ({
   });
 
   const tableWidth = table.getTotalSize();
+  const [hasHorizontalOverflow, setHasHorizontalOverflow] = useState(false);
+  useEffect(() => {
+    const element = tableScrollRef.current;
+    if (!element) return;
+    const measure = () => setHasHorizontalOverflow(element.scrollWidth > element.clientWidth + 1);
+    measure();
+    if (typeof ResizeObserver === 'undefined') {
+      window.addEventListener('resize', measure);
+      return () => window.removeEventListener('resize', measure);
+    }
+    const observer = new ResizeObserver(measure);
+    observer.observe(element);
+    const tableElement = element.querySelector('table');
+    if (tableElement) observer.observe(tableElement);
+    return () => observer.disconnect();
+  }, [tableWidth]);
   const synchronizeHorizontalScroll = (
     source: HTMLDivElement,
     target: HTMLDivElement | null,
@@ -374,11 +390,11 @@ export const DemandasTable: React.FC<DemandasTableProps> = ({
         )}
         <div
           ref={topScrollbarRef}
-          className="table-scrollbar-top"
+          className={`table-scrollbar-top${hasHorizontalOverflow ? ' is-overflowing' : ''}`}
           role="region"
           aria-label="Rolagem horizontal da tabela"
-          aria-hidden="false"
-          tabIndex={0}
+          aria-hidden={!hasHorizontalOverflow}
+          tabIndex={hasHorizontalOverflow ? 0 : -1}
           onScroll={(event) => synchronizeHorizontalScroll(event.currentTarget, tableScrollRef.current)}
         >
           <div className="table-scrollbar-spacer" style={{ width: tableWidth }} />

@@ -1,0 +1,85 @@
+
+Running 2 tests using 2 workers
+
+  x  2 [chromium-desktop] › tests\e2e\sidebar-visual.spec.ts:87:1 › menu móvel mantém a página contida e o foco dentro das ações visíveis (2.0s)
+  x  1 [chromium-desktop] › tests\e2e\responsive-table.spec.ts:57:1 › carteira mantém todas as colunas acessíveis em notebook de 1366 px (7.6s)
+
+
+  1) [chromium-desktop] › tests\e2e\responsive-table.spec.ts:57:1 › carteira mantém todas as colunas acessíveis em notebook de 1366 px 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('region', { name: 'Rolagem horizontal da tabela' })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" getByRole('region', { name: 'Rolagem horizontal da tabela' }) with timeout 5000ms
+      - waiting for getByRole('region', { name: 'Rolagem horizontal da tabela' })
+
+
+      62 |   if (geometry.scrollWidth > geometry.clientWidth + 1) {
+      63 |     const topScrollbar = page.getByRole('region', { name: 'Rolagem horizontal da tabela' });
+    > 64 |     await expect(topScrollbar).toBeVisible();
+         |                                ^
+      65 |     await topScrollbar.evaluate((element) => {
+      66 |       element.scrollLeft = element.scrollWidth;
+      67 |       element.dispatchEvent(new Event('scroll', { bubbles: true }));
+        at C:\Users\Wilson\.codex\.chatgpt-projects\g-p-6a5a7ef1f0a481919b43e7dc2b742ee6\tmp\ctrh-sidebar-release\tests\e2e\responsive-table.spec.ts:64:32
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\responsive-table-carteira--154d4-veis-em-notebook-de-1366-px-chromium-desktop\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\responsive-table-carteira--154d4-veis-em-notebook-de-1366-px-chromium-desktop\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\responsive-table-carteira--154d4-veis-em-notebook-de-1366-px-chromium-desktop\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\responsive-table-carteira--154d4-veis-em-notebook-de-1366-px-chromium-desktop\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\responsive-table-carteira--154d4-veis-em-notebook-de-1366-px-chromium-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [chromium-desktop] › tests\e2e\sidebar-visual.spec.ts:87:1 › menu móvel mantém a página contida e o foco dentro das ações visíveis 
+
+    Error: expect(received).toBeLessThanOrEqual(expected)
+
+    Expected: <= 321
+    Received:    322
+
+       96 |     viewport: document.documentElement.clientWidth,
+       97 |   }));
+    >  98 |   expect(width.page).toBeLessThanOrEqual(width.viewport + 1);
+          |                      ^
+       99 |
+      100 |   const opener = page.getByRole('button', { name: 'Abrir menu principal' });
+      101 |   await opener.click();
+        at C:\Users\Wilson\.codex\.chatgpt-projects\g-p-6a5a7ef1f0a481919b43e7dc2b742ee6\tmp\ctrh-sidebar-release\tests\e2e\sidebar-visual.spec.ts:98:22
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\sidebar-visual-menu-móvel--f31ff-o-dentro-das-ações-visíveis-chromium-desktop\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\sidebar-visual-menu-móvel--f31ff-o-dentro-das-ações-visíveis-chromium-desktop\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\sidebar-visual-menu-móvel--f31ff-o-dentro-das-ações-visíveis-chromium-desktop\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\sidebar-visual-menu-móvel--f31ff-o-dentro-das-ações-visíveis-chromium-desktop\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\sidebar-visual-menu-móvel--f31ff-o-dentro-das-ações-visíveis-chromium-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2 failed
+    [chromium-desktop] › tests\e2e\responsive-table.spec.ts:57:1 › carteira mantém todas as colunas acessíveis em notebook de 1366 px 
+    [chromium-desktop] › tests\e2e\sidebar-visual.spec.ts:87:1 › menu móvel mantém a página contida e o foco dentro das ações visíveis 

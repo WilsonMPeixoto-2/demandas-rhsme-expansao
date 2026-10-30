@@ -11,7 +11,7 @@ function NavigationWorkBench(props: { activeArea: SiteArea; canAccessAdmin: bool
       <main className="ct-main" aria-label="Contexto da navegação">
         <div style={{ padding: '24px', maxWidth: '520px' }}>
           <h1 style={{ marginTop: 0, fontFamily: 'Georgia, serif' }}>Ateliê da navegação</h1>
-          <p>Este é o componente operacional do Fluxo CTRH. Nenhum ícone, imagem de fundo ou rota foi substituído.</p>
+          <p>Este é o componente operacional do Fluxo CTRH. Os ícones e a arte são os mesmos do pacote visual aprovado para a aplicação.</p>
           <p><strong>Destino escolhido:</strong> {area}</p>
           <p>Use os controles para testar permissões. O botão de recolher e o menu móvel funcionam normalmente.</p>
         </div>
@@ -21,7 +21,7 @@ function NavigationWorkBench(props: { activeArea: SiteArea; canAccessAdmin: bool
 }
 
 const meta = {
-  title: 'Fluxo CTRH/Navegação lateral original',
+  title: 'Fluxo CTRH/Navegação lateral',
   component: NavigationWorkBench,
   parameters: { layout: 'fullscreen' },
   args: { activeArea: 'visao-geral', canAccessAdmin: true },

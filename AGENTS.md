@@ -49,6 +49,27 @@ As decisões e imagens aprovadas, a marca oficial e os dados reais do produto pr
 
 Consulte `docs/design/SISTEMA_PROFISSIONAL_DESIGN_CTRH.md` e o registro `TECH-DESIGN-001`.
 
+## Code Review Rules
+
+### Regressões funcionais e permissões
+- Em mudanças de interface, confira se os destinos de navegação, acesso condicional à Administração, autenticação e ações da carteira mantêm o comportamento previamente aprovado. Não classifique uma preferência visual como defeito funcional.
+
+### Evidência visual e responsividade
+- Para mudanças em CSS, componentes ou imagens, verifique se há overflow, sobreposição, perda de legibilidade ou alteração involuntária de marca/asset aprovado nos viewports realmente exercitados. Diferencie screenshots de modo DEV e do preview publicado; não trate a presença de Devtools como parte da aplicação de produção.
+
+### Qualidade da revisão
+- Registre somente problemas introduzidos pelo diff, demonstráveis e relevantes; vincule cada achado ao trecho alterado, cenário e teste disponível. Não exija alteração de código para sanar problemas existentes antes do PR.
+
+## Protocolo permanente de evolução visual e testes
+
+**Obrigatório em toda modificação de UI, CSS, layout, ícones, marca, responsividade ou revisão visual do CTRH:** consultar `docs/design/PROTOCOLO_PERMANENTE_EVOLUCAO_VISUAL_CTRH.md`. Esta regra se aplica a qualquer tela, não somente ao PR #215.
+
+- **Validar comportamento, não congelar a implementação:** separar invariantes funcionais de seletores/classes e detalhes do DOM que uma mudança aprovada pode substituir. Atualizar expectativas obsoletas e referências visuais no mesmo PR com justificativa; nunca modificar, ignorar ou reduzir testes apenas para fazer CI passar.
+- **Analisar cada falha antes de corrigi-la:** classificar como regressão real, teste desatualizado, ambiente/fixture diferente ou falha intermitente, com evidência e reprodução. Evitar duas execuções do mesmo caso só porque o teste fixa um viewport dentro de projetos desktop/mobile.
+- **Desktop operacional é prioritário:** notebooks corporativos de 15″, monitores de 21–24″ e monitores grandes/4K com escala adequada; verificar larguras CSS efetivas, zoom, overflow e qualidade de assets. Mobile deve manter a navegação retrátil aprovada e cobertura funcional essencial, sem ampliar escopo indevidamente.
+- **Mudança de navegação não autoriza mudança indevida de tabela:** verifique o espaço disponível, rolagem interna com acesso às ações e ausência de estouro horizontal na página; preserve a leitura de dados sem impor que todas as colunas caibam sem rolagem se isso não for contrato aprovado.
+- **Evidência fiel antes de produção:** link para preview real e capturas reais identificadas de antes/depois em mesmos viewports, dados e estados quando possível; distinguir DEV/sintético/CI do preview autenticado e excluir Devtools. Testes de pixel só protegem baseline já homologado; aprovação estética final permanece humana.
+
 ## Modernização proativa e limites tecnológicos
 
 A avaliação de atualizações e novas dependências não ocorre apenas em rodadas específicas de manutenção.

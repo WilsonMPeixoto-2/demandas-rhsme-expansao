@@ -40,7 +40,9 @@ As referências vigentes são:
 - [Plano Integrado Reformulado v3.1](docs/execution/Plano_Integrado_Reformulado_CTRH_v3.1.md), como estratégia geral;
 - [Plano Executivo da Operação Atual v1.2](docs/execution/Plano_Executivo_Operacao_Atual_CTRH_v1.2.md), como roteiro do Trilho A;
 - [Atualização de Completude Operacional](docs/execution/ATUALIZACAO_COMPLETUDE_OPERACIONAL_2026-08-01.md), como controle de mudança vigente;
-- [Handoff Operacional](docs/HANDOFF.md).
+- [Handoff Operacional](docs/HANDOFF.md);
+- [Protocolo Permanente de Evolução Visual e Testes](docs/design/PROTOCOLO_PERMANENTE_EVOLUCAO_VISUAL_CTRH.md), obrigatório para alterações de interface;
+- [Sistema Profissional de Design](docs/design/SISTEMA_PROFISSIONAL_DESIGN_CTRH.md) e [Visual Quality no ChatGPT](docs/design/CHATGPT_VISUAL_QUALITY.md).
 
 Toda alteração de regra de negócio, lógica, permissão, obrigatoriedade, cálculo, dado ou rota deve atualizar no mesmo PR todos os documentos vigentes afetados. Código correto com documentação divergente não constitui entrega concluída.
 
@@ -48,7 +50,7 @@ O Plano Remanescente v2.1, planos e especificações anteriores permanecem apena
 
 ## Executar localmente
 
-Requisitos: Node.js 20 ou superior e npm.
+Requisitos: Node.js 24.x e npm.
 
 ```bash
 npm ci

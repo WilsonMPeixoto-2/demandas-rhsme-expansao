@@ -63,8 +63,8 @@
   }
 }
 
-@media (min-width: 769px) and (max-width: 1279px) {
-  .table-scrollbar-top {
+@media (min-width: 769px) {
+  .table-scrollbar-top.is-overflowing {
     display: block;
   }
 }

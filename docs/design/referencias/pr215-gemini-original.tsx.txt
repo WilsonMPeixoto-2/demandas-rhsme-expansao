@@ -1,0 +1,353 @@
+import { useEffect, useRef, useState } from 'react';
+import { BrandLogo } from './BrandLogo';
+
+export type SiteArea = 'visao-geral' | 'demandas' | 'minhas-demandas' | 'admin';
+
+interface SiteNavigationProps {
+  activeArea: SiteArea;
+  canAccessAdmin: boolean;
+  onNavigate: (area: SiteArea) => void;
+}
+
+const AREAS: ReadonlyArray<{
+  area: SiteArea;
+  text: string;
+  compact: string;
+}> = [
+  {
+    area: 'visao-geral',
+    text: 'Radar de Governança',
+    compact: 'Radar',
+  },
+  {
+    area: 'demandas',
+    text: 'Todas as demandas',
+    compact: 'Demandas',
+  },
+  {
+    area: 'minhas-demandas',
+    text: 'Minhas demandas',
+    compact: 'Minhas',
+  },
+  {
+    area: 'admin',
+    text: 'Administração',
+    compact: 'Admin',
+  },
+];
+
+/**
+ * Símbolo Vetorial Bicolor do Fluxo CTRH (2 faixas superiores em Bronze quente com pontas ascendentes
+ * e base inferior em Branco puro).
+ */
+function BicolorFluxoSymbol() {
+  return (
+    <svg className="ct-bicolor-f-symbol" viewBox="0 0 96 96" fill="none" aria-hidden="true">
+      <defs>
+        <linearGradient id="ctBronzeTop" x1="16" y1="8" x2="84" y2="34" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stopColor="#DFB98B" />
+          <stop offset="55%" stopColor="#C69C6D" />
+          <stop offset="100%" stopColor="#9E7344" />
+        </linearGradient>
+        <linearGradient id="ctBronzeMid" x1="16" y1="36" x2="72" y2="62" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stopColor="#D6AE7F" />
+          <stop offset="60%" stopColor="#BC9162" />
+          <stop offset="100%" stopColor="#93683B" />
+        </linearGradient>
+      </defs>
+      <path
+        d="M18 32C18 19.5 26.5 13 41 13H62C71.5 13 78.5 9.5 83 4C83 18.5 73.5 27.5 57 27.5H33C24.5 27.5 18 33 18 41V32Z"
+        fill="url(#ctBronzeTop)"
+      />
+      <path
+        d="M18 55C18 44 25.5 38 38 38H53C61 38 66.5 35 70 30.5C70 43 62 51 48 51H32C24 51 18 56 18 63V55Z"
+        fill="url(#ctBronzeMid)"
+      />
+      <path d="M18 72C18 64.5 23.5 60 32 60H41C41 74.5 30.5 85.5 18 87V72Z" fill="#FFFFFF" />
+    </svg>
+  );
+}
+
+/**
+ * Família Iconográfica Linear Minimalista (Traço 1.75px em Branco com ponto de acento em Bronze no Radar).
+ */
+export function SidebarNavIcon({ area }: { area: SiteArea }) {
+  switch (area) {
+    case 'visao-geral':
+      return (
+        <svg viewBox="0 0 24 24" fill="none" className="ct-nav-svg" aria-hidden="true">
+          <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.75" />
+          <path
+            d="M12 3V4.8M12 19.2V21M3 12H4.8M19.2 12H21"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            opacity="0.65"
+          />
+          <polygon
+            points="16.24 7.76 13.8 13.8 7.76 16.24 10.2 10.2 16.24 7.76"
+            stroke="currentColor"
+            strokeWidth="1.75"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          <polygon points="16.24 7.76 13.8 13.8 10.2 10.2 16.24 7.76" fill="#C69C6D" />
+        </svg>
+      );
+    case 'demandas':
+      return (
+        <svg viewBox="0 0 24 24" fill="none" className="ct-nav-svg" aria-hidden="true">
+          <path
+            d="M14 3.5H7C5.9 3.5 5 4.4 5 5.5V18.5C5 19.6 5.9 20.5 7 20.5H17C18.1 20.5 19 19.6 19 18.5V8.5L14 3.5Z"
+            stroke="currentColor"
+            strokeWidth="1.75"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          <path
+            d="M14 3.5V8.5H19"
+            stroke="currentColor"
+            strokeWidth="1.75"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          <line x1="8.5" y1="10.5" x2="11.5" y2="10.5" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" />
+          <line x1="8.5" y1="13.8" x2="15.5" y2="13.8" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" />
+          <line x1="8.5" y1="17" x2="15.5" y2="17" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" />
+        </svg>
+      );
+    case 'minhas-demandas':
+      return (
+        <svg viewBox="0 0 24 24" fill="none" className="ct-nav-svg" aria-hidden="true">
+          <circle cx="12" cy="8" r="3.6" stroke="currentColor" strokeWidth="1.75" />
+          <path
+            d="M5.5 19.5C5.5 16.1 8.4 13.8 12 13.8C15.6 13.8 18.5 16.1 18.5 19.5H5.5Z"
+            stroke="currentColor"
+            strokeWidth="1.75"
+            strokeLinejoin="round"
+          />
+        </svg>
+      );
+    case 'admin':
+      return (
+        <svg viewBox="0 0 24 24" fill="none" className="ct-nav-svg" aria-hidden="true">
+          <circle cx="12" cy="12" r="2.8" stroke="currentColor" strokeWidth="1.75" />
+          <path
+            d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"
+            stroke="currentColor"
+            strokeWidth="1.75"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      );
+  }
+}
+
+export function SiteNavigation({ activeArea, canAccessAdmin, onNavigate }: SiteNavigationProps) {
+  const [collapsed, setCollapsed] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const mobileTrigger = useRef<HTMLButtonElement>(null);
+  const mobileClose = useRef<HTMLButtonElement>(null);
+  const sidebarRef = useRef<HTMLElement>(null);
+  const areas = AREAS.filter(({ area }) => area !== 'admin' || canAccessAdmin);
+  const current = areas.find(({ area }) => area === activeArea) ?? areas[0];
+
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const oldOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    mobileClose.current?.focus();
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        setMobileOpen(false);
+        mobileTrigger.current?.focus();
+        return;
+      }
+      if (event.key !== 'Tab' || !sidebarRef.current) return;
+      const elements = Array.from(
+        sidebarRef.current.querySelectorAll<HTMLButtonElement>('button:not([disabled])')
+      );
+      if (elements.length === 0) return;
+      const first = elements[0];
+      const last = elements[elements.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener('keydown', onKeyDown);
+    return () => {
+      document.body.style.overflow = oldOverflow;
+      document.removeEventListener('keydown', onKeyDown);
+    };
+  }, [mobileOpen]);
+
+  useEffect(() => {
+    if (!window.matchMedia) return;
+    const media = window.matchMedia('(min-width: 941px)');
+    const onDesktop = (event: MediaQueryListEvent) => {
+      if (event.matches) setMobileOpen(false);
+    };
+    media.addEventListener('change', onDesktop);
+    return () => media.removeEventListener('change', onDesktop);
+  }, []);
+
+  const openMobileMenu = () => {
+    setCollapsed(false);
+    setMobileOpen(true);
+  };
+
+  const closeMobileMenu = () => {
+    setMobileOpen(false);
+    mobileTrigger.current?.focus();
+  };
+
+  const navigateTo = (area: SiteArea) => {
+    setMobileOpen(false);
+    onNavigate(area);
+  };
+
+  return (
+    <>
+      <div className="ct-mobile-bar" role="region" aria-label="Navegação móvel">
+        <button
+          ref={mobileTrigger}
+          type="button"
+          className="ct-mobile-trigger"
+          aria-expanded={mobileOpen}
+          aria-controls="ct-sidebar-drawer"
+          onClick={openMobileMenu}
+        >
+          <i className="fa-solid fa-bars" aria-hidden="true" />
+          <span>Menu</span>
+        </button>
+
+        <div className="ct-mobile-brand">
+          <BrandLogo variant="compact" showEndorsement={false} />
+        </div>
+
+        <div className="ct-mobile-current">
+          <span className="ct-mobile-current-tag">{current.compact}</span>
+        </div>
+      </div>
+
+      {mobileOpen && (
+        <button
+          type="button"
+          className="ct-sidebar-backdrop"
+          aria-label="Fechar menu de navegação"
+          tabIndex={-1}
+          onClick={closeMobileMenu}
+        />
+      )}
+
+      <aside
+        id="ct-sidebar-drawer"
+        ref={sidebarRef}
+        className={`ct-sidebar ${collapsed ? 'is-collapsed' : ''} ${mobileOpen ? 'is-mobile-open' : ''}`.trim()}
+        aria-label="Navegação principal"
+      >
+        <div className="ct-sidebar-surface">
+          <div className="ct-sidebar-header">
+            <div className="ct-sidebar-brand">
+              <div className="ct-brand-bicolor-lockup">
+                <BicolorFluxoSymbol />
+                {!collapsed && (
+                  <div className="ct-brand-bicolor-copy">
+                    <div className="ct-brand-serif-title">Fluxo CTRH</div>
+                    <div
+                      className="ct-prefeitura-inline"
+                      aria-label="Prefeitura da Cidade do Rio de Janeiro — Educação"
+                    >
+                      <img
+                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAvCAYAAACR+4jVAAAFIklEQVR4nO2Ya4iWRRTHf6s7kOUYGTaUEdjVokRkU6NSE5eyIqXUrKzM1S4EZSIbiBpo2cWCgoIyS9Ss1IwgxS0kIs3KCi270AXFD4qDmrmTtTrZ24c5zzr7vM/zXnwX6sP+YTgz5zlzzv+dy5mZt65QKPB/Rrf/mkA5dBGsFV0Ea0UXwVrRRbBWdCpB63yTdb5Tj6aaCFrnx1vnC9b5LaJaHH0bbJ1/yjr/fS0x6qo5i63zzUABeOYE471gtJpeTYdqCVZq3Ar0KmVgtKqrxFGta/CzVLD3Rc5M2a0VeUzkjkoDVEtwqMjlIj1wxDp/l7SHi+wrshmYC/wETCYsD4xW51UasKophqqmOY1Hgaeh8umFEyAINZEEuNJotblS44oIWufHAJcB5xutJtdCMBk96/xAo9W2cvb1JUglJEYB70X6bsDVwEZRbRe5DegBtAHdgcGABY4AdcAI4KHYt3U+cbsVqDdaDSgiUigUisre1qOFpGS188re1qPfiN1CaQ/PsXs59hmVV9O2RVOcMX0PAqOBrUaruZFdAzAIeAWYCOxC0g7QZrTqYZ2/CVDARKPV+FScbwm7vTewQWYKYIrRakliVx912A+sBtYBN4h6N/CS1F2K+BXABKn3M1qtjKbsTZF7gC/JgNFqQGoZJWiwzh8yWr0Lkget89cDpwP3A5dExn2j+oZUjCeBA4Q1uEl0k4ADRqsmaV+YRU5i/pyh3gz8DqxJyLdPcWpq9wF94p5x7rLODwE+jz4fBBoJG+NaYCnQAEwFzhCbTcB8o9WHGfFizAfmJDHbT5JU8tyf0zmx/SKlOo2wc0cDY4CrgGsicoiu0TrfYJ1vQZJ2Bq4DDid82gla5+dFRheXIhihReSLwGzgbGlvIazRBJ+IPGi0+gpYAazP8Xk5cIp1fj3kT3Ea84xWj8UK6/we4EwIo5/q30rY1W8BCzi+ZEYbrVoiH1kx/wB6Fo1gifNxHTAjdmadn5KQk/bsVJ9ehJPHSDtZz3+WIQfQM26kbzPLU+1xhJTTU5weEv0DIlcSNsX8nGAPE24yi6S9KIfc34SbD4TUNCSP4J3ATqnPAd5JfU8uoQ0i9wIDc8gBYLTqb7S6T5oXWeeXZJjVA/2lfhbQvgmz7oOrRc7I+NYU1Y8B04BhpQha57db598Akry3Nsd0isgFwLN5BNcQhvpHQuroAKPV61GzO3AysKoUQeBXo9Uk4BHxsQb4KMf2GDALuDeP4OMid5UJGo/kjWVsx1rnDxNu20tF90uObavIJC11vG7J/azOOl+O4GsidwDjSxkKPHABx3fonhy7fUar3rEi701yTpmAU4HngXOB78jfxW2EY3AUYTk0RvosFJ3dRRdW6/zIPFbW+RFGq4+BeYTdBnCplCycJCV9o+mTYZuJrBEcVMJ+jnV+WEJOkvsKogScQjPwT4a+5M4vR7AhQ5dgpNEqWcDJE/MDwvRlYTcwQX5Ic3RaDa6FYL9SHazzTxit6hKiRqvlwNs55suAv8RuofSv6sGVRfCHMn1mWefbd651/hbClT8L3YHDkW3Vr8EigkarewhTUwqrrPMLpd5EWGdDgdsJuWwjcDfhdBhbKZmsC0sRQev8YkIa2Jn+lsJM6/xqwrNgOHAbcLPR6lTC89KL/+nyF920cgSt879Z5zssl0pedZXiDkICdkarr8XXDOC5ah3FI9mZBDsNMcGsTZKX0yrBOHGedROqFOviRhbBT2twfqvIxpJWpdHh39t/AclLTcuds5PSAAAAAElFTkSuQmCC"
+                        alt=""
+                        className="ct-brasao-inline-img"
+                        aria-hidden="true"
+                      />
+                      <span className="ct-pref-word">PREFEITURA</span>
+                      <span className="ct-rio-word">RIO</span>
+                      <span className="ct-pref-pipe" aria-hidden="true" />
+                      <span className="ct-edu-word">Educação</span>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+
+            </div>
+
+            <button
+              ref={mobileClose}
+              type="button"
+              className="ct-sidebar-mobile-close"
+              aria-label="Fechar menu de navegação"
+              onClick={closeMobileMenu}
+            >
+              <i className="fa-solid fa-xmark" aria-hidden="true" />
+            </button>
+          </div>
+
+          <nav className="ct-sidebar-nav" aria-label="Navegação do sistema">
+            {areas.map(({ area, text, compact }) => {
+              const active = area === activeArea;
+              return (
+                <button
+                  key={area}
+                  type="button"
+                  className={`ct-nav-button ${active ? 'is-active' : ''}`.trim()}
+                  aria-current={active ? 'page' : undefined}
+                  title={collapsed ? text : undefined}
+                  onClick={() => navigateTo(area)}
+                >
+                  <span className="ct-nav-icon" aria-hidden="true">
+                    <SidebarNavIcon area={area} />
+                  </span>
+                  <span className="ct-nav-copy">
+                    <span className="ct-nav-text">{text}</span>
+                  </span>
+                  <span className="ct-nav-compact-text">{compact}</span>
+                </button>
+              );
+            })}
+          </nav>
+
+          <div className="ct-sidebar-lapa-tonal" aria-hidden="true">
+            <img src="data:image/webp;base64,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" alt="" />
+          </div>
+
+          <div className="ct-sidebar-footer">
+            {!collapsed && (
+              <div className="ct-sector-footer-signature">
+                <span className="ct-sector-bronze-bar" aria-hidden="true" />
+                <span className="ct-sector-name">
+                  CTRH • Coordenadoria Técnica de Recursos Humanos
+                </span>
+              </div>
+            )}
+            <button
+              type="button"
+              className="ct-sidebar-toggle"
+              aria-label={collapsed ? 'Expandir barra lateral' : 'Recolher barra lateral'}
+              aria-expanded={!collapsed}
+              onClick={() => setCollapsed(!collapsed)}
+            >
+              <i
+                className={`fa-solid ${collapsed ? 'fa-angles-right' : 'fa-angles-left'}`}
+                aria-hidden="true"
+              />
+              {!collapsed && <span>Recolher menu</span>}
+            </button>
+          </div>
+        </div>
+      </aside>
+    </>
+  );
+}

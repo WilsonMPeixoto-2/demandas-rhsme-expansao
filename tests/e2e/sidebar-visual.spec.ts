@@ -83,3 +83,30 @@ test('ateliê iconográfico carrega SVGs profissionais e registra comparação n
     contentType: 'image/png',
   });
 });
+
+test('menu móvel mantém a página contida e o foco dentro das ações visíveis', async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 800 });
+  await page.goto('/');
+  await page.getByPlaceholder('usuario@rioeduca.net').fill('teste@rioeduca.net');
+  await page.getByPlaceholder('••••••••').first().fill('senha-local-teste');
+  await page.getByRole('button', { name: /acessar sistema/i }).click();
+  await expect(page.getByRole('button', { name: /sair/i })).toBeVisible();
+  const width = await page.evaluate(() => ({
+    page: document.documentElement.scrollWidth,
+    viewport: document.documentElement.clientWidth,
+  }));
+  expect(width.page).toBeLessThanOrEqual(width.viewport + 1);
+
+  const opener = page.getByRole('button', { name: 'Abrir menu principal' });
+  await opener.click();
+  const closer = page.getByRole('button', { name: 'Fechar menu lateral' });
+  await expect(closer).toBeFocused();
+  const lastDestination = page.getByRole('navigation', { name: 'Áreas do sistema' }).getByRole('button').last();
+  await closer.press('Shift+Tab');
+  await expect(lastDestination).toBeFocused();
+  await lastDestination.press('Tab');
+  await expect(closer).toBeFocused();
+  await closer.press('Escape');
+  await expect(opener).toBeFocused();
+  await expect(opener).toHaveAttribute('aria-expanded', 'false');
+});

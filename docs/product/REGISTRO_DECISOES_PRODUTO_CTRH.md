@@ -3,7 +3,7 @@
 <!-- IMPLEMENTATION_AUTHORIZATION: V1-E-A01 -->
 
 **Status:** vigente  
-**Atualizado em:** 26 de outubro de 2026
+**Atualizado em:** 29 de outubro de 2026
 **Finalidade:** registrar somente decisões expressamente aprovadas pelo responsável pelo produto antes da implementação de cada pacote.
 
 ## 1. Regra de uso
@@ -894,3 +894,21 @@ O responsável pelo produto aprovou a estruturação de ferramentas profissionai
 O responsável pelo produto autorizou a utilização de ferramentas profissionais de criação e validação visual, entre elas o Storybook, para todos os componentes do projeto. A primeira aplicação é a barra lateral real. O escopo consiste em adicionar Storybook React/Vite e complementos de acessibilidade/documentação **somente em devDependencies**, com `package-lock.json` e scripts próprios; criar histórias isoladas de `SiteNavigation` e `BrandLogo`; e verificar build, lint, testes e CI antes da integração.
 
 Não são autorizados nesta decisão novos ícones operacionais, alterações da logomarca, grafismos, rotas, permissões, Supabase ou publicação de redesenho sem aprovação visual. O PR de execução é #213, sobre a `main` corrente, substituindo o antigo PR demonstrativo #212.
+
+### TECH-DESIGN-003 — Protocolo permanente de testes evolutivos e homologação visual
+
+**Data:** 29 de outubro de 2026  
+**Estado:** DECISÕES DE PROCESSO APROVADAS E REGISTRADAS; execução documental pelo PR #218.  
+**Classificação:** governança transversal de qualidade e verificação, sem autorização implícita para redesenhar funcionalidades.
+
+O responsável pelo produto determinou que os critérios não fiquem restritos à barra lateral nem ao PR #215, mas orientem permanentemente a evolução de UI, layout, iconografia, comunicação visual e testes do CTRH. Decisões expressas:
+
+1. Testes protegem **comportamentos e requisitos aprovados**, não classes CSS, desenho anterior, posições rígidas ou estrutura DOM que a própria alteração legitimamente transforma. Atualizar testes obsoletos com justificativa e manter invariantes funcionais, sem mascarar falhas nem reduzir cobertura para obter CI verde.
+2. Classificar cada reprovação como regressão real, teste desatualizado, diferença de ambiente/fixture ou instabilidade, usando evidência, reprodução e diagnóstico causal. Evitar duplicação de cenários inúteis.
+3. A homologação artística final é **humana**. Os agentes entregam URL do preview, SHA, proveniência das imagens e comparação fiel de antes/depois em viewports e estados equivalentes, sem apresentar screenshot DEV, mockup ou screenshot contaminado por Devtools como tela real publicada.
+4. Prioridade operacional: notebooks corporativos de **15 polegadas** e monitores de **21–24 polegadas**, com validação apropriada de monitores grandes/**32 polegadas 4K**; considerar largura em pixels CSS, zoom, escala e nitidez dos ativos separadamente.
+5. Preservar a solução **mobile com botão retrátil** aprovada e testar funcionamento essencial, sem expandir desnecessariamente essa frente. A lateral não exige modificar a tabela operacional; verificar integridade, ações acessíveis, rolagem interna e ausência de overflow global antes de classificar falhas.
+6. A hipótese de limitar visualmente a extensão do fundo azul vazio da navegação é **alternativa a estudar**, não decisão de layout homologada nem obrigação para outras telas.
+
+**Fonte operacional:** `docs/design/PROTOCOLO_PERMANENTE_EVOLUCAO_VISUAL_CTRH.md`, referenciado pelo `AGENTS.md`; habilidades no plugin privado Visual Quality v0.1.1. **Limites:** esta decisão não aprova código artístico da Opção 2, não autoriza merge do PR #215 nem substitui homologação do preview.
+

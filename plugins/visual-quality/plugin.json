@@ -1,0 +1,30 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "visual-quality",
+  "version": "0.1.0",
+  "description": "Direção de arte, auditoria de interfaces e verificação visual de implementações reais no ChatGPT e Codex.",
+  "keywords": [
+    "design",
+    "frontend",
+    "visual-audit",
+    "ui-ux"
+  ],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Visual Quality",
+        "shortDescription": "Direção de arte e auditoria visual de interfaces",
+        "longDescription": "Orquestra repertório profissional de design, revisões de código, testes, capturas reais, iconografia e validação de UX sem confundir mockups com o preview efetivo.",
+        "category": "Productivity",
+        "capabilities": [
+          "Read"
+        ],
+        "defaultPrompt": [
+          "Use Visual Quality para revisar este PR com análise técnica, evidências e link do preview.",
+          "Use Visual Quality para refinar a barra lateral preservando o design aprovado."
+        ]
+      },
+      "onboardingSkill": "./skills/setup/SKILL.md"
+    }
+  }
+}

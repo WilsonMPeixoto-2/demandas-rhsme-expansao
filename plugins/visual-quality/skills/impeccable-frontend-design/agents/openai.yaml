@@ -1,0 +1,4 @@
+interface:
+  display_name: "Impeccable Frontend Design"
+  short_description: "Direção de arte e auditoria visual de interfaces web"
+  default_prompt: "Use $impeccable-frontend-design para auditar o componente real, identificar causas técnicas e propor melhorias verificáveis."

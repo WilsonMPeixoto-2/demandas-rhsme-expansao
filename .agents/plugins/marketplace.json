@@ -1,0 +1,17 @@
+{
+  "name": "ctrh-visual",
+  "plugins": [
+    {
+      "name": "visual-quality",
+      "source": {
+        "source": "local",
+        "path": "./plugins/visual-quality"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

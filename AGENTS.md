@@ -49,6 +49,17 @@ As decisões e imagens aprovadas, a marca oficial e os dados reais do produto pr
 
 Consulte `docs/design/SISTEMA_PROFISSIONAL_DESIGN_CTRH.md` e o registro `TECH-DESIGN-001`.
 
+## Code Review Rules
+
+### Regressões funcionais e permissões
+- Em mudanças de interface, confira se os destinos de navegação, acesso condicional à Administração, autenticação e ações da carteira mantêm o comportamento previamente aprovado. Não classifique uma preferência visual como defeito funcional.
+
+### Evidência visual e responsividade
+- Para mudanças em CSS, componentes ou imagens, verifique se há overflow, sobreposição, perda de legibilidade ou alteração involuntária de marca/asset aprovado nos viewports realmente exercitados. Diferencie screenshots de modo DEV e do preview publicado; não trate a presença de Devtools como parte da aplicação de produção.
+
+### Qualidade da revisão
+- Registre somente problemas introduzidos pelo diff, demonstráveis e relevantes; vincule cada achado ao trecho alterado, cenário e teste disponível. Não exija alteração de código para sanar problemas existentes antes do PR.
+
 ## Modernização proativa e limites tecnológicos
 
 A avaliação de atualizações e novas dependências não ocorre apenas em rodadas específicas de manutenção.

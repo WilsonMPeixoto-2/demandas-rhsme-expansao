@@ -1,5 +1,8 @@
 # Modernização de experiência da Central de Demandas
 
+> **Registro histórico do ciclo de modernização de UX.** A tabela de rotas abaixo descreve o escopo daquele ciclo e **não constitui o mapa vigente completo** do produto: hoje também existe `/minhas-demandas`, conforme `docs/PRODUCT_CONTEXT.md`. Para evolução visual atual, seguir `docs/design/PROTOCOLO_PERMANENTE_EVOLUCAO_VISUAL_CTRH.md` e o estado técnico em `docs/HANDOFF.md`. Não usar esta especificação histórica para reintroduzir layout, regras ou endpoints antigos.
+
+
 ## Escopo entregue
 
 Este ciclo moderniza a experiência de uso sem alterar banco de dados, RLS, autenticação, perfis, contratos dos repositórios ou regras de negócio.

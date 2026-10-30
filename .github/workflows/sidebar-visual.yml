@@ -33,9 +33,27 @@ jobs:
       - name: Instalar navegador de teste
         run: npx playwright install --with-deps chromium
       - name: Capturar barra lateral e verificar estados
-        run: npm run test:sidebar-visual
+        run: npm run test:sidebar-visual -- --output=test-results/sidebar
+      - name: Verificar espaço útil da carteira em monitores amplos
+        run: npx playwright test tests/e2e/responsive-table.spec.ts --project=chromium-desktop --output=test-results/wide-screens
+      - name: Exportar capturas sintéticas para inspeção desta correção
+        run: |
+          python3 - <<'PY'
+          import base64, pathlib
+          for name, root, pattern in [
+              ('sidebar', 'test-results/sidebar', 'assinatura-1366*'),
+              ('wide', 'test-results/wide-screens', 'carteira-2560-dados-sinteticos*'),
+          ]:
+              files = sorted(pathlib.Path(root).rglob(pattern))
+              files = [p for p in files if p.is_file()]
+              assert files, (name, root, pattern)
+              path = next((p for p in files if 'chromium-desktop' in str(p)), files[0])
+              print('CTRH_REVIEW_IMAGE_BEGIN ' + name + ' ' + path.suffix)
+              print(base64.encodebytes(path.read_bytes()).decode())
+              print('CTRH_REVIEW_IMAGE_END ' + name)
+          PY
       - name: Capturar inventário visual de todo o produto
-        run: npm run test:visual-inventory
+        run: npm run test:visual-inventory -- --output=test-results/inventory
       - name: Preservar relatório e capturas para revisão artística
         if: always()
         uses: actions/upload-artifact@v4

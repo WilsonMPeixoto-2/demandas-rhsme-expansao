@@ -227,27 +227,19 @@ export function SiteNavigation({ activeArea, canAccessAdmin, onNavigate }: SiteN
                 {!collapsed && (
                   <div className="ct-brand-bicolor-copy">
                     <div className="ct-brand-serif-title">Fluxo CTRH</div>
-                    <div
-                      className="ct-prefeitura-inline"
-                      role="img"
-                      aria-label="Prefeitura da Cidade do Rio de Janeiro — Educação"
-                    >
-                      <img
-                        src="/design/sidebar-brasao-rio.png"
-                        alt=""
-                        className="ct-brasao-inline-img"
-                        aria-hidden="true"
-                      />
-                      <span className="ct-pref-word">PREFEITURA</span>
-                      <span className="ct-rio-word">RIO</span>
-                      <span className="ct-pref-pipe" aria-hidden="true" />
-                      <span className="ct-edu-word">Educação</span>
-                    </div>
                   </div>
                 )}
               </div>
-
-
+              {!collapsed && (
+                <img
+                  src="/design/prefeitura-rio-educacao-oficial.png"
+                  alt="Prefeitura da Cidade do Rio de Janeiro — Educação"
+                  className="ct-prefeitura-signature"
+                  width={1490}
+                  height={310}
+                  decoding="async"
+                />
+              )}
             </div>
 
             <button

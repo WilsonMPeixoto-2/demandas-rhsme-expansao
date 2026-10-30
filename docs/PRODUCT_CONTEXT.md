@@ -305,6 +305,8 @@ Em telas estreitas, o acesso aos quatro destinos principais ocorre pelo menu ret
 
 Estados de infraestrutura são traduzidos para linguagem operacional — sistema online, sincronização, conexão indisponível ou modo de demonstração — sem expor fornecedor ou mecanismo de armazenamento ao usuário.
 
+A área operacional utiliza a largura disponível da janela, com margens de leitura e navegação lateral proporcionais. Em monitores amplos, a carteira deve aproveitar esse espaço para tornar dados e nomes mais legíveis, preservando rolagem interna quando necessária em telas menores. A assinatura institucional completa da SME é apresentada em faixa própria, com proporção original e resolução suficiente para alta densidade de pixels; não é recomposta com um brasão pequeno e palavras independentes.
+
 ## Experiência por papel
 
 ### Administrador

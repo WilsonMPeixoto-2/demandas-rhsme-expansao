@@ -1,5 +1,14 @@
 # Handoff Operacional — Central de Demandas CTRH
 
+## Encerramento do PR #215 e refinamento de monitores amplos — 30/10/2026
+
+O PR #215 foi integrado e publicado: commit `62304923dafa5b0448944c7a7845a703b27d474b`, deployment Vercel Production `dpl_EKxBUMv1pL9iWeVi3uCJTddZsgkB`, **READY**, domínio `demandas-rhsme-expansao.vercel.app`. A árvore de arquivos do merge é idêntica à do último HEAD validado `f75e32a`. CI: 374 testes unitários/de integração e 50 E2E aprovados; revalidação pós-publicação: 24 E2E e build aprovados. HTTP e assets conferidos; nenhuma operação em banco.
+
+Após usar a versão publicada, o responsável apontou espaço útil desperdiçado no monitor de 32 polegadas, tabela comprimida apesar de área livre e baixa qualidade/encaixe da assinatura da Prefeitura. O PR #221, branch `fix/wide-screen-institutional-signature`, prepara um refinamento restrito a esses pontos: área operacional sem teto fixo de largura; assinatura oficial completa de 1490×310 px em faixa própria; nomes da carteira aproveitando colunas maiores. Fluxo CTRH, ícones, Arcos, navegação, dados e permissões são preservados.
+
+**Estado do refinamento:** Preview em preparação, sujeito à inspeção visual do responsável; não publicado. Novos testes exercitam a largura útil em 2560×1440 e a assinatura completa, proporcional e nítida em desktop/mobile. Atualizar os resultados com o CI efetivo antes de promover. A suspeita de falha em movimento reduzido no PR #215 foi descartada: o CSS global já limita a transição a 0,01 ms com essa preferência.
+
+
 Atualizado em: **30 de outubro de 2026 — reconciliação pontual de referências documentais.** Os estados de GitHub, Vercel e Supabase registrados abaixo são fotografias datadas, não indicadores em tempo real; devem ser reconferidos antes de qualquer intervenção.
 
 <!-- IMPLEMENTATION_AUTHORIZATION: V1-E-A01 -->

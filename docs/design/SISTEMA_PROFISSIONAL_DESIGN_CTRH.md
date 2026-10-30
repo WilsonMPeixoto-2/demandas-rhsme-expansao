@@ -12,6 +12,14 @@ A metodologia reutilizável está em [`impeccable-frontend-design`](../../.agent
 A skill é portátil para outros repositórios via `.agents/skills/impeccable-frontend-design/SKILL.md`, mas precisa ser explicitamente disponibilizada na configuração do outro projeto ou do agente; o merge do CTRH não a instala automaticamente em todos os projetos e tampouco configura uma memória global do ChatGPT.
 
 
+## Estado vigente da integração ChatGPT e da política visual — 29/10/2026
+
+- O plugin **Visual Quality v0.1.1** está publicado como plugin privado no ChatGPT, incorporando direção artística, revisão técnica de PR e o protocolo transversal de testes e evidências visuais. A instalação da conta é distinta da skill versionada no repositório; a nova versão foi confirmada.
+- O PR **#218** integrou o protocolo obrigatório `docs/design/PROTOCOLO_PERMANENTE_EVOLUCAO_VISUAL_CTRH.md` e as regras correspondentes no `AGENTS.md` e no modelo de pull request.
+- Exigir **capturas reais antes/depois** nos mesmos contextos, com URL do preview e SHA; distinguir imagens de demonstração/DEV do preview autenticado. A aprovação final do design é humana.
+- Os testes podem precisar de atualização quando a mudança de UI é deliberada, sem esconder defeitos ou enfraquecer a cobertura. Priorizar monitores de trabalho; preservar navegação móvel aprovada.
+- **Storybook já está integrado** pelo PR #213, conforme `docs/design/STORYBOOK_CTRH_INTEGRACAO_REAL.md`. Evitar propostas de instalação redundante.
+
 ## Repertório complementar consolidado
 
 - [Apple Inspired Web Design](../../.agents/skills/apple-inspired-web-design/SKILL.md): critérios de hierarquia, superfícies e interação; referência, não imposição estética.

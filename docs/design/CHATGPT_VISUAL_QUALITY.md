@@ -43,4 +43,4 @@ Todas as futuras tarefas de design devem executar o protocolo obrigatório em `d
 
 O agente deve classificar falhas reais versus testes desatualizados, preservar requisitos funcionais, atualizar no mesmo PR apenas expectativas legitimamente superadas e apresentar preview autêntico com imagens reais antes/depois. A aprovação estética é do responsável pelo produto; logs, screenshots de CI em DEV e automações não substituem essa homologação. O comportamento móvel já aprovado é preservado, com foco de validação nos notebooks e monitores usados no trabalho.
 
-O plugin pessoal do ChatGPT deve receber uma nova release com este mesmo protocolo. **Publicar arquivos no repositório não atualiza automaticamente o plugin instalado na conta.**
+**Situação confirmada em 29/10/2026:** o plugin pessoal **Visual Quality v0.1.1** foi publicado na conta ChatGPT com o protocolo transversal; suas skills e referência adicional foram conferidas. [Abrir o plugin](https://chatgpt.com/plugins/plugins_6ae3e227e0d08191855eb27bcaddc9ec). **Publicar arquivos no repositório não atualiza automaticamente o plugin instalado na conta;** atualizações futuras exigem nova release e verificação.

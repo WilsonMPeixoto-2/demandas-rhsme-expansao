@@ -1,0 +1,53 @@
+
+Running 2 tests using 2 workers
+
+  ok 1 [chromium-desktop] › tests\e2e\responsive-table.spec.ts:57:1 › carteira mantém todas as colunas acessíveis em notebook de 1366 px (2.5s)
+  x  2 [chromium-desktop] › tests\e2e\sidebar-visual.spec.ts:87:1 › menu móvel mantém a página contida e o foco dentro das ações visíveis (7.0s)
+
+
+  1) [chromium-desktop] › tests\e2e\sidebar-visual.spec.ts:87:1 › menu móvel mantém a página contida e o foco dentro das ações visíveis 
+
+    Error: expect(locator).toBeFocused() failed
+
+    Locator:  getByRole('button', { name: 'Fechar menu lateral' })
+    Expected: focused
+    Received: inactive
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeFocused" getByRole('button', { name: 'Fechar menu lateral' }) with timeout 5000ms
+      - waiting for getByRole('button', { name: 'Fechar menu lateral' })
+        14 × locator resolved to <button type="button" aria-label="Fechar menu lateral" class="ct-sidebar-mobile-close ct-mobile-sidebar-close">…</button>
+           - unexpected value "inactive"
+
+
+      101 |   await opener.click();
+      102 |   const closer = page.getByRole('button', { name: 'Fechar menu lateral' });
+    > 103 |   await expect(closer).toBeFocused();
+          |                        ^
+      104 |   const lastDestination = page.getByRole('navigation', { name: 'Áreas do sistema' }).getByRole('button').last();
+      105 |   await closer.press('Shift+Tab');
+      106 |   await expect(lastDestination).toBeFocused();
+        at C:\Users\Wilson\.codex\.chatgpt-projects\g-p-6a5a7ef1f0a481919b43e7dc2b742ee6\tmp\ctrh-sidebar-release\tests\e2e\sidebar-visual.spec.ts:103:24
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\sidebar-visual-menu-móvel--f31ff-o-dentro-das-ações-visíveis-chromium-desktop\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\sidebar-visual-menu-móvel--f31ff-o-dentro-das-ações-visíveis-chromium-desktop\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\sidebar-visual-menu-móvel--f31ff-o-dentro-das-ações-visíveis-chromium-desktop\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\sidebar-visual-menu-móvel--f31ff-o-dentro-das-ações-visíveis-chromium-desktop\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\sidebar-visual-menu-móvel--f31ff-o-dentro-das-ações-visíveis-chromium-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    [chromium-desktop] › tests\e2e\sidebar-visual.spec.ts:87:1 › menu móvel mantém a página contida e o foco dentro das ações visíveis 
+  1 passed (7.6s)

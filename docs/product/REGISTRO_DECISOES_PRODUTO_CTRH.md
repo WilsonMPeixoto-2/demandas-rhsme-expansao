@@ -912,3 +912,14 @@ O responsável pelo produto determinou que os critérios não fiquem restritos �
 
 **Fonte operacional:** `docs/design/PROTOCOLO_PERMANENTE_EVOLUCAO_VISUAL_CTRH.md`, referenciado pelo `AGENTS.md`; habilidades no plugin privado Visual Quality v0.1.1. **Limites:** esta decisão não aprova código artístico da Opção 2, não autoriza merge do PR #215 nem substitui homologação do preview.
 
+
+
+## TECH-DESIGN-004 — Integração da Opção 2 original e autorização de publicação (30/10/2026)
+
+**Decisão expressa do responsável pelo produto nesta conversa:** usar os códigos originais Gemini anexados para corrigir a barra lateral e publicar. O pedido mais recente solicitou checkpoint remoto de todo o trabalho para continuidade por outro agente, por término próximo da cota. Classificação: correção técnica e implementação visual anteriormente discutida, restrita à barra lateral.
+
+A referência é a Opção 2 original: marinho, Georgia, símbolo oficial com tratamento bicolor, ícones lineares e assets originais de brasão/Arcos. Preservar destinos, acesso condicional à Administração, menu retrátil móvel e a tabela com todas as colunas/dados e rolagem interna. Não autoriza redesenho de outras telas, mudanças de regras, banco, RLS ou dependências.
+
+A autorização específica de correção e publicação já foi dada; não é autorização geral de evolução futura nem declaração de homologação estética de qualquer renderização ainda não apresentada. Resultados técnicos e aprovação humana não devem ser confundidos.
+
+**Atualização de homologação — 30/10/2026:** o responsável pelo produto examinou expressamente o [Preview Vercel da Opção 2](https://demandas-rhsme-expansao-q8t8gr65n-wilson-m-peixotos-projects.vercel.app), correspondente ao SHA `49e1aafa33c65935c181445d44a926b9e0832d6e` do PR #215, declarou a composição aprovada e autorizou sua promoção à produção. Os gates aplicáveis desse SHA estavam aprovados; o Preview, `READY`. **Decisão: APROVADA a homologação artística e a integração do PR #215 no escopo da barra lateral.** O checkpoint e a reprovação inicial de foco ficam preservados como histórico em [RETOMADA_PR215_CHECKPOINT_2026-10-30.md](../design/RETOMADA_PR215_CHECKPOINT_2026-10-30.md). Esta atualização documental registra o aceite, sem modificar a composição aprovada; a publicação efetiva deve ser confirmada posteriormente no SHA integrado e no endereço oficial.

@@ -301,7 +301,7 @@ A identidade `Radar de Governança` aparece uma única vez no cabeçalho princip
 
 A navegação da carteira coletiva usa `Todas as demandas`, em contraste explícito com `Minhas demandas`. No Radar, os cartões de composição são apresentados diretamente após o bloco de atenção, sem os rótulos visuais redundantes `Composição atual` e `Leitura da carteira`; a região permanece nomeada para tecnologias assistivas.
 
-Em telas estreitas, os quatro destinos principais são organizados em duas colunas para preservar leitura, alvos de toque e ausência de estouro horizontal.
+Em telas estreitas, o acesso aos quatro destinos principais ocorre pelo menu retrátil superior: o botão abre o drawer lateral, preservando alvos de toque, navegação por teclado, retorno do foco ao fechar e ausência de overflow da página. No desktop, os destinos permanecem na barra lateral, com opção de recolhimento. Esta decisão visual não altera permissões nem carteiras.
 
 Estados de infraestrutura são traduzidos para linguagem operacional — sistema online, sincronização, conexão indisponível ou modo de demonstração — sem expor fornecedor ou mecanismo de armazenamento ao usuário.
 

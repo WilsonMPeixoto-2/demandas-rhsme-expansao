@@ -12,10 +12,10 @@
 
 ## Histórias do produto
 
-- `Fluxo CTRH/Navegação lateral original`: importa **SiteNavigation.tsx real** e expõe os estados de seleção, permissão administrativa e colapso.
+- `Fluxo CTRH/Navegação lateral`: importa **SiteNavigation.tsx real** e expõe os estados de seleção, permissão administrativa e colapso.
 - `Fluxo CTRH/Marca vetorial existente`: importa **BrandLogo.tsx real**, com variações full, compact e symbol.
 
-As imagens da arquitetura carioca são referências da arte a ser integrada posteriormente, **não foram recriadas no Storybook**. O Storybook usa os estilos do produto e pode ser expandido para outras telas, mas não substitui a aprovação do usuário.
+No PR #215, o Storybook importa o mesmo `SiteNavigation.tsx`, com os quatro ícones lineares e os assets estáticos de brasão e Arcos da Lapa do runtime. A bancada usa os estilos do produto, mas não substitui a inspeção do Preview autenticado nem a aprovação do usuário.
 
 ## Regras
 

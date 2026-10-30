@@ -4,6 +4,13 @@ Atualizado em: **30 de outubro de 2026 — reconciliação pontual de referênci
 
 <!-- IMPLEMENTATION_AUTHORIZATION: V1-E-A01 -->
 
+## Checkpoint de retomada do PR #215 — 30/10/2026
+
+**PR #215 — Opção 2 homologada visualmente pelo responsável pelo produto em 30/10/2026.** O usuário examinou o Preview Vercel da branch `feat/sidebar-impeccable` no SHA `49e1aafa33c65935c181445d44a926b9e0832d6e` (`https://demandas-rhsme-expansao-q8t8gr65n-wilson-m-peixotos-projects.vercel.app`) e autorizou expressamente a promoção à produção. Os gates de documentação, auditoria, lint, cobertura, build, bundle, E2E, Storybook, integridade de design e CodeQL estão aprovados no mesmo SHA, com Vercel Preview `READY`. A correção de foco móvel e a composição estão incluídas nesse commit. **Próxima operação autorizada:** integrar o PR #215 sem alterações funcionais ou artísticas e confirmar a publicação na Vercel pelo SHA de merge. Este registro de pré-integração não equivale a afirmar que a publicação já ocorreu.
+
+**Continuidade:** o [checkpoint técnico do PR #215](design/RETOMADA_PR215_CHECKPOINT_2026-10-30.md) documenta a execução e as falhas anteriores, preservadas como histórico. A homologação mais recente é a registrada acima. A verificação pós-merge deve confrontar o SHA da `main`, o deployment `READY` e o endereço público antes de declarar publicação concluída. As fotografias de 29/10 e 26/10 permanecem históricas.
+
+
 ## Fotografia operacional verificada em 29 de outubro de 2026 (antes do PR #219)
 
 Este quadro reúne verificações realizadas **antes da integração do PR #219**, quando a `main` ainda apontava para o commit do PR #218. A integração do próprio PR #219 gerou novo commit e deployment: os SHAs e deployments abaixo registram proveniência, **não representam o estado ao vivo**. Na retomada, conferir diretamente GitHub, Vercel e Supabase. A fotografia de 26/10 logo abaixo permanece preservada como histórico.

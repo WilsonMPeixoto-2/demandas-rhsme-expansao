@@ -9,16 +9,113 @@ interface SiteNavigationProps {
   onNavigate: (area: SiteArea) => void;
 }
 
-const AREAS: ReadonlyArray<{ area: SiteArea; text: string; compact: string; icon: string; description: string }> = [
-  { area: 'visao-geral', text: 'Radar de Governança', compact: 'Radar', icon: 'fa-chart-pie',
-    description: 'Panorama operacional e análises de gestão' },
-  { area: 'demandas', text: 'Todas as demandas', compact: 'Demandas', icon: 'fa-list-check',
-    description: 'Carteira completa e filtros' },
-  { area: 'minhas-demandas', text: 'Minhas demandas', compact: 'Minhas', icon: 'fa-folder-open',
-    description: 'Carteira pessoal de acompanhamento' },
-  { area: 'admin', text: 'Administração', compact: 'Admin', icon: 'fa-sliders',
-    description: 'Acessos e análises administrativas' },
+const AREAS: ReadonlyArray<{
+  area: SiteArea;
+  text: string;
+  compact: string;
+}> = [
+  {
+    area: 'visao-geral',
+    text: 'Radar de Governança',
+    compact: 'Radar',
+  },
+  {
+    area: 'demandas',
+    text: 'Todas as demandas',
+    compact: 'Demandas',
+  },
+  {
+    area: 'minhas-demandas',
+    text: 'Minhas demandas',
+    compact: 'Minhas',
+  },
+  {
+    area: 'admin',
+    text: 'Administração',
+    compact: 'Admin',
+  },
 ];
+
+/** Reuses the approved geometry; only the sidebar color treatment changes. */
+function BicolorFluxoSymbol() {
+  return <BrandLogo variant="symbol" tone="bicolor" className="ct-bicolor-f-symbol" />;
+}
+
+/**
+ * Família Iconográfica Linear Minimalista (Traço 1.75px em Branco com ponto de acento em Bronze no Radar).
+ */
+export function SidebarNavIcon({ area }: { area: SiteArea }) {
+  switch (area) {
+    case 'visao-geral':
+      return (
+        <svg viewBox="0 0 24 24" fill="none" className="ct-nav-svg" aria-hidden="true">
+          <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.75" />
+          <path
+            d="M12 3V4.8M12 19.2V21M3 12H4.8M19.2 12H21"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            opacity="0.65"
+          />
+          <polygon
+            points="16.24 7.76 13.8 13.8 7.76 16.24 10.2 10.2 16.24 7.76"
+            stroke="currentColor"
+            strokeWidth="1.75"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          <polygon points="16.24 7.76 13.8 13.8 10.2 10.2 16.24 7.76" fill="#C69C6D" />
+        </svg>
+      );
+    case 'demandas':
+      return (
+        <svg viewBox="0 0 24 24" fill="none" className="ct-nav-svg" aria-hidden="true">
+          <path
+            d="M14 3.5H7C5.9 3.5 5 4.4 5 5.5V18.5C5 19.6 5.9 20.5 7 20.5H17C18.1 20.5 19 19.6 19 18.5V8.5L14 3.5Z"
+            stroke="currentColor"
+            strokeWidth="1.75"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          <path
+            d="M14 3.5V8.5H19"
+            stroke="currentColor"
+            strokeWidth="1.75"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          <line x1="8.5" y1="10.5" x2="11.5" y2="10.5" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" />
+          <line x1="8.5" y1="13.8" x2="15.5" y2="13.8" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" />
+          <line x1="8.5" y1="17" x2="15.5" y2="17" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" />
+        </svg>
+      );
+    case 'minhas-demandas':
+      return (
+        <svg viewBox="0 0 24 24" fill="none" className="ct-nav-svg" aria-hidden="true">
+          <circle cx="12" cy="8" r="3.6" stroke="currentColor" strokeWidth="1.75" />
+          <path
+            d="M5.5 19.5C5.5 16.1 8.4 13.8 12 13.8C15.6 13.8 18.5 16.1 18.5 19.5H5.5Z"
+            stroke="currentColor"
+            strokeWidth="1.75"
+            strokeLinejoin="round"
+          />
+        </svg>
+      );
+    case 'admin':
+      return (
+        <svg viewBox="0 0 24 24" fill="none" className="ct-nav-svg" aria-hidden="true">
+          <circle cx="12" cy="12" r="2.8" stroke="currentColor" strokeWidth="1.75" />
+          <path
+            d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"
+            stroke="currentColor"
+            strokeWidth="1.75"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      );
+  }
+}
 
 export function SiteNavigation({ activeArea, canAccessAdmin, onNavigate }: SiteNavigationProps) {
   const [collapsed, setCollapsed] = useState(false);
@@ -33,7 +130,7 @@ export function SiteNavigation({ activeArea, canAccessAdmin, onNavigate }: SiteN
     if (!mobileOpen) return;
     const oldOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
-    mobileClose.current?.focus();
+    const focusFrame = requestAnimationFrame(() => mobileClose.current?.focus({ preventScroll: true }));
 
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
@@ -43,7 +140,9 @@ export function SiteNavigation({ activeArea, canAccessAdmin, onNavigate }: SiteN
         return;
       }
       if (event.key !== 'Tab' || !sidebarRef.current) return;
-      const elements = Array.from(sidebarRef.current.querySelectorAll<HTMLButtonElement>('button:not([disabled])'));
+      const elements = Array.from(
+        sidebarRef.current.querySelectorAll<HTMLButtonElement>('button:not([disabled])')
+      ).filter((element) => element.getClientRects().length > 0 && getComputedStyle(element).visibility !== 'hidden');
       if (elements.length === 0) return;
       const first = elements[0];
       const last = elements[elements.length - 1];
@@ -55,8 +154,10 @@ export function SiteNavigation({ activeArea, canAccessAdmin, onNavigate }: SiteN
         first.focus();
       }
     };
+
     document.addEventListener('keydown', onKeyDown);
     return () => {
+      cancelAnimationFrame(focusFrame);
       document.body.style.overflow = oldOverflow;
       document.removeEventListener('keydown', onKeyDown);
     };
@@ -103,48 +204,112 @@ export function SiteNavigation({ activeArea, canAccessAdmin, onNavigate }: SiteN
       </div>
 
       {mobileOpen && (
-        <button type="button" className="ct-mobile-menu-backdrop"
-          aria-label="Fechar menu principal" onClick={closeMobileMenu} />
+        <button
+          type="button"
+          className="ct-mobile-menu-backdrop"
+          aria-label="Fechar menu principal"
+          tabIndex={-1}
+          onClick={closeMobileMenu}
+        />
       )}
 
-      <aside id="ct-sidebar-navigation" ref={sidebarRef}
-        className={`ct-sidebar ${collapsed ? 'is-collapsed' : ''} ${mobileOpen ? 'ct-sidebar--open' : ''}`}
-        aria-label="Navegação institucional">
+      <aside
+        id="ct-sidebar-navigation"
+        ref={sidebarRef}
+        className={`ct-sidebar ${collapsed ? 'is-collapsed' : ''} ${mobileOpen ? 'is-mobile-open ct-sidebar--open' : ''}`.trim()}
+        aria-label="Navegação principal"
+      >
         <div className="ct-sidebar-surface">
-          <div className="ct-sidebar-brand">
-            <BrandLogo variant={collapsed ? 'symbol' : 'compact'} tone="inverse" />
-            <button type="button" ref={mobileClose} className="ct-mobile-sidebar-close"
-              aria-label="Fechar menu lateral" onClick={closeMobileMenu}>
+          <div className="ct-sidebar-header">
+            <div className="ct-sidebar-brand">
+              <div className="ct-brand-bicolor-lockup">
+                <BicolorFluxoSymbol />
+                {!collapsed && (
+                  <div className="ct-brand-bicolor-copy">
+                    <div className="ct-brand-serif-title">Fluxo CTRH</div>
+                    <div
+                      className="ct-prefeitura-inline"
+                      role="img"
+                      aria-label="Prefeitura da Cidade do Rio de Janeiro — Educação"
+                    >
+                      <img
+                        src="/design/sidebar-brasao-rio.png"
+                        alt=""
+                        className="ct-brasao-inline-img"
+                        aria-hidden="true"
+                      />
+                      <span className="ct-pref-word">PREFEITURA</span>
+                      <span className="ct-rio-word">RIO</span>
+                      <span className="ct-pref-pipe" aria-hidden="true" />
+                      <span className="ct-edu-word">Educação</span>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+
+            </div>
+
+            <button
+              ref={mobileClose}
+              type="button"
+              className="ct-sidebar-mobile-close ct-mobile-sidebar-close"
+              aria-label="Fechar menu lateral"
+              onClick={closeMobileMenu}
+            >
               <i className="fa-solid fa-xmark" aria-hidden="true" />
             </button>
-            <span className="ct-sidebar-brand-rule" aria-hidden="true" />
           </div>
-          <div className="ct-sidebar-section-label">{collapsed ? '•••' : 'ESPAÇO DE TRABALHO'}</div>
-          <nav className={`ct-sidebar-nav ct-sidebar-nav--${areas.length}`} aria-label="Áreas do sistema">
-            {areas.map(({ area, text, icon, description }) => (
-              <button key={area} type="button"
-                className={`ct-nav-button ${activeArea === area ? 'is-current active' : ''}`}
-                aria-current={activeArea === area ? 'page' : undefined}
-                aria-label={collapsed ? text : undefined}
-                title={description}
-                onClick={() => navigateTo(area)}>
-                <span className="ct-nav-icon" aria-hidden="true"><i className={`fa-solid ${icon}`} /></span>
-                <span className="ct-nav-button-content"><strong>{text}</strong>
-                  <small aria-hidden="true">{description}</small></span>
-                <i className="fa-solid fa-chevron-right ct-nav-chevron" aria-hidden="true" />
-              </button>
-            ))}
+
+          <nav className="ct-sidebar-nav" aria-label="Áreas do sistema">
+            {areas.map(({ area, text, compact }) => {
+              const active = area === activeArea;
+              return (
+                <button
+                  key={area}
+                  type="button"
+                  className={`ct-nav-button ${active ? 'is-active is-current active' : ''}`.trim()}
+                  aria-label={collapsed ? text : undefined}
+                  aria-current={active ? 'page' : undefined}
+                  title={collapsed ? text : undefined}
+                  onClick={() => navigateTo(area)}
+                >
+                  <span className="ct-nav-icon" aria-hidden="true">
+                    <SidebarNavIcon area={area} />
+                  </span>
+                  <span className="ct-nav-copy">
+                    <span className="ct-nav-text">{text}</span>
+                  </span>
+                  <span className="ct-nav-compact-text" aria-hidden="true">{compact}</span>
+                </button>
+              );
+            })}
           </nav>
-          <div className="ct-sidebar-bottom">
-            {!collapsed && <div className="ct-sidebar-caption">
-              <span className="ct-sidebar-caption-icon" aria-hidden="true"><i className="fa-solid fa-building-columns" /></span>
-              <span>Gestão institucional de processos e pessoas</span>
-            </div>}
-            <button type="button" className="ct-sidebar-toggle"
+
+          <div className="ct-sidebar-lapa-tonal" aria-hidden="true">
+            <img src="/design/sidebar-arcos-lapa.webp" alt="" />
+          </div>
+
+          <div className="ct-sidebar-footer">
+            {!collapsed && (
+              <div className="ct-sector-footer-signature">
+                <span className="ct-sector-bronze-bar" aria-hidden="true" />
+                <span className="ct-sector-name">
+                  CTRH • Coordenadoria Técnica de Recursos Humanos
+                </span>
+              </div>
+            )}
+            <button
+              type="button"
+              className="ct-sidebar-toggle"
               aria-label={collapsed ? 'Expandir menu lateral' : 'Recolher menu lateral'}
               aria-expanded={!collapsed}
-              onClick={() => setCollapsed((value) => !value)}>
-              <i className={`fa-solid ${collapsed ? 'fa-angles-right' : 'fa-angles-left'}`} aria-hidden="true" />
+              onClick={() => setCollapsed(!collapsed)}
+            >
+              <i
+                className={`fa-solid ${collapsed ? 'fa-angles-right' : 'fa-angles-left'}`}
+                aria-hidden="true"
+              />
               {!collapsed && <span>Recolher menu</span>}
             </button>
           </div>

@@ -59,7 +59,16 @@ test('carteira mantém todas as colunas acessíveis em notebook de 1366 px', asy
   await loginAndOpenDemandas(page);
 
   const geometry = await tableGeometry(page);
-  expect(geometry.scrollWidth).toBeLessThanOrEqual(geometry.clientWidth + 1);
+  if (geometry.scrollWidth > geometry.clientWidth + 1) {
+    const topScrollbar = page.getByRole('region', { name: 'Rolagem horizontal da tabela' });
+    await expect(topScrollbar).toBeVisible();
+    await topScrollbar.evaluate((element) => {
+      element.scrollLeft = element.scrollWidth;
+      element.dispatchEvent(new Event('scroll', { bubbles: true }));
+    });
+    await expect.poll(() => page.locator('.table-responsive').evaluate((element) => element.scrollLeft))
+      .toBeGreaterThan(0);
+  }
 
   const actionsBox = await page.getByRole('columnheader', { name: /^ações$/i }).boundingBox();
   expect(actionsBox).not.toBeNull();

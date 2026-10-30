@@ -95,3 +95,6 @@ Quando uma versão upstream mudar, revisar o diff, a licença, as dependências 
 ### TECH-DESIGN-005 — Densidade operacional e assinatura institucional
 
 O pacote de correção pós-PR #215 amplia a área útil de monitores grandes, recupera as ações de rotina diretamente nas linhas da carteira com ícones e rótulos acessíveis, preserva o menu de ações no mobile e utiliza imagem institucional oficial íntegra e otimizada (Prefeitura do Rio, portal carioca.rio, PNG 900×228 derivado proporcionalmente do original 1570×398). A aprovação estética da sidebar Opção 2 não é reaberta. Critérios de aceite: inspeção real em desktop, testes Playwright, contraste, teclado, imagem decodificada com pixels visíveis, Preview e homologação expressa anterior ao merge.
+
+
+A assinatura municipal da sidebar deixa de ser construída por um brasão de 40×47 px e quatro fragmentos tipográficos. A mesma arte oficial é apresentada integralmente (sem recorte ou reconstrução de letras), em versão monocromática por filtro CSS apenas para contraste com o fundo marinho aprovado; o símbolo original bicolor e os ícones de destinos são preservados.

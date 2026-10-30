@@ -120,10 +120,11 @@ test('monitor de 32 polegadas usa a largura útil para ler a carteira', async ({
   const actionWidth = (await page.getByRole('columnheader', { name: /^ações$/i }).boundingBox())!.width;
   expect(actionWidth).toBeLessThanOrEqual(144);
   await expectNoPageOverflow(page);
-  const devtools = page.getByRole('button', { name: 'Open Tanstack query devtools', exact: true });
-  if (await devtools.count()) {
-    await devtools.evaluate((element) => { (element as HTMLElement).style.visibility = 'hidden'; });
-  }
+  await page.getByRole('button', { name: /devtools/i }).evaluateAll((controls) => {
+    for (const control of controls) {
+      (control as HTMLElement).style.setProperty('display', 'none', 'important');
+    }
+  });
   const evidence = await page.screenshot({ type: 'jpeg', quality: 80 });
   await mkdir('visual-evidence/wide-screens', { recursive: true });
   await writeFile(`visual-evidence/wide-screens/carteira-2560-${testInfo.project.name}.jpg`, evidence);

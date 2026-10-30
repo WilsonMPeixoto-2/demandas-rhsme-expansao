@@ -1,3 +1,4 @@
+import { mkdir, writeFile } from 'node:fs/promises';
 import { openSiteMenu } from './helpers/siteNavigation';
 import { expect, test } from '@playwright/test';
 
@@ -109,4 +110,37 @@ test('menu móvel mantém a página contida e o foco dentro das ações visívei
   await closer.press('Escape');
   await expect(opener).toBeFocused();
   await expect(opener).toHaveAttribute('aria-expanded', 'false');
+});
+
+test('assinatura institucional fica inteira e nítida em desktop e celular', async ({ page }, testInfo) => {
+  await page.goto('/');
+  await page.getByPlaceholder('usuario@rioeduca.net').fill('teste@rioeduca.net');
+  await page.getByPlaceholder('••••••••').first().fill('senha-local-teste');
+  await page.getByRole('button', { name: /acessar sistema/i }).click();
+  await expect(page.getByRole('button', { name: /sair/i })).toBeVisible();
+  for (const viewport of [{ width: 1366, height: 768 }, { width: 320, height: 800 }]) {
+    await page.setViewportSize(viewport);
+    if (viewport.width <= 940) await openSiteMenu(page);
+    const sidebar = page.locator('#ct-sidebar-navigation');
+    const signature = sidebar.getByRole('img', { name: 'Prefeitura da Cidade do Rio de Janeiro — Educação', exact: true });
+    await expect(signature).toBeVisible();
+    await expect(signature).toHaveJSProperty('complete', true);
+    const geometry = await signature.evaluate((image) => {
+      const img = image as HTMLImageElement;
+      const rect = img.getBoundingClientRect();
+      const parent = img.closest('aside')!.getBoundingClientRect();
+      return { width: rect.width, left: rect.left, right: rect.right, parentLeft: parent.left, parentRight: parent.right,
+        naturalWidth: img.naturalWidth, naturalHeight: img.naturalHeight, height: rect.height };
+    });
+    expect(geometry.naturalWidth).toBeGreaterThanOrEqual(geometry.width * 2);
+    expect(geometry.left).toBeGreaterThanOrEqual(geometry.parentLeft + 8);
+    expect(geometry.right).toBeLessThanOrEqual(geometry.parentRight - 8);
+    expect(geometry.width / geometry.height).toBeCloseTo(geometry.naturalWidth / geometry.naturalHeight, 1);
+    const evidence = await sidebar.screenshot({ animations: 'disabled' });
+    await mkdir('visual-evidence/sidebar', { recursive: true });
+    await writeFile(`visual-evidence/sidebar/assinatura-${viewport.width}-${testInfo.project.name}.png`, evidence);
+    await testInfo.attach(`assinatura-${viewport.width}-dados-sinteticos`, {
+      body: evidence, contentType: 'image/png',
+    });
+  }
 });

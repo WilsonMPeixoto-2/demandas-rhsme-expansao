@@ -42,3 +42,6 @@ dry-run-receipt.json
 .vercel
 
 storybook-static/
+
+# Evidências sintéticas geradas pelos testes de layout
+visual-evidence/

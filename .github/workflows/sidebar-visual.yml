@@ -7,8 +7,12 @@ on:
       - 'src/components/SiteNavigation.tsx'
       - 'src/components/BrandLogo.tsx'
       - 'src/design-shell.css'
+      - 'src/demandas-table-responsive.css'
       - 'src/brand.css'
+      - 'src/styles/sidebar-tokens.css'
+      - 'public/design/prefeitura-rio-educacao-oficial.png'
       - 'tests/e2e/sidebar-visual.spec.ts'
+      - 'tests/e2e/responsive-table.spec.ts'
       - 'public/design/sidebar-icon-atlas.html'
       - 'public/design/sidebar-icons/**'
       - '.github/workflows/sidebar-visual.yml'
@@ -30,10 +34,20 @@ jobs:
         run: npm ci
       - name: Instalar navegador de teste
         run: npx playwright install --with-deps chromium
+      - name: Verificar build do Storybook com o componente real
+        run: npm run build-storybook
       - name: Capturar barra lateral e verificar estados
-        run: npm run test:sidebar-visual
+        run: |
+          npm run test:sidebar-visual -- --output=test-results/sidebar
+          mkdir -p visual-evidence/sidebar
+          cp -R playwright-report/data/. visual-evidence/sidebar/
+      - name: Verificar espaço útil da carteira em monitores amplos
+        run: |
+          npx playwright test tests/e2e/responsive-table.spec.ts --project=chromium-desktop --output=test-results/wide-screens
+          mkdir -p visual-evidence/wide-screens
+          cp -R playwright-report/data/. visual-evidence/wide-screens/
       - name: Capturar inventário visual de todo o produto
-        run: npm run test:visual-inventory
+        run: npm run test:visual-inventory -- --output=test-results/inventory
       - name: Preservar relatório e capturas para revisão artística
         if: always()
         uses: actions/upload-artifact@v4
@@ -42,5 +56,6 @@ jobs:
           path: |
             playwright-report/
             test-results/
+            visual-evidence/
           retention-days: 14
           if-no-files-found: warn

@@ -1,7 +1,7 @@
 /* Carteira de demandas: usa o espaço real da tela e preserva acesso às ações. */
 .app-container:has(.demandas-table) {
   --workspace-gutter: clamp(16px, 2vw, 32px);
-  max-width: 1760px;
+  max-width: none;
   padding-inline: var(--workspace-gutter);
 }
 
@@ -80,5 +80,24 @@
   .app-container:has(.demandas-table) {
     --workspace-gutter: 16px;
     max-width: 100%;
+  }
+}
+
+/* Em monitores amplos, o espaço adicional deve melhorar a leitura dos nomes. */
+@media (min-width: 1600px) {
+  .ct-shell .demandas-table thead .column-assunto,
+  .ct-shell .demandas-table thead .column-responsavel,
+  .ct-shell .demandas-table thead .column-proximaAcaoEm {
+    width: auto !important;
+  }
+
+  .ct-shell .demandas-table .column-responsavel .avatar-info {
+    flex: 1;
+  }
+
+  .ct-shell .demandas-table .column-responsavel .avatar-nome {
+    max-width: 100%;
+    white-space: normal;
+    overflow-wrap: anywhere;
   }
 }

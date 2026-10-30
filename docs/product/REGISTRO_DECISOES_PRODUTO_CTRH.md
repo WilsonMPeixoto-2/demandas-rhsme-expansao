@@ -923,3 +923,14 @@ A referência é a Opção 2 original: marinho, Georgia, símbolo oficial com tr
 A autorização específica de correção e publicação já foi dada; não é autorização geral de evolução futura nem declaração de homologação estética de qualquer renderização ainda não apresentada. Resultados técnicos e aprovação humana não devem ser confundidos.
 
 **Atualização de homologação — 30/10/2026:** o responsável pelo produto examinou expressamente o [Preview Vercel da Opção 2](https://demandas-rhsme-expansao-q8t8gr65n-wilson-m-peixotos-projects.vercel.app), correspondente ao SHA `49e1aafa33c65935c181445d44a926b9e0832d6e` do PR #215, declarou a composição aprovada e autorizou sua promoção à produção. Os gates aplicáveis desse SHA estavam aprovados; o Preview, `READY`. **Decisão: APROVADA a homologação artística e a integração do PR #215 no escopo da barra lateral.** O checkpoint e a reprovação inicial de foco ficam preservados como histórico em [RETOMADA_PR215_CHECKPOINT_2026-10-30.md](../design/RETOMADA_PR215_CHECKPOINT_2026-10-30.md). Esta atualização documental registra o aceite, sem modificar a composição aprovada; a publicação efetiva deve ser confirmada posteriormente no SHA integrado e no endereço oficial.
+
+
+## TECH-DESIGN-005 — Refinamento após uso em monitor amplo (30/10/2026)
+
+**Origem:** feedback do responsável após a publicação do PR #215: espaço útil em branco no monitor de 32 polegadas, carteira comprimida apesar de área disponível e assinatura da Prefeitura com baixa qualidade e Educação próxima do corte.
+
+**Escopo preparado no PR #221:** remover os tetos fixos de largura da área operacional e da carteira; apresentar a assinatura oficial completa da SME (PNG original de 1490×310 px, com proveniência em `docs/design/ASSINATURA_OFICIAL_SME.md`) em faixa própria, sem reconstrução tipográfica; deixar nomes da carteira aproveitarem o espaço adicional em monitores amplos. Preservar símbolo Fluxo CTRH, ícones, Arcos, destinos, menu retrátil, conteúdo, dados e permissões.
+
+**Estado:** implementação em Preview e evidência de CI preparadas para avaliação humana; homologação visual e promoção deste refinamento ainda pendentes. O aceite do PR #215 permanece como histórico da versão `62304923` e não equivale a aceitar automaticamente o novo refinamento.
+
+**Critério de verificação:** em 2560×1440 CSS, usar a largura útil da janela com margens proporcionais; manter todos os dados e ações acessíveis; assinatura inteira, na proporção original e com pixels de origem suficientes para alta densidade; conferir desktop e mobile em renderização real. Não modificar testes antigos para esconder regressões.

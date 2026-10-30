@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 
-test('assinatura oficial é decodificada e produz pixels visíveis no login', async ({ page }) => {
+test('assinatura oficial é decodificada e produz pixels visíveis no login', async ({ page }, testInfo) => {
   await page.setViewportSize({ width: 1366, height: 768 });
   await page.goto('/');
   const mark = page.getByRole('img', { name: /prefeitura do rio de janeiro.*educação/i }).first();
@@ -20,4 +20,8 @@ test('assinatura oficial é decodificada e produz pixels visíveis no login', as
   });
   expect(result.width).toBeGreaterThanOrEqual(700);
   expect(result.painted).toBeGreaterThan(1000);
+  await testInfo.attach('login-marca-oficial-1366.png', {
+    body: await page.screenshot({ animations: 'disabled' }),
+    contentType: 'image/png',
+  });
 });

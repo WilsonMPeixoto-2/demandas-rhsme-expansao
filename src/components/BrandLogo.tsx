@@ -16,7 +16,7 @@ export function BrandLogo({
   const bronzeTopId = useId();
   const bronzeMidId = useId();
   const bicolor = tone === 'bicolor';
-  const endorsementSrc = '/prefeitura-rio-educacao.svg';
+  const endorsementSrc = '/prefeitura-rio-educacao-oficial.png';
 
   return (
     <div className={`brand-lockup brand-lockup--${variant} brand-lockup--${tone} ${className}`.trim()}>

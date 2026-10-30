@@ -4,6 +4,10 @@ Atualizado em: **30 de outubro de 2026 — reconciliação pontual de referênci
 
 <!-- IMPLEMENTATION_AUTHORIZATION: V1-E-A01 -->
 
+## Continuidade pós-publicação TECH-DESIGN-005 — 30/10/2026
+
+PR #215 integrado na main no commit `62304923dafa5b0448944c7a7845a703b27d474b`, Vercel Production READY. A inspeção autenticada posterior identificou limite indevido de 1.830 px no desktop, ações ocultadas em menu, compressão de carteiras e imagem Prefeitura Rio/Educação inválida no login. TECH-DESIGN-005 autorizou a correção localizada na branch `fix/desktop-density-actions-official-mark-20261030`. Preservar a sidebar Opção 2, permissões e dados. **Pré-visualização ainda não homologada; produção não deve ser alterada sem novo aceite.**
+
 ## Checkpoint de retomada do PR #215 — 30/10/2026
 
 **PR #215 — Opção 2 homologada visualmente pelo responsável pelo produto em 30/10/2026.** O usuário examinou o Preview Vercel da branch `feat/sidebar-impeccable` no SHA `49e1aafa33c65935c181445d44a926b9e0832d6e` (`https://demandas-rhsme-expansao-q8t8gr65n-wilson-m-peixotos-projects.vercel.app`) e autorizou expressamente a promoção à produção. Os gates de documentação, auditoria, lint, cobertura, build, bundle, E2E, Storybook, integridade de design e CodeQL estão aprovados no mesmo SHA, com Vercel Preview `READY`. A correção de foco móvel e a composição estão incluídas nesse commit. **Próxima operação autorizada:** integrar o PR #215 sem alterações funcionais ou artísticas e confirmar a publicação na Vercel pelo SHA de merge. Este registro de pré-integração não equivale a afirmar que a publicação já ocorreu.

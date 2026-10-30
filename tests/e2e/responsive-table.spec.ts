@@ -103,3 +103,26 @@ test('viewport estreito oferece rolagem horizontal no topo e mantém ações vis
   await expectNoPageOverflow(page);
   await attachLayoutEvidence(page, testInfo, 'carteira-960.png');
 });
+
+test('monitor de 2560 px usa a largura operacional e expõe ações', async ({ page }) => {
+  await page.setViewportSize({ width: 2560, height: 1440 });
+  await loginAndOpenDemandas(page);
+  const shellWidth = await page.locator('.ct-shell.app-container').evaluate(
+    (element) => element.getBoundingClientRect().width,
+  );
+  expect(shellWidth).toBeGreaterThan(2450);
+  const geometry = await tableGeometry(page);
+  expect(geometry.clientWidth).toBeGreaterThan(2000);
+  await expect(page.getByRole('button', { name: /histórico da demanda/i }).first()).toBeVisible();
+  await expectNoPageOverflow(page);
+});
+
+test('notebook conserva atalhos visíveis com rolagem interna', async ({ page }) => {
+  await page.setViewportSize({ width: 1366, height: 768 });
+  await loginAndOpenDemandas(page);
+  await expect(page.getByRole('button', { name: /histórico da demanda/i }).first()).toBeVisible();
+  const geometry = await tableGeometry(page);
+  expect(geometry.scrollWidth).toBeGreaterThan(geometry.clientWidth);
+  await expect(page.getByRole('region', { name: 'Rolagem horizontal da tabela' })).toBeVisible();
+  await expectNoPageOverflow(page);
+});

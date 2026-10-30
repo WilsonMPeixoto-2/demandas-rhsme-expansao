@@ -13,7 +13,7 @@
   align-items: start;
   gap: clamp(18px, 1.7vw, 30px);
   width: 100%;
-  max-width: 1830px;
+  max-width: 3200px; /* TECH-DESIGN-005: wider workstation canvas. */
   padding: 20px clamp(16px, 1.8vw, 34px) 56px;
 }
 .ct-main { min-width: 0; }

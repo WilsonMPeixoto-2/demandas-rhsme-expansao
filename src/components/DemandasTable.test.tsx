@@ -51,6 +51,29 @@ describe('DemandasTable', () => {
     expect(screen.queryByRole('button', { name: /^editar$/i })).not.toBeInTheDocument();
   });
 
+  it('exibe e executa os atalhos operacionais sem abrir o menu de contexto', async () => {
+    const onOpenProgress = vi.fn();
+    const onOpenStatus = vi.fn();
+    const onOpenHistorico = vi.fn();
+    const user = userEvent.setup();
+    render(<DemandasTable
+      demandas={[demanda]}
+      onOpenEditar={vi.fn()}
+      onOpenProgress={onOpenProgress}
+      onOpenStatus={onOpenStatus}
+      onOpenHistorico={onOpenHistorico}
+      onExcluir={vi.fn()}
+      canEdit
+      canDelete
+    />);
+    await user.click(screen.getByRole('button', { name: /registrar andamento da demanda sme-001/i }));
+    await user.click(screen.getByRole('button', { name: /alterar status da demanda sme-001/i }));
+    await user.click(screen.getByRole('button', { name: /histórico da demanda sme-001/i }));
+    expect(onOpenProgress).toHaveBeenCalledWith(demanda);
+    expect(onOpenStatus).toHaveBeenCalledWith(demanda);
+    expect(onOpenHistorico).toHaveBeenCalledWith(demanda);
+  });
+
   it('não oferece exclusão quando o perfil não possui permissão administrativa', async () => {
     render(<DemandasTable
       demandas={[demanda]}

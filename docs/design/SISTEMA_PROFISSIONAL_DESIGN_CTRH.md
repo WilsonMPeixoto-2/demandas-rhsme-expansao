@@ -90,3 +90,8 @@ A infraestrutura é reutilizável nas seguintes etapas, sem implicar autorizaç�
 - Apple: https://developer.apple.com/design/human-interface-guidelines/foundations (referência externa; conteúdo não copiado).
 
 Quando uma versão upstream mudar, revisar o diff, a licença, as dependências e a compatibilidade antes de atualizar, mantendo a integridade das decisões do CTRH.
+
+
+### TECH-DESIGN-005 — Densidade operacional e assinatura institucional
+
+O pacote de correção pós-PR #215 amplia a área útil de monitores grandes, recupera as ações de rotina diretamente nas linhas da carteira com ícones e rótulos acessíveis, preserva o menu de ações no mobile e utiliza imagem institucional oficial íntegra e otimizada (Prefeitura do Rio, portal carioca.rio, PNG 900×228 derivado proporcionalmente do original 1570×398). A aprovação estética da sidebar Opção 2 não é reaberta. Critérios de aceite: inspeção real em desktop, testes Playwright, contraste, teclado, imagem decodificada com pixels visíveis, Preview e homologação expressa anterior ao merge.

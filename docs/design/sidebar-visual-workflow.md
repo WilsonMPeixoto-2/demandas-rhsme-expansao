@@ -16,7 +16,7 @@
 2. **Ateliê iconográfico:** selecionar uma única família profissional candidata para *os quatro ícones* e comparar com os quatro atuais. Avaliar desenho, equilíbrio óptico, peso, margens, clareza sem rótulos, percepção a 20/24/28 px e estados inativo/ativo/foco.
 3. **Estudo aplicado:** integrar os quatro candidatos à composição original **sem substituir a marca, o texto, as cores ou a arte arquitetônica**. Não gerar uma interface inteira por imagem.
 4. **Revisão visual em PR:** capturar barra expandida, recolhida e navegação móvel via Playwright; avaliar fidelidade com imagens lado a lado e conferir a interação por teclado.
-5. **Aprovação:** somente depois do aceite visual explícito alterar a sidebar operacional. Em produção, não adicionar bibliotecas iconográficas de forma indiscriminada.
+5. **Aprovação e integração:** a proposta pode ser desenvolvida e validada no componente real em branch isolada e Preview antes do aceite artístico. Somente após homologação visual expressa e verificações aplicáveis ela pode ser integrada à produção. Em produção, não adicionar bibliotecas iconográficas de forma indiscriminada.
 
 ## Ferramentas e dependências já verificadas
 

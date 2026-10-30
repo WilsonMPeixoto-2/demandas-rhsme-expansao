@@ -1,12 +1,12 @@
 # Handoff Operacional — Central de Demandas CTRH
 
-Atualizado em: **29 de outubro de 2026 — reconciliação documental e técnica após o PR #218.** Dados operacionais e técnicos devem ser verificados novamente antes de qualquer alteração, pois mudam ao longo do tempo.
+Atualizado em: **30 de outubro de 2026 — reconciliação pontual de referências documentais.** Os estados de GitHub, Vercel e Supabase registrados abaixo são fotografias datadas, não indicadores em tempo real; devem ser reconferidos antes de qualquer intervenção.
 
 <!-- IMPLEMENTATION_AUTHORIZATION: V1-E-A01 -->
 
-## Estado atual verificado — 29 de outubro de 2026
+## Fotografia operacional verificada em 29 de outubro de 2026 (antes do PR #219)
 
-Esta seção é a **síntese vigente** para retomada. O quadro histórico de 26/10 logo abaixo e seus SHAs/diagnósticos foram mantidos como registro de época; não expressam o estado atual de produção.
+Este quadro reúne verificações realizadas **antes da integração do PR #219**, quando a `main` ainda apontava para o commit do PR #218. A integração do próprio PR #219 gerou novo commit e deployment: os SHAs e deployments abaixo registram proveniência, **não representam o estado ao vivo**. Na retomada, conferir diretamente GitHub, Vercel e Supabase. A fotografia de 26/10 logo abaixo permanece preservada como histórico.
 
 | Verificação | Resultado |
 |---|---|
@@ -624,11 +624,13 @@ Evidência: `docs/maintenance/ENDURECIMENTO_TECNICO_2026-10-26.md`.
 
 ## Próxima etapa
 
-Com a rodada de manutenção concluída, a próxima frente técnica autorizada volta a ser a fundação B1 do Trilho B de migração. O trabalho deve permanecer sem carga dos 3.201 registros reais em Production e com preservação integral dos dados legados, inclusive estados hoje incompatíveis com regras de criação do sistema novo.
+Com a rodada de manutenção concluída, a próxima frente técnica de avaliação é a fundação B1 do Trilho B de migração, sujeita às decisões e autorizações específicas previstas na governança. O trabalho deve permanecer sem carga dos 3.201 registros reais em Production e com preservação integral dos dados legados, inclusive estados hoje incompatíveis com regras de criação do sistema novo.
+
+**Frente visual independente:** a próxima análise de interface é a retomada do PR #215, preservando o processo de Preview, testes evolutivos e homologação artística antes de qualquer merge. Esta manutenção documental não inicia essa análise nem autoriza alteração visual.
 
 O `fast-check` já disponível deve ser empregado nos testes gerativos das transformações quando o B1/B2 chegar a essa camada. pgTAP deve ser avaliado para invariantes locais de banco antes de qualquer adoção definitiva. `json-canonicalize` permanece reservado ao B2, quando os hashes canônicos de proveniência forem implementados.
 
-Observabilidade, Lighthouse CI, MSW, TanStack Table 9, ESLint 10 e TypeScript 7 continuam pacotes independentes, sem autorização automática. CodeQL passou a integrar a rodada de endurecimento técnico de 26/10.
+A migração estrutural para TanStack Table 9 **já foi concluída** pelo PR #178; eventuais atualizações futuras são distintas dessa migração. Observabilidade, Lighthouse CI, MSW, ESLint 10 e TypeScript 7 permanecem frentes independentes, sem autorização automática. CodeQL passou a integrar a rodada de endurecimento técnico de 26/10.
 
 Nenhuma extensão funcional do R5 avançado, R1 residual, R2 ou ciclos posteriores é autorizada por inferência. E2, segurança final e homologação consolidada do R12 permanecem gates antes da entrega final do produto.
 
@@ -642,7 +644,9 @@ O Playwright fornece capturas do componente real e um inventário visual do prod
 
 As verificações de design e o fluxo de screenshots estão em `.github/workflows/design-tooling-check.yml` e `.github/workflows/sidebar-visual.yml`, respectivamente. O registro vinculante é `TECH-DESIGN-001`; a política vigente de homologação e publicação permanece aplicável.
 
-## Documentação vigente
+## Referências documentais — governança, operação e registros históricos
+
+Esta relação reúne fontes de natureza diferente: documentos vinculantes, referências técnicas e relatórios datados de execução. A autoridade e a ordem de leitura são as de `AGENTS.md` e do Registro de Decisões; a presença de um relatório nesta lista não o torna norma vigente. Para alterações visuais, aplica-se também `docs/design/PROTOCOLO_PERMANENTE_EVOLUCAO_VISUAL_CTRH.md`.
 
 1. `docs/execution/ADENDO_GOVERNANCA_POR_ETAPA_CTRH_v2.0.4.md`;
 2. `docs/product/PROTOCOLO_HOMOLOGACAO_DECISOES_PRODUTO_CTRH_v1.3.md`;
@@ -673,7 +677,8 @@ As verificações de design e o fluxo de screenshots estão em `.github/workflow
 27. `docs/maintenance/DEPENDENCY_UPDATES_2026-08-29.md`;
 28. `docs/maintenance/G1_QUERY_TOOLING_2026-08-29.md`;
 29. `docs/maintenance/SUPABASE_CLI_2_116_0_2026-08-30.md`;
-30. este Handoff.
+30. `docs/design/PROTOCOLO_PERMANENTE_EVOLUCAO_VISUAL_CTRH.md`;
+31. este Handoff.
 
 ## Regra de continuidade
 

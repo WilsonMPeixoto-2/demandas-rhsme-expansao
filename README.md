@@ -50,7 +50,7 @@ O Plano Remanescente v2.1, planos e especificações anteriores permanecem apena
 
 ## Executar localmente
 
-Requisitos: Node.js 20 ou superior e npm.
+Requisitos: Node.js 24.x e npm.
 
 ```bash
 npm ci

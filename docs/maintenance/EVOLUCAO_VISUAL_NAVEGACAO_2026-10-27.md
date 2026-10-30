@@ -1,5 +1,7 @@
 # Evolução visual CTRH | Arquitetura de navegação e composição
 
+> **Registro histórico da iteração de 27/10/2026.** As indicações abaixo, incluindo navegação inferior em telas até 940 px, documentam aquela proposta e **não definem o comportamento móvel vigente**. O sistema atual utiliza menu retrátil superior, cuja preservação foi aprovada. Consulte `docs/HANDOFF.md`, `docs/design/PROTOCOLO_PERMANENTE_EVOLUCAO_VISUAL_CTRH.md` e o PR #215 (em preview, sem merge) antes de orientar novas intervenções.
+
 ## Diretriz estética
 Continuar a identidade aprovada (Fluxo CTRH em Georgia e símbolo SVG original,
 azul institucional, tipografia Inter e linguagem gráfica do panorama operacional).

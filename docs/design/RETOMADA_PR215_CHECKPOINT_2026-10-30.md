@@ -68,6 +68,10 @@ Também revisar:
 
 A falha móvel foi reproduzida em Chromium isolado: a transição de `visibility` impedia focar o botão de fechar durante a abertura, mesmo com `getComputedStyle(...).visibility` igual a `visible`. A correção CSS torna a abertura imediatamente focalizável e adia a ocultação até terminar o fechamento animado. O teste isolado passou; **o E2E completo do CTRH e a homologação visual continuam pendentes nesta etapa**. A documentação também foi sincronizada quanto ao drawer móvel, ícones do runtime e Storybook.
 
+## Validação técnica da continuidade — 30/10/2026
+
+A correção do foco móvel passou no workflow `Revisão visual — barra lateral CTRH` (`41008196488`); o gate integral `Dependency health` (`41008196536`), o Storybook (`41008196365`), a integridade de design (`41008196317`) e o CodeQL (`41008196414`) foram aprovados no commit `71a6c1cc6b0141fc4895284338fcfcd9a78f12ed`. O Preview Vercel desse commit está `READY`: https://demandas-rhsme-expansao-amrijw9k6-wilson-m-peixotos-projects.vercel.app. Evidências reais do navegador local foram arquivadas no workflow visual `41008196488`; suas capturas **não são** uma reprodução autenticada do Preview e não constituem aceite estético. A revisão comparativa final antes/depois em ambientes equivalentes e a homologação pelo responsável ainda devem ser concluídas. **Não integrar o PR nem publicar a Opção 2 antes do aceite artístico expresso.**
+
 ## Continuação até a publicação autorizada
 
 1. Fazer checkout da branch remota; ler AGENTS, registro TECH-DESIGN-004 e este checkpoint. Não sobrescrever trabalho concorrente.

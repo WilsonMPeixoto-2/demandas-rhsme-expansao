@@ -931,6 +931,6 @@ A autorização específica de correção e publicação já foi dada; não é a
 
 **Escopo preparado no PR #221:** remover os tetos fixos de largura da área operacional e da carteira; apresentar a assinatura oficial completa da SME (PNG original de 1490×310 px, com proveniência em `docs/design/ASSINATURA_OFICIAL_SME.md`) em faixa própria, sem reconstrução tipográfica; deixar nomes da carteira aproveitarem o espaço adicional em monitores amplos. Preservar símbolo Fluxo CTRH, ícones, Arcos, destinos, menu retrátil, conteúdo, dados e permissões.
 
-**Estado:** preparação e verificação do Preview para avaliação humana; homologação visual e promoção deste refinamento ainda pendentes. O aceite do PR #215 permanece como histórico da versão `62304923` e não equivale a aceitar automaticamente o novo refinamento.
+**Estado:** implementação em Preview e evidência de CI preparadas para avaliação humana; homologação visual e promoção deste refinamento ainda pendentes. O aceite do PR #215 permanece como histórico da versão `62304923` e não equivale a aceitar automaticamente o novo refinamento.
 
 **Critério de verificação:** em 2560×1440 CSS, usar a largura útil da janela com margens proporcionais; manter todos os dados e ações acessíveis; assinatura inteira, na proporção original e com pixels de origem suficientes para alta densidade; conferir desktop e mobile em renderização real. Não modificar testes antigos para esconder regressões.

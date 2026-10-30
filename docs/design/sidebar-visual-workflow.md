@@ -1,7 +1,7 @@
 # Fluxo CTRH · Ateliê de revisão visual da barra lateral
 
 **Escopo único:** navegação lateral implementada por `SiteNavigation.tsx` e `design-shell.css`.  
-**Referência histórica de 29/10 e continuidade em 30/10:** as ferramentas de verificação e o Storybook estão integrados. O PR #215 contém a Opção 2 original do usuário, com quatro ícones lineares, brasão e Arcos originais; o pacote concluiu os gates técnicos em `71a6c1c` e aguarda apenas as evidências equivalentes do Preview e a homologação artística antes da integração à produção. Para todo trabalho novo, aplicar `docs/design/PROTOCOLO_PERMANENTE_EVOLUCAO_VISUAL_CTRH.md` e as instruções vigentes de `AGENTS.md`.
+**Referência histórica de 29/10 e homologação em 30/10:** as ferramentas de verificação e o Storybook estão integrados. O PR #215 contém a Opção 2 original, com ícones lineares, brasão e Arcos originais. O responsável pelo produto examinou o Preview Vercel no SHA `49e1aafa` e **aprovou expressamente a promoção à produção** em 30/10/2026, após conclusão dos gates técnicos aplicáveis. Essa decisão habilita o merge do pacote, sem autorizar alterações artísticas adicionais. Para novos trabalhos, aplicar `docs/design/PROTOCOLO_PERMANENTE_EVOLUCAO_VISUAL_CTRH.md` e `AGENTS.md`.
 
 ## Referência que não deve ser reinterpretada
 

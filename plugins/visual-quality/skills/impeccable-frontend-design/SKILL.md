@@ -1,11 +1,15 @@
 ---
 name: impeccable-frontend-design
-description: Planejar, implementar ou auditar design visual e UX de interfaces web, componentes, iconografia e sistemas de design, com evidência renderizada e verificação técnica. Use em tarefas de layout, UI, CSS, acessibilidade visual e direção de arte; não use para backend sem interface.
+description: Planejar, implementar ou auditar design visual e UX de interfaces web, componentes, iconografia e sistemas de design, com testes adaptáveis à evolução aprovada, evidência real antes/depois e verificação técnica. Use em tarefas de layout, UI, CSS, acessibilidade visual e direção de arte; não use para backend sem interface.
 ---
 
 # Impeccable Frontend Design
 
 Skill coordenadora de design profissional. Não atribui aprovação de produto nem direitos adicionais sobre projetos, deploys ou serviços.
+
+## Protocolo transversal obrigatório
+
+Em **qualquer criação, atualização ou auditoria de UI**, consultar [references/protocolo-evidencias-visuais.md](references/protocolo-evidencias-visuais.md). Os testes devem proteger os **comportamentos e decisões aprovadas**, não congelar classes, DOM ou a estética antiga. Toda falha requer classificação causal (regressão real, teste desatualizado, ambiente ou intermitência). Não tornar CI verde por omissão, afrouxamento arbitrário ou atualização cega de snapshots. O responsável pelo produto homologa o resultado artístico com preview e capturas reais comparáveis.
 
 ## Critério principal
 
@@ -30,6 +34,12 @@ Leia [references/auditoria-visual.md](references/auditoria-visual.md) para regra
 6. Apresente versão renderizada e comparação legível. Obtenha autorização de homologação antes de alterar a UI de produção; submeta código a lint, testes, build e CI.
 
 Leia [references/direcao-de-arte-iconografia.md](references/direcao-de-arte-iconografia.md) quando o trabalho envolver escolhas artísticas e ícones.
+
+## Perfil de dispositivos e qualidade de evidência
+
+Escolher a cobertura pelo **uso real do produto**, geralmente com prioridade à operação em desktop/notebook e monitores de trabalho, sem deixar de validar o mobile essencial. Largura CSS, escala, zoom e densidade de pixels são fatores diferentes; assets nítidos não precisam ocupar mais espaço. Uma tabela ao lado de uma sidebar pode rolar dentro do próprio contêiner: testar acesso aos dados e ações sem impor artificialmente que todas as colunas caibam de uma vez.
+
+As capturas devem ter origem, branch/SHA, viewport e estado definidos. Não misturar imagens de referência, testes em modo de demonstração, DEV e preview autenticado. Atualizar baselines visuais apenas após a nova composição ser aprovada, mantendo revisão humana como aceite final.
 
 ## Disponibilidade e integração
 

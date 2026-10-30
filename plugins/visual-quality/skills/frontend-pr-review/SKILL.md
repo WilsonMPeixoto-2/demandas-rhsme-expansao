@@ -24,3 +24,16 @@ Leia, quando útil, `../impeccable-frontend-design/references/auditoria-visual.m
 ## Limites
 
 Não criar commits, PRs, comentários, mudanças de teste, atualizações, instalações ou deploys sem autorização expressa. Não declarar que uma captura de DEV é a versão publicada. Se o preview exigir autenticação, relate essa limitação e não invente resultados.
+
+## Revisão da validade dos testes
+
+Antes de tratar uma reprovação como defeito da alteração, identifique a **necessidade de produto** protegida. Classifique cada expectativa: invariante funcional, composição já homologada, detalhe interno anterior, ambiente/fixture ou evidência diagnóstica. Distinguir **regressão real**, **teste obsoleto**, **falha de ambiente** e **instabilidade**; conferir log, seletor, viewport, CSS efetivo e se a mudança era expressamente aprovada. Propor ajuste do teste quando o contrato mudou, sem mascarar defeitos, diminuir tolerância arbitrariamente, excluir cobertura ou gerar novo snapshot sem aceite.
+
+## Experiência e evidências reais
+
+Avalie prioritariamente os viewports e dispositivos utilizados pelas pessoas do produto. Diferenças entre pixels CSS, escala de monitor e nitidez de imagens não são necessariamente bugs de responsividade. Se uma barra lateral reduzir a largura da tabela, confirme se todas as colunas/ações permanecem **acessíveis**, inclusive por rolagem interna, antes de reprovar porque não cabem simultaneamente.
+
+Quando o usuário pedir auditoria visual, entregue URL do preview, SHA e capturas **reais de antes/depois** em estados/viewport equivalentes, sem Devtools ou conteúdo inventado. Testes automatizados avaliam comportamento e regressões objetivas; a aprovação artística pertence ao usuário.
+
+Consultar também a skill coordenadora [../impeccable-frontend-design/SKILL.md](../impeccable-frontend-design/SKILL.md) e seu `references/protocolo-evidencias-visuais.md` quando disponíveis.
+

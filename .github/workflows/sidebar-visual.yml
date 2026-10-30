@@ -45,13 +45,13 @@ jobs:
       - name: Exportar capturas sintéticas para inspeção desta correção
         run: |
           python3 - <<'PY'
-          import base64, pathlib, struct
+          import base64, pathlib
           for name, root in [('sidebar', 'visual-evidence/sidebar'), ('wide', 'visual-evidence/wide-screens')]:
               files = [p for p in pathlib.Path(root).rglob('*') if p.is_file()]
               if name == 'sidebar':
-                  files = [p for p in files if p.suffix == '.png' and struct.unpack('>II', p.read_bytes()[16:24]) == (276, 728)]
+                  files = [p for p in files if p.name.startswith('assinatura-1366-chromium-desktop')]
               else:
-                  files = [p for p in files if p.suffix.lower() in ['.jpg', '.jpeg']]
+                  files = [p for p in files if p.name.startswith('carteira-2560-chromium-desktop')]
               assert files, (name, [str(p) for p in pathlib.Path(root).rglob('*')])
               path = sorted(files)[0]
               print('CTRH_REVIEW_IMAGE_BEGIN ' + name + ' ' + path.suffix)

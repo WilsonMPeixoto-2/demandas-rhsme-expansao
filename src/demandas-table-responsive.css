@@ -85,6 +85,12 @@
 
 /* Em monitores amplos, o espaço adicional deve melhorar a leitura dos nomes. */
 @media (min-width: 1600px) {
+  .ct-shell .demandas-table thead .column-assunto,
+  .ct-shell .demandas-table thead .column-responsavel,
+  .ct-shell .demandas-table thead .column-proximaAcaoEm {
+    width: auto !important;
+  }
+
   .ct-shell .demandas-table .column-responsavel .avatar-info {
     flex: 1;
   }

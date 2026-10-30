@@ -1,3 +1,4 @@
+import { mkdir, writeFile } from 'node:fs/promises';
 import { openSiteMenu } from './helpers/siteNavigation';
 import { expect, test } from '@playwright/test';
 
@@ -135,8 +136,11 @@ test('assinatura institucional fica inteira e nítida em desktop e celular', asy
     expect(geometry.left).toBeGreaterThanOrEqual(geometry.parentLeft + 8);
     expect(geometry.right).toBeLessThanOrEqual(geometry.parentRight - 8);
     expect(geometry.width / geometry.height).toBeCloseTo(geometry.naturalWidth / geometry.naturalHeight, 1);
+    const evidence = await sidebar.screenshot({ animations: 'disabled' });
+    await mkdir('visual-evidence/sidebar', { recursive: true });
+    await writeFile(`visual-evidence/sidebar/assinatura-${viewport.width}-${testInfo.project.name}.png`, evidence);
     await testInfo.attach(`assinatura-${viewport.width}-dados-sinteticos`, {
-      body: await sidebar.screenshot({ animations: 'disabled' }), contentType: 'image/png',
+      body: evidence, contentType: 'image/png',
     });
   }
 });

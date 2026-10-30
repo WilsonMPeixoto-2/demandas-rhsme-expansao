@@ -1,3 +1,4 @@
+import { mkdir, writeFile } from 'node:fs/promises';
 import { navigateUsingSiteMenu } from './helpers/siteNavigation';
 import { expect, test, type Page, type TestInfo } from '@playwright/test';
 
@@ -116,9 +117,18 @@ test('monitor de 32 polegadas usa a largura útil para ler a carteira', async ({
   // Uma carteira larga deve usar a janela, com margens e navegação proporcionais.
   expect(layout.shell).toBeGreaterThanOrEqual(layout.viewport - 2);
   expect(layout.table).toBeGreaterThanOrEqual(layout.viewport - layout.sidebar - 160);
+  const actionWidth = (await page.getByRole('columnheader', { name: /^ações$/i }).boundingBox())!.width;
+  expect(actionWidth).toBeLessThanOrEqual(144);
   await expectNoPageOverflow(page);
+  const devtools = page.getByRole('button', { name: 'Open Tanstack query devtools', exact: true });
+  if (await devtools.count()) {
+    await devtools.evaluate((element) => { (element as HTMLElement).style.visibility = 'hidden'; });
+  }
+  const evidence = await page.screenshot({ type: 'jpeg', quality: 80 });
+  await mkdir('visual-evidence/wide-screens', { recursive: true });
+  await writeFile(`visual-evidence/wide-screens/carteira-2560-${testInfo.project.name}.jpg`, evidence);
   await testInfo.attach('carteira-2560-dados-sinteticos', {
-    body: await page.screenshot({ type: 'jpeg', quality: 80, style: '[aria-label="Open Tanstack query devtools"] { visibility: hidden !important; }' }),
+    body: evidence,
     contentType: 'image/jpeg',
   });
 });

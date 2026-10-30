@@ -8,6 +8,8 @@ on:
       - 'src/components/BrandLogo.tsx'
       - 'src/design-shell.css'
       - 'src/brand.css'
+      - 'src/styles/sidebar-tokens.css'
+      - 'public/design/prefeitura-rio-educacao-oficial.png'
       - 'tests/e2e/sidebar-visual.spec.ts'
       - 'public/design/sidebar-icon-atlas.html'
       - 'public/design/sidebar-icons/**'

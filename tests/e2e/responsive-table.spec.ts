@@ -103,3 +103,22 @@ test('viewport estreito oferece rolagem horizontal no topo e mantém ações vis
   await expectNoPageOverflow(page);
   await attachLayoutEvidence(page, testInfo, 'carteira-960.png');
 });
+
+test('monitor de 32 polegadas usa a largura útil para ler a carteira', async ({ page }, testInfo) => {
+  await page.setViewportSize({ width: 2560, height: 1440 });
+  await loginAndOpenDemandas(page);
+  const layout = await page.evaluate(() => {
+    const shell = document.querySelector('.ct-shell')!.getBoundingClientRect();
+    const sidebar = document.querySelector('#ct-sidebar-navigation')!.getBoundingClientRect();
+    const table = document.querySelector('.table-responsive')!.getBoundingClientRect();
+    return { viewport: document.documentElement.clientWidth, shell: shell.width, sidebar: sidebar.width, table: table.width };
+  });
+  // Uma carteira larga deve usar a janela, com margens e navegação proporcionais.
+  expect(layout.shell).toBeGreaterThanOrEqual(layout.viewport - 2);
+  expect(layout.table).toBeGreaterThanOrEqual(layout.viewport - layout.sidebar - 160);
+  await expectNoPageOverflow(page);
+  await testInfo.attach('carteira-2560-dados-sinteticos', {
+    body: await page.screenshot({ type: 'jpeg', quality: 80, style: '[aria-label="Open Tanstack query devtools"] { visibility: hidden !important; }' }),
+    contentType: 'image/jpeg',
+  });
+});

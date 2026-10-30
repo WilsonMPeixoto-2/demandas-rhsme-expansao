@@ -3,7 +3,7 @@
 <!-- IMPLEMENTATION_AUTHORIZATION: V1-E-A01 -->
 
 **Status:** vigente  
-**Atualizado em:** 26 de outubro de 2026
+**Atualizado em:** 29 de outubro de 2026
 **Finalidade:** registrar somente decisões expressamente aprovadas pelo responsável pelo produto antes da implementação de cada pacote.
 
 ## 1. Regra de uso

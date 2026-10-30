@@ -1,7 +1,7 @@
 # Fluxo CTRH · Ateliê de revisão visual da barra lateral
 
 **Escopo único:** navegação lateral implementada por `SiteNavigation.tsx` e `design-shell.css`.  
-**Estado:** infraestrutura de verificação visual em revisão; **nenhuma substituição artística está aprovada**.
+**Estado atual em 29/10/2026:** documento de referência do ateliê inicial. As ferramentas de verificação e o Storybook já foram integrados; o PR #215 permanece aberto e **sua alteração artística ainda não foi homologada nem publicada**. Para todo trabalho novo, aplicar `docs/design/PROTOCOLO_PERMANENTE_EVOLUCAO_VISUAL_CTRH.md` e as instruções vigentes de `AGENTS.md`.
 
 ## Referência que não deve ser reinterpretada
 
@@ -12,7 +12,7 @@
 
 ## Processo de produção: um componente de cada vez
 
-1. **Referência verdadeira:** executar `npm run test:sidebar-visual` e abrir as capturas no relatório do Playwright; comparar as mesmas dimensões e estado de interação.
+1. **Referência verdadeira:** fornecer o link do preview e identificar SHA, ambiente, viewport, dados e estado. As capturas de `npm run test:sidebar-visual` são **evidências do modo DEV/demonstração**, não uma reprodução comprovadamente fiel do preview autenticado. Comparar antes/depois equivalentes e evitar Devtools.
 2. **Ateliê iconográfico:** selecionar uma única família profissional candidata para *os quatro ícones* e comparar com os quatro atuais. Avaliar desenho, equilíbrio óptico, peso, margens, clareza sem rótulos, percepção a 20/24/28 px e estados inativo/ativo/foco.
 3. **Estudo aplicado:** integrar os quatro candidatos à composição original **sem substituir a marca, o texto, as cores ou a arte arquitetônica**. Não gerar uma interface inteira por imagem.
 4. **Revisão visual em PR:** capturar barra expandida, recolhida e navegação móvel via Playwright; avaliar fidelidade com imagens lado a lado e conferir a interação por teclado.
@@ -21,7 +21,7 @@
 ## Ferramentas e dependências já verificadas
 
 - **Em uso:** React 19, Vite 8, Motion, Radix e Playwright.
-- **Storybook:** candidato apropriado para um ateliê de componente independente, mas ausente das dependências atuais. Instalar apenas numa etapa própria, com `npm create storybook@latest` ou `@storybook/react-vite`, gerando e validando o `package-lock.json` e executando CI. Não inserir dependências apenas no `package.json`.
+- **Storybook:** já integrado pelo PR #213, exclusivamente como ferramenta de desenvolvimento. Histórias dos componentes reais disponíveis; conferir os comandos e a integração em `docs/design/STORYBOOK_CTRH_INTEGRACAO_REAL.md`. Não reinstalar sem necessidade.
 - **Figma:** conector disponível para organizar alternativas aprovadas em camadas e componentes editáveis.
 - **Mobbin:** o conector exige plano pago; esta etapa não depende dele.
 - **Phosphor / Tabler / Iconoir:** candidatos a curadoria, não decisões de instalação. Comparar quatro símbolos antes de escolher uma família.
@@ -39,6 +39,6 @@ Capturas esperadas:
 - `sidebar-chromium-mobile-inicio`
 - `sidebar-chromium-mobile-carteira`
 
-O workflow `sidebar-visual.yml` arquiva o relatório, inclusive capturas, como artifact de GitHub Actions. Esses arquivos documentam **fidelidade e regressão**, não julgam automaticamente a beleza da interface.
+O workflow `sidebar-visual.yml` arquiva o relatório, inclusive capturas, como artifact de GitHub Actions. Esses arquivos documentam estados técnicos, mas **não comprovam, por si só, fidelidade ao preview autenticado ou à composição aprovada**. A inspeção real e a decisão humana permanecem obrigatórias.
 
-**Não incluído nesta branch:** nova arte dos Arcos da Lapa, alteração de componentes de produção, instalação de Storybook ou bibliotecas de ícones e publicação na Vercel.
+**Escopo do ateliê original (registro histórico):** não incluiu nova arte dos Arcos da Lapa, alteração de componentes operacionais, Storybook ou publicação do redesenho. O Storybook foi incorporado depois, no PR #213; o PR #215 é uma proposta visual independente ainda em revisão.

@@ -1,6 +1,6 @@
 # REGISTRO DE DECISÕES DE PRODUTO — CTRH
 
-<!-- IMPLEMENTATION_AUTHORIZATION: V1-E-A01 -->
+<!-- IMPLEMENTATION_AUTHORIZATION: UX-LOGIN-001 -->
 
 **Status:** vigente  
 **Atualizado em:** 30 de outubro de 2026
@@ -934,3 +934,16 @@ A autorização específica de correção e publicação já foi dada; não é a
 **Condições de aceite:** evidências reais nos viewports desktop 1280, 1366, 1920 e 2560 px CSS, uso horizontal adequado e ações diretas visíveis; preservação do acesso via menu em espaços pequenos e rolagem interna, foco, títulos acessíveis, testes de rotas/permissões; verificação real de decodificação e pixels da marca, não apenas HTTP 200; CI completa no SHA do PR; Preview para homologação estética expressa **antes de integração em Production**.
 
 **Homologação artística expressa e autorização de publicação — 30/10/2026:** após examinar o Preview do PR #222 (`https://demandas-rhsme-expansao-q1j9iw3qe-wilson-m-peixotos-projects.vercel.app/`), o responsável pelo produto declarou **“PR 222 aprovado para produção”**. A aprovação corresponde ao SHA de interface `367cb0597a8ac7bc9fe0d25000d51944b5e0b954` da branch `fix/desktop-density-actions-official-mark-20261030`. As verificações de CI aplicáveis ao SHA foram concluídas com sucesso, inclusive build, testes, Storybook, análise de dependências, CodeQL e auditoria visual. **Está autorizada a integração do PR #222 e a publicação na Production**, sem ampliar escopo nem alterar a composição homologada. A efetiva publicação só pode ser declarada depois do merge, do deployment `READY` no SHA integrado e da conferência do domínio e dos assets.
+
+
+### UX-LOGIN-001 — Login monumental fiel à primeira arte aprovada (01/11/2026)
+
+**Decisão expressa e autorização:** APROVADA PARA IMPLEMENTAÇÃO, testes, documentação, commits na branch `feat/login-arte-monumental-aprovada`, PR e Preview. Fonte: missão integral do responsável pelo produto em 01/11/2026. Não autoriza merge nem Production; a homologação artística do Preview permanece humana e pendente. Classificação: decisão anteriormente confirmada de aparência e preservação funcional.
+
+A autoridade artística exclusiva é a primeira imagem `wide_cinematic_split_screen_web_login_page_desig.png`, 1586 × 992, URL `https://media.base44.com/images/public/6ae5abe30f59a8ee7dc28e9c/d2044b733_wide_cinematic_split_screen_web_login_page_desig.png`, SHA-256 `e42150c4f07618a221441a9bc5fe83ac7e50beac8946c2b27d942d4e522dfb84`. Preservar o original imutável e o painel artístico esquerdo sem filtros nem geração de imagem; reconstruir o painel direito com controles reais e acessíveis, sem controles rasterizados sob campos reais. Os dois assets posteriores da branch são auxiliares, não substitutos da referência.
+
+A mudança afeta somente a entrada dos usuários no `AuthPanel`, seu CSS isolado, assets, testes e documentação. Preservar login, primeiro acesso, solicitação de acesso, recuperação, validação, mensagens, senha visível/oculta e contratos Supabase. Sem alteração em sessão, banco, RLS, usuários, dados, outras telas, navegação ou dependências. Reversão por revert dos commits deste pacote, preservando os assets anteriores. Trilho A: apresentação da entrada; legado atual e futuro/Trilho B: sem transformação ou efeito.
+
+**Limites funcionais verificados:** a aplicação aceita `@rioeduca.net`; manter esse contrato apesar do placeholder divergente na arte. O cliente Supabase utiliza a persistência padrão, sem opção por usuário: o checkbox “Manter-me conectado” exige nova decisão de persistência e não será simulado. Nenhum destino oficial de suporte foi localizado; “Precisa de ajuda?” pode revelar orientações locais sobre os fluxos existentes, sem inventar contato ou destino externo. A decisão sobre checkbox/persistência permanece pendente e não bloqueia a reprodução restante.
+
+**Aceite:** comparação no navegador em 1586 × 992 e nos viewports solicitados, original/hash, screenshot, overlay, mapa de diferenças, estados funcionais, teclado, axe, responsividade, gates locais/CI e Preview no SHA do PR. CI verde não homologa arte. Esta autorização específica supera o limite histórico da primeira intervenção na sidebar somente para o login; não amplia o escopo de nenhuma outra tela.

@@ -3,7 +3,7 @@ import { describe, expect, it, vi } from 'vitest';
 import { AuthPanel } from './AuthPanel';
 
 describe('AuthPanel — identidade única do produto', () => {
-  it('usa Fluxo CTRH, elimina o nome legado e carrega o ativo institucional publicado', () => {
+  it('preserva Fluxo CTRH e a assinatura institucional da arte homologada, sem duplicação', () => {
     render(
       <AuthPanel
         mode="supabase"
@@ -19,10 +19,9 @@ describe('AuthPanel — identidade única do produto', () => {
     expect(screen.queryByText('Central de Demandas')).not.toBeInTheDocument();
 
     const endorsements = screen.getAllByRole('img', {
-      name: 'Prefeitura do Rio de Janeiro — Educação',
+      name: /prefeitura do rio de janeiro.*educação/i,
     });
-    expect(endorsements).toHaveLength(2);
-    expect(endorsements[0]).toHaveAttribute('src', '/prefeitura-rio-educacao-oficial.png');
-    expect(endorsements[1]).toHaveAttribute('src', '/prefeitura-rio-educacao-oficial.png');
+    expect(endorsements).toHaveLength(1);
+    expect(endorsements[0]).toHaveAttribute('src', '/design/login-canonico-painel-esquerdo.png');
   });
 });

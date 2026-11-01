@@ -1,0 +1,25 @@
+{
+  "cropChanged": 0,
+  "regions": {
+    "art": {
+      "mae": 0,
+      "significantPixelPercent": 0,
+      "maxDelta": 0
+    },
+    "panel": {
+      "mae": 9.245727150537634,
+      "significantPixelPercent": 7.615725806451613,
+      "maxDelta": 255
+    },
+    "heading": {
+      "mae": 28.746203955166074,
+      "significantPixelPercent": 21.787944116247164,
+      "maxDelta": 247
+    },
+    "form": {
+      "mae": 9.387328318628235,
+      "significantPixelPercent": 7.875702772887551,
+      "maxDelta": 255
+    }
+  }
+}

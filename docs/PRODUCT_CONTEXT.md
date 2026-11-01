@@ -445,3 +445,10 @@ Toda mudança deve cumprir a `POLITICA_SINCRONIZACAO_DOCUMENTAL_CTRH_v1.1.md`. Q
 ## Reposição da legibilidade operacional TECH-DESIGN-005 (30/10/2026)
 
 Em telas desktop, usar efetivamente a largura disponível em monitores grandes e preservar a tabela de oito colunas, com rolagem interna quando necessária e ações acessíveis. Mostrar diretamente os comandos permitidos de andamento, mudança de status/reabertura e histórico na coluna Ações. O menu secundário continua acessível em mobile e para operações como exclusão, sujeitas às permissões. Preservar sidebar Opção 2 e navegação móvel. A assinatura do login utiliza asset original íntegro da Prefeitura do Rio, sem recriação. Esta regra está em implementação e depende de homologação visual no Preview.
+
+
+## Entrada monumental — UX-LOGIN-001 (01/11/2026)
+
+O novo `AuthPanel` em branch/Preview reproduz a primeira arte aprovada de 1586 × 992, preservando integralmente o painel esquerdo com Arcos da Lapa, luzes, Cristo, textos e assinatura institucional. O painel direito marfim é reconstruído com formulário real. Referência, SHA-256, limitações e evidências: [Login monumental canônico](design/LOGIN_MONUMENTAL_CANONICO.md). A autorização específica abrange implementação e Preview, sem merge ou Production até homologação humana. Os ativos institucionais existentes e as demais telas são preservados.
+
+Login, primeiro acesso, solicitação e recuperação mantêm contratos, mensagens e validações. O domínio continua `@rioeduca.net`; o placeholder da imagem não altera esse contrato. A sessão mantém o comportamento Supabase existente: o controle “Manter-me conectado” não é implementado sem nova decisão. “Precisa de ajuda?” expande orientações sobre os fluxos já disponíveis, sem destino de suporte inventado. Não há mudança em dados, RLS, usuários ou no Trilho B.

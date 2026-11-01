@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'sonner';
@@ -11,7 +11,7 @@ import {
   type LoginFormValues,
   type PasswordRecoveryRequestValues,
 } from '../validation/authSchemas';
-import { BrandLogo } from './BrandLogo';
+import './AuthPanel.css';
 import { FormError } from './ui/FormError';
 
 interface AuthPanelProps {
@@ -29,6 +29,8 @@ export function AuthPanel({
   onRequestAccess,
   onRequestPasswordReset,
 }: AuthPanelProps) {
+  const focusAfterSwitch = useRef(false);
+  const recoveryHeading = useRef<HTMLHeadingElement>(null);
   const [activeTab, setActiveTab] = useState<'login' | 'cadastro'>('login');
   const [recoveryMode, setRecoveryMode] = useState(false);
   const [recoveryRequested, setRecoveryRequested] = useState(false);
@@ -47,6 +49,16 @@ export function AuthPanel({
     resolver: zodResolver(passwordRecoveryRequestSchema),
     defaultValues: { email: '' },
   });
+
+  useEffect(() => {
+    if (!focusAfterSwitch.current) return;
+    focusAfterSwitch.current = false;
+    if (recoveryMode) {
+      if (recoveryRequested) recoveryHeading.current?.focus();
+      else recoveryForm.setFocus('email');
+    } else if (activeTab === 'cadastro') cadastroForm.setFocus('email');
+    else loginForm.setFocus('email');
+  }, [activeTab, recoveryMode, recoveryRequested, loginForm, cadastroForm, recoveryForm]);
 
   const cadastroSenha = useWatch({ control: cadastroForm.control, name: 'senha' }) ?? '';
   const senhaValida = {
@@ -72,6 +84,7 @@ export function AuthPanel({
         : 'Solicitação enviada. Aguarde a aprovação de um administrador.');
       loginForm.reset({ email: values.email, senha: '' });
       cadastroForm.reset();
+      focusAfterSwitch.current = true;
       setActiveTab('login');
     } catch (reason) {
       toast.error(getUserFacingError(reason, 'Não foi possível solicitar acesso.'));
@@ -81,6 +94,7 @@ export function AuthPanel({
   const submitRecovery = recoveryForm.handleSubmit(async (values) => {
     try {
       await onRequestPasswordReset(values.email);
+      focusAfterSwitch.current = true;
       setRecoveryRequested(true);
     } catch (reason) {
       toast.error(getUserFacingError(reason, 'Não foi possível enviar o link de recuperação agora.'));
@@ -88,75 +102,56 @@ export function AuthPanel({
   });
 
   const openRecovery = () => {
+    focusAfterSwitch.current = true;
     recoveryForm.reset({ email: loginForm.getValues('email') });
     setRecoveryRequested(false);
     setRecoveryMode(true);
   };
 
   const closeRecovery = () => {
+    focusAfterSwitch.current = true;
     setRecoveryMode(false);
     setRecoveryRequested(false);
     setActiveTab('login');
   };
 
   return (
-    <div className="login-split-container">
-      <div className="login-sidebar">
-        <div className="login-sidebar-content">
-          <BrandLogo
-            variant="full"
-            tone="inverse"
-            showEndorsement
-            className="login-brand-desktop"
-          />
-          <p className="sidebar-description">
-            Organização, acompanhamento e rastreabilidade das demandas de Recursos Humanos.
-          </p>
+    <main className="monumental-login" aria-label="Acesso ao Fluxo CTRH">
+      <figure className="monumental-login-art">
+        <img
+          src="/design/login-canonico-painel-esquerdo.png"
+          width="1086"
+          height="992"
+          fetchPriority="high"
+          decoding="sync"
+          alt="Arcos da Lapa iluminados em âmbar, Cristo Redentor ao fundo e assinatura Prefeitura do Rio de Janeiro — Educação."
+        />
+        <figcaption className="monumental-sr-only">
+          <strong>Fluxo CTRH</strong> — Central de Demandas, Recursos Humanos.
+          Gestão com clareza. Memória com propósito.
+          Pessoas, processos e informações em um mesmo fluxo, a serviço da educação carioca.
+        </figcaption>
+      </figure>
 
-          <div className="sidebar-features">
-            <div className="feature-item">
-              <div className="feature-icon-wrapper"><i className="fa-solid fa-calendar-check" aria-hidden="true" /></div>
-              <div className="feature-text">
-                <strong>Prazos</strong>
-                <span>Alertas claros sobre datas-limite e providências em atraso.</span>
-              </div>
-            </div>
-            <div className="feature-item">
-              <div className="feature-icon-wrapper"><i className="fa-solid fa-user-check" aria-hidden="true" /></div>
-              <div className="feature-text">
-                <strong>Responsáveis</strong>
-                <span>Distribuição clara das demandas entre pessoas e setores.</span>
-              </div>
-            </div>
-            <div className="feature-item">
-              <div className="feature-icon-wrapper"><i className="fa-solid fa-clock-rotate-left" aria-hidden="true" /></div>
-              <div className="feature-text">
-                <strong>Histórico</strong>
-                <span>Registro completo das movimentações e observações de cada processo.</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="sidebar-pattern" />
-      </div>
-
-      <div className="login-form-area">
-        <div className="login-card-editorial">
-          <div className="login-mobile-brand">
-            <BrandLogo variant="full" showEndorsement />
-          </div>
-
-          <div className="login-card-header">
-            <h3>Painel de acesso</h3>
-            <p>Identifique-se com a sua credencial @rioeduca.net</p>
-          </div>
-
+      <section className="monumental-login-access" aria-labelledby="monumental-login-title">
+        <svg className="monumental-login-lines" viewBox="0 0 500 992" preserveAspectRatio="none" aria-hidden="true">
+          <g fill="none" stroke="currentColor" strokeWidth="0.65">
+            <path d="M500 236C482 272 490 301 500 320M500 318C478 333 465 348 448 371M500 322C478 337 466 351 449 374M500 326C480 341 468 354 450 377M500 330C482 345 470 357 451 380M500 334C484 349 472 360 452 383M500 338C486 353 474 363 453 386" />
+            <path d="M500 390C437 430 413 516 463 565S483 680 457 712M500 575C482 675 488 745 442 819S413 941 423 992M500 864C428 865 352 927 353 992M500 907C450 922 409 957 394 992M500 938C475 956 453 975 442 992" />
+          </g>
+        </svg>
+        <p className="monumental-login-signature">Educação que<br />transforma<br />o Rio</p>
+        <header className="monumental-login-heading">
+          <h1 id="monumental-login-title">Bem-vindo ao<br />{' '}Fluxo CTRH</h1>
+          <p>Acesse a Central de Demandas de Recursos Humanos da Secretaria Municipal de Educação do Rio de Janeiro.</p>
+        </header>
+        <div className="login-card-editorial monumental-login-card">
           {!recoveryMode && <div className="login-tabs" aria-label="Modalidade de acesso">
             <button
               type="button"
               aria-pressed={activeTab === 'login'}
               className={`login-tab-btn ${activeTab === 'login' ? 'active' : ''}`}
-              onClick={() => setActiveTab('login')}
+              onClick={() => { focusAfterSwitch.current = true; setActiveTab('login'); }}
             >
               Entrar
             </button>
@@ -164,7 +159,7 @@ export function AuthPanel({
               type="button"
               aria-pressed={activeTab === 'cadastro'}
               className={`login-tab-btn ${activeTab === 'cadastro' ? 'active' : ''}`}
-              onClick={() => setActiveTab('cadastro')}
+              onClick={() => { focusAfterSwitch.current = true; setActiveTab('cadastro'); }}
             >
               Primeiro acesso
             </button>
@@ -173,7 +168,7 @@ export function AuthPanel({
           {recoveryMode ? (
             <div className="auth-flow-content">
               <div className="auth-flow-heading">
-                <h4>{recoveryRequested ? 'Confira seu e-mail' : 'Recuperar acesso'}</h4>
+                <h2 ref={recoveryHeading} tabIndex={-1}>{recoveryRequested ? 'Confira seu e-mail' : 'Recuperar acesso'}</h2>
                 <p>
                   {recoveryRequested
                     ? 'Se houver uma conta vinculada a esse e-mail, você receberá um link para criar uma nova senha.'
@@ -191,9 +186,9 @@ export function AuthPanel({
                   <div className="login-form-group">
                     <label htmlFor="recovery-email">E-mail corporativo para recuperação</label>
                     <div className="input-icon-group">
-                      <i className="fa-solid fa-envelope" aria-hidden="true" />
                       <input
                         type="email"
+                        spellCheck={false}
                         id="recovery-email"
                         className={recoveryForm.formState.errors.email ? 'form-control field-invalid' : 'form-control'}
                         placeholder="usuario@rioeduca.net"
@@ -223,13 +218,13 @@ export function AuthPanel({
               </button>
             </div>
           ) : activeTab === 'login' ? (
-            <form onSubmit={(event) => { void submitLogin(event); }} noValidate>
+            <form className="monumental-login-form" onSubmit={(event) => { void submitLogin(event); }} noValidate>
               <div className="login-form-group">
                 <label htmlFor="login-email">E-mail corporativo</label>
                 <div className="input-icon-group">
-                  <i className="fa-solid fa-envelope" aria-hidden="true" />
                   <input
                     type="email"
+                    spellCheck={false}
                     id="login-email"
                     className={loginForm.formState.errors.email ? 'form-control field-invalid' : 'form-control'}
                     placeholder="usuario@rioeduca.net"
@@ -242,15 +237,14 @@ export function AuthPanel({
                 <FormError id="login-email-error" message={loginForm.formState.errors.email?.message} />
               </div>
 
-              <div className="login-form-group" style={{ marginBottom: '25px' }}>
+              <div className="login-form-group">
                 <label htmlFor="login-senha">Senha</label>
                 <div className="input-icon-group has-visibility-toggle">
-                  <i className="fa-solid fa-lock" aria-hidden="true" />
                   <input
                     type={showLoginPassword ? 'text' : 'password'}
                     id="login-senha"
                     className={loginForm.formState.errors.senha ? 'form-control field-invalid' : 'form-control'}
-                    placeholder="••••••••"
+                    placeholder="Sua senha"
                     autoComplete="current-password"
                     {...loginForm.register('senha')}
                     aria-invalid={Boolean(loginForm.formState.errors.senha)}
@@ -263,36 +257,35 @@ export function AuthPanel({
                     aria-pressed={showLoginPassword}
                     onClick={() => setShowLoginPassword((visible) => !visible)}
                   >
-                    <i className={`fa-solid ${showLoginPassword ? 'fa-eye-slash' : 'fa-eye'}`} aria-hidden="true" />
+                    <i className={`fa-regular ${showLoginPassword ? 'fa-eye-slash' : 'fa-eye'}`} aria-hidden="true" />
                   </button>
                 </div>
                 <FormError id="login-senha-error" message={loginForm.formState.errors.senha?.message} />
               </div>
 
+              <button
+                type="submit"
+                className="btn btn-primary"
+                disabled={loading || loginForm.formState.isSubmitting}
+                aria-busy={loading || loginForm.formState.isSubmitting}
+              >
+                <span>{loading || loginForm.formState.isSubmitting ? 'Acessando…' : 'Acessar sistema'}</span>
+                <span aria-hidden="true">→</span>
+              </button>
               <div className="auth-forgot-row">
                 <button type="button" className="auth-link-button" onClick={openRecovery}>
                   Esqueci minha senha
                 </button>
               </div>
-
-              <button
-                type="submit"
-                className="btn btn-primary"
-                style={{ width: '100%', padding: '12px', fontWeight: '600' }}
-                disabled={loading || loginForm.formState.isSubmitting}
-                aria-busy={loading || loginForm.formState.isSubmitting}
-              >
-                {loading || loginForm.formState.isSubmitting ? 'Acessando…' : 'Acessar sistema'}
-              </button>
             </form>
           ) : (
             <form onSubmit={(event) => { void submitCadastro(event); }} noValidate>
               <div className="login-form-group">
                 <label htmlFor="cadastro-email">Seu e-mail corporativo</label>
                 <div className="input-icon-group">
-                  <i className="fa-solid fa-envelope" aria-hidden="true" />
                   <input
                     type="email"
+                    spellCheck={false}
                     id="cadastro-email"
                     className={cadastroForm.formState.errors.email ? 'form-control field-invalid' : 'form-control'}
                     placeholder="nome@rioeduca.net"
@@ -305,10 +298,9 @@ export function AuthPanel({
                 <FormError id="cadastro-email-error" message={cadastroForm.formState.errors.email?.message} />
               </div>
 
-              <div className="login-form-group" style={{ marginBottom: '20px' }}>
+              <div className="login-form-group">
                 <label htmlFor="cadastro-senha">Criar nova senha</label>
                 <div className="input-icon-group has-visibility-toggle">
-                  <i className="fa-solid fa-lock" aria-hidden="true" />
                   <input
                     type={showCadastroPassword ? 'text' : 'password'}
                     id="cadastro-senha"
@@ -326,7 +318,7 @@ export function AuthPanel({
                     aria-pressed={showCadastroPassword}
                     onClick={() => setShowCadastroPassword((visible) => !visible)}
                   >
-                    <i className={`fa-solid ${showCadastroPassword ? 'fa-eye-slash' : 'fa-eye'}`} aria-hidden="true" />
+                    <i className={`fa-regular ${showCadastroPassword ? 'fa-eye-slash' : 'fa-eye'}`} aria-hidden="true" />
                   </button>
                 </div>
                 <FormError id="cadastro-senha-error" message={cadastroForm.formState.errors.senha?.message} />
@@ -342,7 +334,6 @@ export function AuthPanel({
               <button
                 type="submit"
                 className="btn btn-primary"
-                style={{ width: '100%', padding: '12px', fontWeight: '600' }}
                 disabled={loading || cadastroForm.formState.isSubmitting}
                 aria-busy={loading || cadastroForm.formState.isSubmitting}
               >
@@ -351,8 +342,12 @@ export function AuthPanel({
             </form>
           )}
         </div>
-      </div>
-    </div>
+        <details className="monumental-login-help">
+          <summary><span aria-hidden="true">?</span>Precisa de ajuda?<span aria-hidden="true">→</span></summary>
+          <p>Utilize seu e-mail @rioeduca.net. No primeiro acesso, solicite acesso e aguarde a aprovação de um administrador. Se já possui conta, use “Esqueci minha senha”.</p>
+        </details>
+      </section>
+    </main>
   );
 }
 

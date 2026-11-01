@@ -20,7 +20,7 @@ async function expectAccessible(page: Page, context: string, include?: string) {
 async function login(page: Page) {
   await page.goto('/');
   await page.getByPlaceholder('usuario@rioeduca.net').fill('teste@rioeduca.net');
-  await page.getByPlaceholder('••••••••').first().fill('senha-local-teste');
+  await page.getByLabel('Senha', { exact: true }).fill('senha-local-teste');
   await page.getByRole('button', { name: /acessar sistema/i }).click();
   await expect(page.getByRole('button', { name: /sair/i })).toBeVisible();
 }

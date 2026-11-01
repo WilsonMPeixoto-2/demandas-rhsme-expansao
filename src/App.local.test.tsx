@@ -31,7 +31,7 @@ describe('App no modo local', () => {
     const user = userEvent.setup();
     renderLocalApp();
     await user.type(await screen.findByPlaceholderText('usuario@rioeduca.net'), 'teste@rioeduca.net');
-    await user.type((await screen.findAllByPlaceholderText('••••••••'))[0], 'senha-local-teste');
+    await user.type(await screen.findByLabelText('Senha', { exact: true }), 'senha-local-teste');
     await user.click(await screen.findByRole('button', { name: /acessar sistema/i }));
 
     expect(await screen.findByRole('button', { name: /sair/i })).toBeInTheDocument();

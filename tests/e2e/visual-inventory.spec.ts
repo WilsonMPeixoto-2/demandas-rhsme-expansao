@@ -31,7 +31,7 @@ test('gera inventário visual das telas existentes para evolução contínua do 
   await capture(page, testInfo, '01-login');
 
   await page.getByPlaceholder('usuario@rioeduca.net').fill('teste@rioeduca.net');
-  await page.getByPlaceholder('••••••••').first().fill('senha-local-teste');
+  await page.getByLabel('Senha', { exact: true }).fill('senha-local-teste');
   await page.getByRole('button', { name: /acessar sistema/i }).click();
   await expect(page.getByRole('button', { name: /sair/i })).toBeVisible();
   await expect(page.getByRole('region', { name: 'Composição da carteira' })).toBeVisible();

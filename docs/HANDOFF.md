@@ -2,7 +2,11 @@
 
 Atualizado em: **30 de outubro de 2026 — reconciliação pontual de referências documentais.** Os estados de GitHub, Vercel e Supabase registrados abaixo são fotografias datadas, não indicadores em tempo real; devem ser reconferidos antes de qualquer intervenção.
 
-<!-- IMPLEMENTATION_AUTHORIZATION: V1-E-A01 -->
+<!-- IMPLEMENTATION_AUTHORIZATION: UX-LOGIN-001 -->
+
+## Pacote em execução — UX-LOGIN-001 (01/11/2026)
+
+Autorização expressa para implementar exclusivamente o login monumental, preservando os contratos de autenticação. Branch limpa na abertura: `feat/login-arte-monumental-aprovada`, HEAD `2b4c4ddf8cd7d6bd2224558d31e03d80fe6cf733`; `origin/main` em `e76d9d1999d5adbbb085b3de5460b874a41dc5cc`. A diferença anterior contém somente os dois assets posteriores, preservados. `vercel.json` efetivo contém `deploymentEnabled: true`, diferente dos registros históricos de bloqueio abaixo; manter a configuração e não publicar em Production. O próximo passo autorizado é concluir implementação, validação e PR/Preview deste pacote, sem merge. Registro vinculante: UX-LOGIN-001. Original 1586 × 992 baixado e SHA-256 conferido; não substituir pela versão posterior de 1672 × 941 ou 3840 × 2161.
 
 ## Continuidade pós-publicação TECH-DESIGN-005 — 30/10/2026
 
@@ -62,7 +66,7 @@ Este quadro reúne verificações realizadas **antes da integração do PR #219*
 | Integridade conhecida | 379 demandas, zero excluídas, 764 históricos, 13 perfis |
 | Deploy automático | `deploymentEnabled: false`, restaurado pelo PR #170 após confirmação da nova Production |
 | Testes após TanStack Query | 365 testes unitários e de integração; 42 cenários Playwright aprovados |
-| Implementação funcional autorizada | **V1-E-A01 — R5 Essencial e recuperação de senha** |
+| Implementação funcional autorizada | **UX-LOGIN-001 — somente login monumental, PR e Preview; sem merge/Production** (V1-E-A01 concluída) |
 | Rodada 4 — TypeScript 6 | concluída pelo PR #138; compilador 6.0.3, lockfile reproduzível e gate integral aprovado |
 | Atividade técnica atual | janela experimental de 03/09 concluída pelos PRs #176 e #178; TanStack Table 9.2.4 migrado integralmente; `main` em `4d9ec654b6feb1acd43329861eedd1ac5c8c12bf`; Production permanece deliberadamente na versão anterior, com deploy automático bloqueado |
 | Próxima atualização candidata | debate B1 do Trilho B, com pré-flight técnico concluído; B2 permanece bloqueado até aprovação expressa das decisões B1 aplicáveis |

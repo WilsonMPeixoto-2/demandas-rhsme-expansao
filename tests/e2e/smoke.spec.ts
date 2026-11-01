@@ -42,8 +42,9 @@ test('fluxos críticos funcionam sem erros, dependências externas ou estouro ho
   await expect(page).toHaveTitle(/Fluxo CTRH/i);
   await expect(page.getByRole('button', { name: /acessar sistema/i })).toBeVisible();
 
-  const institutionalMark = page.locator('img.brand-endorsement-image:visible');
+  const institutionalMark = page.getByRole('img', { name: /arcos da lapa.*prefeitura do rio de janeiro.*educação/i });
   await expect(institutionalMark).toHaveCount(1);
+  await expect(institutionalMark).toHaveAttribute('src', '/design/login-canonico-painel-esquerdo.png');
   await expect.poll(async () => institutionalMark.evaluate((image) => {
     const element = image as HTMLImageElement;
     return element.complete && element.naturalWidth > 0;
@@ -52,7 +53,7 @@ test('fluxos críticos funcionam sem erros, dependências externas ou estouro ho
   await expectNoHorizontalOverflow(page);
 
   await page.getByPlaceholder('usuario@rioeduca.net').fill('teste@rioeduca.net');
-  await page.getByPlaceholder('••••••••').first().fill('senha-local-teste');
+  await page.getByLabel('Senha', { exact: true }).fill('senha-local-teste');
   await page.getByRole('button', { name: /acessar sistema/i }).click();
 
   await expect(page.getByRole('button', { name: /sair/i })).toBeVisible();

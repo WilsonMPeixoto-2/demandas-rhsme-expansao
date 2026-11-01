@@ -1,0 +1,137 @@
+{
+  "environment": "production build served locally; no Devtools; anonymous UI; synthetic auth responses in states marked synthetic",
+  "branch": "feat/login-arte-monumental-aprovada",
+  "before_source_commit": "2b4c4ddf8cd7d6bd2224558d31e03d80fe6cf733",
+  "original_sha256": "e42150c4f07618a221441a9bc5fe83ac7e50beac8946c2b27d942d4e522dfb84",
+  "chromium": "156.0.8078.4 / Playwright 1.64.1",
+  "screenshots": [
+    {
+      "file": "authentication-error-synthetic.png",
+      "dimensions": [
+        1586,
+        992
+      ],
+      "sha256": "8b565d0254713d27b2f38b01d7fcefcbd357914e143e8edcd56f409be5f468aa"
+    },
+    {
+      "file": "difference-x4.png",
+      "dimensions": [
+        1586,
+        992
+      ],
+      "sha256": "185c1b55c4c716e6c74d00a930bdbcb8f73b25f5a24a7cd5a3f8033f996ff3b6"
+    },
+    {
+      "file": "first-access.png",
+      "dimensions": [
+        1586,
+        1034
+      ],
+      "sha256": "1a1e0653c1f00e6520de2d8609933867bded4177c2989d64ad54d53aa4e8d5fe"
+    },
+    {
+      "file": "focus-keyboard.png",
+      "dimensions": [
+        1586,
+        992
+      ],
+      "sha256": "40cc5e363557ca0aa78f687e59757d97b502c7449c06026bd182c0d266be53a2"
+    },
+    {
+      "file": "loading-synthetic-response.png",
+      "dimensions": [
+        1586,
+        992
+      ],
+      "sha256": "95041fee0f1c976b6a5fe26368d3cda87f0d0d6f63175f2bda9398484c3be99d"
+    },
+    {
+      "file": "login-1280x800.png",
+      "dimensions": [
+        1280,
+        800
+      ],
+      "sha256": "1654590bf937f31f9d3498770984422999fd7bdee6a8d5653dd2805459725384"
+    },
+    {
+      "file": "login-1366x768.png",
+      "dimensions": [
+        1366,
+        768
+      ],
+      "sha256": "5417122bbf68bf677e37b8c66accf7de6776e3f49c5c771b21c9766690b5daff"
+    },
+    {
+      "file": "login-1586x992.png",
+      "dimensions": [
+        1586,
+        992
+      ],
+      "sha256": "3f19f75231f24c4a8040c6012dca89034823119eadf0fed4092c8fdcf6789dc1"
+    },
+    {
+      "file": "login-1920x1080.png",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "sha256": "f9c75a287c267ce909324f8cdc54793bd975a5908a170f4eae3fc8e595a83f73"
+    },
+    {
+      "file": "login-2560x1440.png",
+      "dimensions": [
+        2560,
+        1440
+      ],
+      "sha256": "9dabd2926928619f9c1dab413cfef1cbbf47cb46455007a9648277cf85440f27"
+    },
+    {
+      "file": "login-3840x2160.png",
+      "dimensions": [
+        3840,
+        2160
+      ],
+      "sha256": "2b45b6209c836a88c9f04b1e288c12e4b4a4807b3bd35ead7bb9a55450dffbe3"
+    },
+    {
+      "file": "login-390x844-dpr2.png",
+      "dimensions": [
+        780,
+        2484
+      ],
+      "sha256": "5000110628e2f632508c9d44c2883c72be3b381f493a13c889c37dc754c9a85b"
+    },
+    {
+      "file": "login-390x844.png",
+      "dimensions": [
+        390,
+        1242
+      ],
+      "sha256": "eaa1a08dee178c61ca0a2b3162cf17d218b97c79adcfd67bf54cfacace7935e5"
+    },
+    {
+      "file": "overlay.png",
+      "dimensions": [
+        1586,
+        992
+      ],
+      "sha256": "d5e05dd247d46137f3142e428048b3f8e05bbda90e78bd652299a9c2f2099575"
+    },
+    {
+      "file": "recovery.png",
+      "dimensions": [
+        1586,
+        992
+      ],
+      "sha256": "151587cb7ed64e6a93d3c54eca0f74a93826b17a83da2694210e846731349a89"
+    },
+    {
+      "file": "validation.png",
+      "dimensions": [
+        1586,
+        1030
+      ],
+      "sha256": "f9e520f2fc3433c0fffee8dd30f6d1a77b607e316fb1b84da581ccc33729057f"
+    }
+  ]
+}

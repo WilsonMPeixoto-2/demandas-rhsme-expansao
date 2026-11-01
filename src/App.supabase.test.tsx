@@ -83,7 +83,7 @@ function createServices(
 
 async function fillLogin(user: ReturnType<typeof userEvent.setup>) {
   await user.type(await screen.findByPlaceholderText('usuario@rioeduca.net'), 'teste@rioeduca.net');
-  await user.type((await screen.findAllByPlaceholderText('••••••••'))[0], 'senha-remota-teste');
+  await user.type(await screen.findByLabelText('Senha', { exact: true }), 'senha-remota-teste');
   await user.click(await screen.findByRole('button', { name: /acessar sistema/i }));
 }
 

@@ -42,3 +42,7 @@ dry-run-receipt.json
 .vercel
 
 storybook-static/
+
+# Browser QA artifacts (selected evidence is versioned under docs/design).
+test-results/
+playwright-report/

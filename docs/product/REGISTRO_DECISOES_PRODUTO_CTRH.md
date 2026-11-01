@@ -950,3 +950,6 @@ A mudança afeta somente a entrada dos usuários no `AuthPanel`, seu CSS isolado
 
 
 **Resultado técnico de UX-LOGIN-001:** implementação no commit `eec443081549a4c31d91d996a551a69ce10e88f5`, [PR #223](https://github.com/WilsonMPeixoto-2/demandas-rhsme-expansao/pull/223), Preview READY de interface `dpl_EUZfodhQXsEJsTUTGh4QPB7nxQrw`. Referência/hash e zero diferenças no painel esquerdo comprovados; captura canônica do Preview idêntica à local. Relatório e limitações: `docs/design/LOGIN_MONUMENTAL_CANONICO.md`. O PR acompanha o SHA final dos commits documentais. **Homologação artística, merge e Production continuam pendentes de decisão expressa.**
+
+
+**Correção técnica de acessibilidade na revisão do PR #223:** a assinatura superior e os placeholders reais foram minimamente escurecidos para contraste AA, nos limites da autorização de acessibilidade/testes da missão. Arte original e recorte permanecem intocados. Teste de contraste contra pixels renderizados, RED/GREEN e novas capturas documentados no relatório. Não é nova direção artística nem homologação humana; o Preview final continua sujeito ao responsável.

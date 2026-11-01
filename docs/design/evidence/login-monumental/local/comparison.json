@@ -7,8 +7,8 @@
       "maxDelta": 0
     },
     "panel": {
-      "mae": 9.245727150537634,
-      "significantPixelPercent": 7.615725806451613,
+      "mae": 9.320271505376343,
+      "significantPixelPercent": 7.643750000000001,
       "maxDelta": 255
     },
     "heading": {
@@ -17,8 +17,8 @@
       "maxDelta": 247
     },
     "form": {
-      "mae": 9.387328318628235,
-      "significantPixelPercent": 7.875702772887551,
+      "mae": 9.521007897214034,
+      "significantPixelPercent": 7.935073852460286,
       "maxDelta": 255
     }
   }

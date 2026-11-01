@@ -65,7 +65,7 @@
   max-width: calc(414 * var(--login-unit));
   margin: 0;
   padding-right: calc(15 * var(--login-unit));
-  color: #777874;
+  color: #626769;
   font-size: max(9px, calc(11 * var(--login-unit)));
   font-weight: 600;
   line-height: calc(21 * var(--login-unit));
@@ -191,7 +191,7 @@
 }
 
 .monumental-login .form-control::placeholder {
-  color: #8a8c8c;
+  color: #626769;
   opacity: 1;
 }
 

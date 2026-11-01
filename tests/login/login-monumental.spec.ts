@@ -27,6 +27,38 @@ async function noOverflow(page: Page) {
   expect(await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth)).toBeLessThanOrEqual(1);
 }
 
+test('assinatura e placeholders mantêm contraste AA contra os pixels renderizados', async ({ page }, info) => {
+  for (const [width, height] of [[1586, 992], [390, 844]]) {
+    await page.setViewportSize({ width, height });
+    await page.goto('/');
+    await stable(page);
+    const screenshot = await page.screenshot({ fullPage: true, animations: 'disabled' });
+    const contrasts = await page.evaluate(async (dataUrl) => {
+      const image = new Image(); image.src = dataUrl; await image.decode();
+      const canvas = document.createElement('canvas'); canvas.width = image.width; canvas.height = image.height;
+      const context = canvas.getContext('2d')!; context.drawImage(image, 0, 0);
+      const luminance = (rgb: number[]) => rgb.map(channel => {
+        const value = channel / 255;
+        return value <= 0.04045 ? value / 12.92 : ((value + 0.055) / 1.055) ** 2.4;
+      }).reduce((total, value, i) => total + value * [0.2126, 0.7152, 0.0722][i], 0);
+      return ['.monumental-login-signature', '#login-email', '#login-senha'].map(selector => {
+        const element = document.querySelector(selector)!;
+        const box = element.getBoundingClientRect();
+        const style = getComputedStyle(element, selector.startsWith('#') ? '::placeholder' : null);
+        const foreground = style.color.match(/[\d.]+/g)!.slice(0, 3).map(Number);
+        // Blank pixels inside each surface, away from glyphs, borders and ornaments.
+        const x = selector.startsWith('#') ? box.left + 10 : box.right - 5;
+        const y = box.top + (selector.startsWith('#') ? 10 : 5);
+        const background = Array.from(context.getImageData(Math.floor(x), Math.floor(y), 1, 1).data).slice(0, 3);
+        const a = luminance(foreground); const b = luminance(background);
+        return { selector, contrast: (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05) };
+      });
+    }, `data:image/png;base64,${screenshot.toString('base64')}`);
+    await writeFile(info.outputPath(`small-text-contrast-${width}.json`), JSON.stringify(contrasts, null, 2));
+    for (const item of contrasts) expect(item.contrast, item.selector).toBeGreaterThanOrEqual(4.5);
+  }
+});
+
 test('original imutável, recorte sem perda e comparação canônica em navegador', async ({ page }, info) => {
   const original = await readFile('public/design/wide_cinematic_split_screen_web_login_page_desig.png');
   expect(createHash('sha256').update(original).digest('hex')).toBe('e42150c4f07618a221441a9bc5fe83ac7e50beac8946c2b27d942d4e522dfb84');

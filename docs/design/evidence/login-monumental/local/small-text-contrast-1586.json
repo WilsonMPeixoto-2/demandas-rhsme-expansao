@@ -1,0 +1,14 @@
+[
+  {
+    "selector": ".monumental-login-signature",
+    "contrast": 4.847881172787256
+  },
+  {
+    "selector": "#login-email",
+    "contrast": 5.451367099038042
+  },
+  {
+    "selector": "#login-senha",
+    "contrast": 5.451367099038042
+  }
+]

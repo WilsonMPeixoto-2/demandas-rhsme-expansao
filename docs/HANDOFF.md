@@ -1,12 +1,18 @@
 # Handoff Operacional — Central de Demandas CTRH
 
-Atualizado em: **30 de outubro de 2026 — reconciliação pontual de referências documentais.** Os estados de GitHub, Vercel e Supabase registrados abaixo são fotografias datadas, não indicadores em tempo real; devem ser reconferidos antes de qualquer intervenção.
+Atualizado em: **1º de novembro de 2026 — entrega do login monumental em PR/Preview.** Os estados de GitHub, Vercel e Supabase registrados abaixo são fotografias datadas, não indicadores em tempo real; devem ser reconferidos antes de qualquer intervenção.
 
 <!-- IMPLEMENTATION_AUTHORIZATION: UX-LOGIN-001 -->
 
-## Pacote em execução — UX-LOGIN-001 (01/11/2026)
+## Login monumental — UX-LOGIN-001, PR #223 (01/11/2026)
 
 Autorização expressa para implementar exclusivamente o login monumental, preservando os contratos de autenticação. Branch limpa na abertura: `feat/login-arte-monumental-aprovada`, HEAD `2b4c4ddf8cd7d6bd2224558d31e03d80fe6cf733`; `origin/main` em `e76d9d1999d5adbbb085b3de5460b874a41dc5cc`. A diferença anterior contém somente os dois assets posteriores, preservados. `vercel.json` efetivo contém `deploymentEnabled: true`, diferente dos registros históricos de bloqueio abaixo; manter a configuração e não publicar em Production. O próximo passo autorizado é concluir implementação, validação e PR/Preview deste pacote, sem merge. Registro vinculante: UX-LOGIN-001. Original 1586 × 992 baixado e SHA-256 conferido; não substituir pela versão posterior de 1672 × 941 ou 3840 × 2161.
+
+**Entrega:** implementação e evidências no commit de interface `eec443081549a4c31d91d996a551a69ce10e88f5`, PR [#223](https://github.com/WilsonMPeixoto-2/demandas-rhsme-expansao/pull/223). [Preview da branch](https://demandas-rhsme-expansao-git-f-206c67-wilson-m-peixotos-projects.vercel.app/), protegido pela configuração Vercel existente. Deployment de interface `dpl_EUZfodhQXsEJsTUTGh4QPB7nxQrw`, READY e HTTP 200: capturas reais 1586/1366/390, primeiro acesso e recuperação, com captura canônica idêntica à local e original/hash confirmados. Ver relatório [LOGIN_MONUMENTAL_CANONICO.md](design/LOGIN_MONUMENTAL_CANONICO.md), manifesto, overlay e diferenças. O PR registra o deployment final no SHA do HEAD documental.
+
+**Verificação local:** 379 testes/84 arquivos, cobertura de linhas 82,33%; 26 testes de autenticação reexecutados após ajustar o placeholder; 56 cenários E2E exercitados (54 na execução geral e 2 smoke após atualizar seletor obsoleto); 3 provas visuais do login; lint, TypeScript/build, documentação 9/9, integridade, bundle, assinaturas aprovados. Audit high aprovado com 22 alertas moderados da árvore preservada. CI remota no PR, sem tratar verde como homologação artística. Nenhuma alteração de banco/migration, sessão ou dados. Os arquivos posteriores e as marcas existentes permanecem intactos.
+
+**Pendência material restrita:** checkbox “Manter-me conectado” depende de decisão de persistência; não foi simulado. Ajuda oferece orientação local dos fluxos atuais. Domínio permanece `@rioeduca.net`. Reversão por revert dos commits deste pacote; referência/evidências preservadas. **Próxima atividade:** responsável examina o Preview e decide a homologação artística. Merge e Production não estão autorizados. Os registros antigos de próxima etapa abaixo são históricos e não ampliam esta missão.
 
 ## Continuidade pós-publicação TECH-DESIGN-005 — 30/10/2026
 

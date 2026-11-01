@@ -98,3 +98,8 @@ O pacote de correção pós-PR #215 amplia a área útil de monitores grandes, r
 
 
 A assinatura municipal da sidebar deixa de ser construída por um brasão de 40×47 px e quatro fragmentos tipográficos. A mesma arte oficial é apresentada integralmente (sem recorte ou reconstrução de letras), em versão monocromática por filtro CSS apenas para contraste com o fundo marinho aprovado; o símbolo original bicolor e os ícones de destinos são preservados.
+
+
+### UX-LOGIN-001 — Login monumental (01/11/2026)
+
+Autorização específica posterior: reproduzir a primeira imagem aprovada de 1586 × 992 somente no login. A implementação não reutiliza as gerações posteriores como substitutas nem redesenha outras telas. O original imutável, recorte exato, comparação real, contrato funcional e limitações de resolução são documentados em [LOGIN_MONUMENTAL_CANONICO.md](LOGIN_MONUMENTAL_CANONICO.md). Entrega em PR/Preview; homologação artística e autorização de Production permanecem pendentes.

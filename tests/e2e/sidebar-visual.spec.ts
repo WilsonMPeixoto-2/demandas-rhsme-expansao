@@ -9,7 +9,7 @@ import { expect, test } from '@playwright/test';
 test('registra os estados visuais da navegação sem alterar seu comportamento', async ({ page }, testInfo) => {
   await page.goto('/');
   await page.getByPlaceholder('usuario@rioeduca.net').fill('teste@rioeduca.net');
-  await page.getByPlaceholder('••••••••').first().fill('senha-local-teste');
+  await page.getByLabel('Senha', { exact: true }).fill('senha-local-teste');
   await page.getByRole('button', { name: /acessar sistema/i }).click();
   await expect(page.getByRole('button', { name: /sair/i })).toBeVisible();
 
@@ -97,7 +97,7 @@ test('menu móvel mantém a página contida e o foco dentro das ações visívei
   await page.setViewportSize({ width: 320, height: 800 });
   await page.goto('/');
   await page.getByPlaceholder('usuario@rioeduca.net').fill('teste@rioeduca.net');
-  await page.getByPlaceholder('••••••••').first().fill('senha-local-teste');
+  await page.getByLabel('Senha', { exact: true }).fill('senha-local-teste');
   await page.getByRole('button', { name: /acessar sistema/i }).click();
   await expect(page.getByRole('button', { name: /sair/i })).toBeVisible();
   const width = await page.evaluate(() => ({

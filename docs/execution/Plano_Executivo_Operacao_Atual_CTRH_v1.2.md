@@ -16,6 +16,8 @@
 
 **Stack:** React 19, TypeScript 5.9, Vite 8, React Router 8, TanStack Table 8, Zod 4, Supabase/PostgreSQL, RLS, Realtime, Vitest, Testing Library, Playwright, ExcelJS, GitHub Actions e Vercel.
 
+> **Decisão visual posterior — UX-LOGIN-001 (01/11/2026):** autorização específica para implementar e validar em PR/Preview somente o login fiel à primeira arte canônica 1586 × 992. Não amplia os pacotes deste plano, não altera contratos de autenticação ou dados e não autoriza merge/Production. Ver Registro e `docs/design/LOGIN_MONUMENTAL_CANONICO.md`.
+
 ---
 
 ## 1. Restrições globais

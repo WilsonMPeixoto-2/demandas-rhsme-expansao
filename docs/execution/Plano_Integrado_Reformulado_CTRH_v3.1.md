@@ -19,6 +19,8 @@
 
 > **Controle de mudança vigente — GOV-013 (01/08/2026):** o produto inicial busca completude operacional, não a implementação exaustiva de todas as possibilidades deste plano. Código, Supabase, interface e testes atuais devem ser confrontados antes de classificar qualquer lacuna. R5 limita-se ao pacote Essencial autorizado; R1 residual, R2, R5 avançado e extensões de R6 a R11 tornam-se evoluções condicionadas a evidência de uso, risco ou escala. Capacidades já materializadas são preservadas; segurança, release proporcional, E2 e a homologação final do R12 continuam obrigatórios. O Trilho B permanece preservado para decisão com a fonte real do legado. A classificação completa está em `ATUALIZACAO_COMPLETUDE_OPERACIONAL_2026-08-01.md` e prevalece sobre sequências ou gates mais amplos descritos originalmente nesta minuta.
 
+> **Decisão visual posterior — UX-LOGIN-001 (01/11/2026):** autorização específica para implementar e validar em PR/Preview somente o login fiel à primeira arte canônica 1586 × 992. Não amplia os pacotes deste plano, não altera contratos de autenticação ou dados e não autoriza merge/Production. Ver Registro e `docs/design/LOGIN_MONUMENTAL_CANONICO.md`.
+
 ---
 
 # 1. FINALIDADE E CORREÇÃO DE EIXO

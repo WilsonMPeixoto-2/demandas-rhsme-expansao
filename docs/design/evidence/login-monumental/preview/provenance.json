@@ -1,0 +1,28 @@
+{
+  "url": "https://demandas-rhsme-expansao-git-f-206c67-wilson-m-peixotos-projects.vercel.app",
+  "deployment": "dpl_EUZfodhQXsEJsTUTGh4QPB7nxQrw",
+  "source_commit": "eec443081549a4c31d91d996a551a69ce10e88f5",
+  "status": 200,
+  "originalSha": "e42150c4f07618a221441a9bc5fe83ac7e50beac8946c2b27d942d4e522dfb84",
+  "canonicalScreenshotIdenticalToLocal": true,
+  "viewports": [
+    [
+      1586,
+      992
+    ],
+    [
+      1366,
+      768
+    ],
+    [
+      390,
+      844
+    ]
+  ],
+  "states": [
+    "first-access",
+    "recovery"
+  ],
+  "credentials": "none; no form submitted",
+  "excludedOverlay": "Vercel feedback script fulfilled with HTTP 204; application unchanged"
+}

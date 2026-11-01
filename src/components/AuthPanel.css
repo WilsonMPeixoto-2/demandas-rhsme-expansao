@@ -1,0 +1,414 @@
+/* UX-LOGIN-001. Geometry from the immutable 1586 × 992 reference.
+   This stylesheet is scoped to AuthPanel; PasswordResetPanel keeps its contract. */
+.monumental-login {
+  --login-unit: min(calc(100vw / 1586), calc(100svh / 992));
+  display: grid;
+  grid-template-columns: minmax(0, calc(1086 * var(--login-unit))) minmax(0, 1fr);
+  min-height: 100svh;
+  width: 100%;
+  color: #092c3e;
+  background: #062837;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.monumental-login-art {
+  position: sticky;
+  top: 0;
+  align-self: start;
+  margin: 0;
+}
+
+.monumental-login-art > img {
+  display: block;
+  width: 100%;
+  height: auto;
+  /* No cover, filters, opacity or overlays: the entire approved crop is visible. */
+}
+
+.monumental-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.monumental-login-access {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 0;
+  padding: calc(40 * var(--login-unit)) calc(35 * var(--login-unit)) calc(54 * var(--login-unit)) calc(51 * var(--login-unit));
+  isolation: isolate;
+  background: radial-gradient(ellipse at 46% 42%, #f5eee4 0%, #f3ebdf 72%, #f2e8dc 100%);
+}
+
+.monumental-login-lines {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  color: #d49b51;
+  opacity: 0.43;
+  pointer-events: none;
+}
+
+.monumental-login-signature {
+  align-self: center;
+  width: 100%;
+  max-width: calc(414 * var(--login-unit));
+  margin: 0;
+  padding-right: calc(15 * var(--login-unit));
+  color: #626769;
+  font-size: max(9px, calc(11 * var(--login-unit)));
+  font-weight: 600;
+  line-height: calc(21 * var(--login-unit));
+  letter-spacing: calc(6 * var(--login-unit));
+  text-align: right;
+  text-transform: uppercase;
+}
+
+.monumental-login-signature::after {
+  content: '';
+  display: block;
+  width: calc(77 * var(--login-unit));
+  height: max(1px, calc(1.5 * var(--login-unit)));
+  margin: calc(12 * var(--login-unit)) 0 0 auto;
+  background: #c68b43;
+}
+
+.monumental-login-heading {
+  width: 100%;
+  max-width: calc(414 * var(--login-unit));
+  margin: calc(41 * var(--login-unit)) 0 calc(22 * var(--login-unit));
+  padding-left: calc(22 * var(--login-unit));
+}
+
+.monumental-login-heading h1 {
+  margin: 0;
+  color: #082737;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: calc(50 * var(--login-unit));
+  font-weight: 700;
+  line-height: 1.0752;
+  letter-spacing: calc(-1 * var(--login-unit));
+}
+
+.monumental-login-heading > p {
+  max-width: calc(370 * var(--login-unit));
+  margin: calc(13 * var(--login-unit)) 0 0;
+  color: #626769;
+  font-size: max(14px, calc(17 * var(--login-unit)));
+  line-height: 1.33;
+}
+
+.monumental-login .monumental-login-card {
+  width: 100%;
+  max-width: calc(414 * var(--login-unit));
+  margin: 0;
+  padding: calc(22 * var(--login-unit)) calc(22 * var(--login-unit)) calc(16 * var(--login-unit));
+  border: 1px solid rgb(255 255 255 / 36%);
+  border-radius: calc(18 * var(--login-unit));
+  background: rgb(255 255 255 / 57%);
+  box-shadow: 0 calc(15 * var(--login-unit)) calc(28 * var(--login-unit)) rgb(64 45 21 / 14%);
+  animation: none;
+}
+
+.monumental-login .login-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1.08fr;
+  gap: 0;
+  height: max(48px, calc(54 * var(--login-unit)));
+  margin: 0 0 calc(28 * var(--login-unit));
+  padding: 0;
+  border: 1px solid #e9e3d9;
+  border-radius: calc(11 * var(--login-unit));
+  background: rgb(246 242 234 / 63%);
+  box-shadow: 0 2px 3px rgb(36 30 18 / 12%);
+}
+
+.monumental-login .login-tab-btn {
+  min-width: 0;
+  min-height: 44px;
+  padding: calc(10 * var(--login-unit)) calc(6 * var(--login-unit));
+  border: 0;
+  border-radius: calc(10 * var(--login-unit));
+  background: transparent;
+  color: #10374a;
+  font: 600 max(13px, calc(14 * var(--login-unit))) Arial, Helvetica, sans-serif;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+}
+
+.monumental-login .login-tab-btn.active {
+  border: 0;
+  color: #fff;
+  background: linear-gradient(180deg, #10435d, #052e41);
+  box-shadow: 0 2px 4px rgb(7 39 54 / 18%);
+  text-decoration: none;
+}
+
+.monumental-login .login-form-group {
+  margin: 0 0 calc(20 * var(--login-unit));
+}
+
+.monumental-login .login-form-group:last-of-type {
+  margin-bottom: 0;
+}
+
+.monumental-login .login-form-group > label {
+  display: block;
+  margin: 0 0 calc(10 * var(--login-unit));
+  color: #092c3e;
+  font-size: max(12px, calc(14 * var(--login-unit)));
+  font-weight: 600;
+  line-height: 18px;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+.monumental-login .input-icon-group {
+  position: relative;
+}
+
+.monumental-login .form-control {
+  width: 100%;
+  min-height: max(46px, calc(48 * var(--login-unit)));
+  padding: calc(12 * var(--login-unit)) calc(18 * var(--login-unit));
+  border: 1px solid #d5d4cf;
+  border-radius: calc(9 * var(--login-unit));
+  color: #173e4c;
+  background: rgb(255 255 255 / 24%);
+  box-shadow: none;
+  font: 400 max(14px, calc(16 * var(--login-unit))) Arial, Helvetica, sans-serif;
+}
+
+.monumental-login .form-control::placeholder {
+  color: #626769;
+  opacity: 1;
+}
+
+.monumental-login .has-visibility-toggle .form-control {
+  padding-right: max(48px, calc(48 * var(--login-unit)));
+}
+
+.monumental-login .password-visibility-toggle {
+  top: 50%;
+  right: calc(5 * var(--login-unit));
+  width: max(44px, calc(44 * var(--login-unit)));
+  height: max(44px, calc(44 * var(--login-unit)));
+  color: #626769;
+  font-size: max(16px, calc(18 * var(--login-unit)));
+}
+
+.monumental-login .btn-primary {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: max(48px, calc(58 * var(--login-unit)));
+  margin-top: calc(22 * var(--login-unit));
+  padding: calc(14 * var(--login-unit)) calc(20 * var(--login-unit));
+  border: 1px solid #0a3f54;
+  border-radius: calc(10 * var(--login-unit));
+  color: #fff;
+  background: linear-gradient(180deg, #10435d 0%, #032b3e 100%);
+  box-shadow: none;
+  font: 600 max(14px, calc(16 * var(--login-unit))) Arial, Helvetica, sans-serif;
+}
+
+.monumental-login .monumental-login-form > .btn-primary {
+  /* Reserved reference rhythm. Session persistence is unchanged; no fake checkbox. */
+  margin-top: calc(66 * var(--login-unit));
+}
+
+.monumental-login .btn-primary > [aria-hidden] {
+  position: absolute;
+  right: calc(19 * var(--login-unit));
+  font-size: calc(23 * var(--login-unit));
+  font-weight: 400;
+}
+
+.monumental-login .btn-primary:hover:not(:disabled) {
+  background: linear-gradient(180deg, #18576e, #073649);
+  transform: none;
+}
+
+.monumental-login .btn-primary:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+
+.monumental-login .auth-forgot-row {
+  display: flex;
+  justify-content: center;
+  margin: calc(12 * var(--login-unit)) 0 0;
+}
+
+.monumental-login .auth-link-button {
+  min-height: 40px;
+  padding: 6px 0;
+  color: #123e53;
+  font-size: max(12px, calc(14 * var(--login-unit)));
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.monumental-login .auth-flow-heading h2 {
+  margin: 0;
+  color: #092c3e;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: max(24px, calc(28 * var(--login-unit)));
+  line-height: 1.2;
+}
+
+.monumental-login .auth-flow-heading p,
+.monumental-login .auth-feedback,
+.monumental-login .req-item {
+  font-size: max(12px, calc(14 * var(--login-unit)));
+  line-height: 1.5;
+}
+
+.monumental-login .password-requirements {
+  margin-top: calc(16 * var(--login-unit));
+}
+
+.monumental-login-help {
+  width: 100%;
+  max-width: calc(414 * var(--login-unit));
+  margin-top: calc(41 * var(--login-unit));
+  padding-left: calc(18 * var(--login-unit));
+  color: #123e53;
+  font-size: max(13px, calc(14 * var(--login-unit)));
+}
+
+.monumental-login-help::before {
+  content: '';
+  display: block;
+  width: calc(45 * var(--login-unit));
+  height: 1px;
+  margin-bottom: calc(20 * var(--login-unit));
+  background: #cf944b;
+}
+
+.monumental-login-help > summary {
+  display: flex;
+  align-items: center;
+  gap: calc(12 * var(--login-unit));
+  width: fit-content;
+  min-height: 32px;
+  border-radius: 3px;
+  font-weight: 600;
+  list-style: none;
+  cursor: pointer;
+}
+
+.monumental-login-help > summary::-webkit-details-marker { display: none; }
+
+.monumental-login-help > summary > span:first-child {
+  display: inline-grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border: 1.5px solid currentColor;
+  border-radius: 50%;
+}
+
+.monumental-login-help > p {
+  margin: 12px 0 0;
+  line-height: 1.5;
+}
+
+.monumental-login :is(button, input, summary):focus-visible {
+  outline: 3px solid #af742f;
+  outline-offset: 3px;
+}
+
+.monumental-login .form-control:focus {
+  border-color: #16516a;
+  box-shadow: 0 0 0 3px rgb(22 81 106 / 14%);
+}
+
+.monumental-login .field-invalid {
+  border-color: #b42318;
+  background-color: #fff7f5;
+}
+
+/* Sonner renders outside main. Limit this correction to the active login. */
+body:has(.monumental-login) [data-sonner-toast][data-type='error'] {
+  color: #b42318;
+}
+
+body:has(.monumental-login) [data-sonner-toast][data-type='success'] {
+  color: #17683d;
+}
+
+@media (min-width: 761px) and (max-height: 850px) {
+  .monumental-login-access { padding-bottom: calc(30 * var(--login-unit)); }
+  .monumental-login .monumental-login-form > .btn-primary { margin-top: calc(42 * var(--login-unit)); }
+  .monumental-login-help { margin-top: calc(22 * var(--login-unit)); }
+}
+
+@media (max-width: 1100px) and (min-width: 761px) {
+  .monumental-login {
+    --login-unit: 0.8px;
+    grid-template-columns: minmax(0, 1fr) minmax(340px, 40%);
+  }
+}
+
+@media (max-width: 760px) {
+  .monumental-login {
+    --login-unit: 1px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .monumental-login-art {
+    position: relative;
+    width: 100%;
+  }
+
+  .monumental-login-access {
+    padding: 28px 20px 40px;
+  }
+
+  .monumental-login-signature {
+    padding-right: 0;
+    font-size: 9px;
+    line-height: 18px;
+    letter-spacing: 4px;
+  }
+
+  .monumental-login-heading {
+    margin-top: 28px;
+    padding-left: 0;
+  }
+
+  .monumental-login-heading h1 {
+    font-size: clamp(32px, 9vw, 44px);
+  }
+
+  .monumental-login-heading > p { font-size: 16px; }
+  .monumental-login .monumental-login-card { padding: 20px 18px 16px; }
+  .monumental-login .form-control { font-size: 16px; }
+  .monumental-login .auth-link-button { min-height: 44px; }
+  .monumental-login .monumental-login-form > .btn-primary { margin-top: 36px; }
+  .monumental-login-help { padding-left: 0; }
+  .monumental-login-help > summary { min-height: 44px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .monumental-login *, .monumental-login *::before, .monumental-login *::after {
+    animation: none;
+    transition: none;
+  }
+}

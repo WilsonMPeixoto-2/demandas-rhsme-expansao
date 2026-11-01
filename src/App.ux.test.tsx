@@ -18,7 +18,7 @@ describe('segurança e acessibilidade do login', () => {
 
   it('permite mostrar e ocultar a senha', async () => {
     renderLocalApp();
-    const password = (await screen.findAllByPlaceholderText('••••••••'))[0];
+    const password = await screen.findByLabelText('Senha', { exact: true });
     expect(password).toHaveAttribute('type', 'password');
     await userEvent.setup().click(screen.getByRole('button', { name: /mostrar senha/i }));
     expect(password).toHaveAttribute('type', 'text');
@@ -39,7 +39,7 @@ describe('segurança e acessibilidade do login', () => {
     renderLocalApp();
     await user.click(screen.getByRole('button', { name: /primeiro acesso/i }));
     await user.type(screen.getByPlaceholderText('nome@rioeduca.net'), 'usuario@exemplo.com');
-    await user.type(screen.getAllByPlaceholderText('••••••••')[0], 'fraca');
+    await user.type(screen.getByLabelText('Criar nova senha'), 'fraca');
     await user.click(screen.getByRole('button', { name: /solicitar acesso/i }));
 
     expect(await screen.findByText(/use um e-mail @rioeduca\.net/i)).toBeInTheDocument();
@@ -51,11 +51,11 @@ describe('segurança e acessibilidade do login', () => {
     vi.stubGlobal('alert', vi.fn());
     renderLocalApp();
     await user.type(screen.getByPlaceholderText('usuario@rioeduca.net'), 'teste@rioeduca.net');
-    await user.type(screen.getAllByPlaceholderText('••••••••')[0], 'senha-local-teste');
+    await user.type(screen.getByLabelText('Senha', { exact: true }), 'senha-local-teste');
     await user.click(screen.getByRole('button', { name: /acessar sistema/i }));
     await user.click(await screen.findByRole('button', { name: /sair/i }));
     await waitFor(() => expect(screen.getByPlaceholderText('usuario@rioeduca.net')).toHaveValue(''));
-    expect(screen.getAllByPlaceholderText('••••••••')[0]).toHaveValue('');
+    expect(screen.getByLabelText('Senha', { exact: true })).toHaveValue('');
   });
 
   it('nomeia o controle de fechar o drawer', async () => {

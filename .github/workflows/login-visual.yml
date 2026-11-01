@@ -1,0 +1,32 @@
+name: Login monumental — fidelidade e acessibilidade
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  login-browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: package.json
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:login-visual
+      - name: Evidências reais e comparação com a referência imutável
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: login-monumental-evidence
+          path: test-results/login-visual
+          if-no-files-found: error
+          retention-days: 14

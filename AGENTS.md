@@ -49,6 +49,8 @@ As decisões e imagens aprovadas, a marca oficial e os dados reais do produto pr
 
 Consulte `docs/design/SISTEMA_PROFISSIONAL_DESIGN_CTRH.md` e o registro `TECH-DESIGN-001`.
 
+**Autorização específica posterior — UX-LOGIN-001 (01/11/2026):** implementar somente o novo `AuthPanel` com fidelidade à primeira arte canônica de 1586 × 992 (SHA-256 `e42150c4f07618a221441a9bc5fe83ac7e50beac8946c2b27d942d4e522dfb84`). Preservar o original e os contratos Supabase. Esta decisão supera o limite histórico da primeira intervenção na sidebar exclusivamente para o login. Autoriza branch, testes, documentação, PR e Preview; não autoriza merge nem Production antes da homologação humana. Consultar `docs/design/LOGIN_MONUMENTAL_CANONICO.md` e a entrada UX-LOGIN-001 no Registro.
+
 ## Code Review Rules
 
 ### Regressões funcionais e permissões

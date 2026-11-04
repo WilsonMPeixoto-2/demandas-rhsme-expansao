@@ -45,11 +45,11 @@
     "@vercel/analytics": "^2.0.1",
     "@vercel/speed-insights": "^2.0.0",
     "exceljs": "4.4.0",
-    "motion": "14.6.0",
+    "motion": "14.8.0",
     "react": "19.3.1",
     "react-dom": "19.3.1",
     "react-hook-form": "7.91.0",
-    "react-router": "8.5.0",
+    "react-router": "8.5.1",
     "sonner": "2.0.8",
     "zod": "4.6.7"
   },

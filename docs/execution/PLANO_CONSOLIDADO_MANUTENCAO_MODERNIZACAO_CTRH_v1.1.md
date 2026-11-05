@@ -241,6 +241,12 @@ O bundle inicial medido após a migração foi 220.031 bytes, exatamente a mesma
 
 A `main` após o merge é `4d9ec654b6feb1acd43329861eedd1ac5c8c12bf`. Production permanece deliberadamente na versão anterior e `git.deploymentEnabled: false` continua vigente.
 
+## 7.5 Manutenção focal de formulários — experimento de 05/11/2026
+
+**Natureza:** checkpoint de homologação de dependência, sem autorizar automaticamente publicação. A versão `@hookform/resolvers@7.0.2` foi ensaiada em branch isolada sobre a versão publicada após o PR #229; o projeto usa exclusivamente `zodResolver` para os formulários. O resolvedor Zod foi comparado byte a byte entre os pacotes npm 6.0.2 e 7.0.2, sem diferenças em seu diretório; a alteração major recai principalmente sobre resolvedores de outros validadores, fora do escopo desta aplicação.
+
+Foram executados `npm ci`, `npm run check`, 379 testes Vitest/84 arquivos, 56 cenários Playwright desktop/mobile, build TypeScript/Vite, auditoria de vulnerabilidades, limites e integridade de bundle. O PR específico precisará concluir os checks remotos e Preview Vercel READY antes do merge; os resultados locais não autorizam, isoladamente, publicação. O pacote altera apenas a versão direta do resolvedor, o lockfile e a reconciliação documental. Sem alterações de regras, formulários, banco, dados, RLS, autenticação ou UI; rollback por revert da versão e lockfile juntos. O resultado definitivo do PR deverá ser confrontado com o Handoff.
+
 ## 8. Oportunidades funcionais condicionadas
 
 Permanecem sujeitas a necessidade comprovada e desenho específico:

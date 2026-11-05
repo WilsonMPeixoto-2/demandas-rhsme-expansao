@@ -1,6 +1,17 @@
 # Handoff Operacional — Central de Demandas CTRH
 
-Atualizado em: **1º de novembro de 2026 — entrega do login monumental em PR/Preview.** Os estados de GitHub, Vercel e Supabase registrados abaixo são fotografias datadas, não indicadores em tempo real; devem ser reconferidos antes de qualquer intervenção.
+Atualizado em: **4 de novembro de 2026 — checkpoint da manutenção de dependências.** Os estados de GitHub, Vercel e Supabase registrados abaixo são fotografias datadas, não indicadores em tempo real; devem ser reconferidos antes de qualquer intervenção.
+
+## Checkpoint técnico — manutenção incremental de dependências (04/11/2026)
+
+**Estado anterior a esta proposta:** `main` no SHA `05b9a6c6eff9a34ff03a72c649c2007f91aeed95`, PR #228 integrado e respectiva Vercel Production em `READY`. O login monumental do PR #223 já foi publicado pelo merge `8d9d17d9e80faa43a7944d83010066842732f83a`; o registro de 1º de novembro logo abaixo é histórico e não autoriza reabrir a homologação artística.
+
+**Pacote incremental em validação isolada:** atualização somente de `@supabase/supabase-js` (2.119.0), `@tanstack/react-query` e seus dois complementos oficiais (5.106.0), `motion` (14.9.1) e `@types/node` (26.6.6), com `package-lock.json` regenerado. Nenhuma alteração de regra de negócio, interface, RLS, migration, dados ou configuração de Production foi autorizada ou realizada neste pacote. O resultado dos gates deve acompanhar o PR correspondente antes de qualquer merge.
+
+**PRs antigos ainda abertos:** #226 propõe ESLint 10.14.0, mas continua incompatível com o peer de `eslint-plugin-jsx-a11y@6.10.2`; não forçar. #229 está defasado após o PR #228 e exige sincronização documental. #221, anterior ao #222 e ao login monumental, e #147, baseado em documentação antiga do Trilho B, não podem ser integrados sem reconciliação e autorização específica.
+
+**Reversibilidade:** atualização apenas de dependências pode ser revertida por revert do merge, conservando o lockfile correspondente; evidências de instalação, auditoria, lint, cobertura, build, bundle e Playwright devem ser anexadas ao PR. Este checkpoint não certifica publicação das novas versões nem substitui a consulta às verificações remotas.
+
 
 <!-- IMPLEMENTATION_AUTHORIZATION: UX-LOGIN-001 -->
 

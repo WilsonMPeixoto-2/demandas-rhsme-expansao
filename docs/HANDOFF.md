@@ -2,6 +2,18 @@
 
 Atualizado em: **5 de novembro de 2026 — validação isolada de manutenção de dependências.** Os estados de GitHub, Vercel e Supabase registrados abaixo são fotografias datadas, não indicadores em tempo real; devem ser reconferidos antes de qualquer intervenção.
 
+## Publicação concluída — atualização final de dependência (05/11/2026)
+
+**GitHub:** PR [#231](https://github.com/WilsonMPeixoto-2/demandas-rhsme-expansao/pull/231) integrado à `main` no commit `9cc11ae1bda0c1d57ab3e1845a477907899bf9fb`, após aprovação dos quatro workflows remotos (Dependency health, Storybook, CodeQL e fidelidade do login monumental). A atualização direta de `@hookform/resolvers` 6.0.2 → 7.0.2 foi validada por instalação limpa, 379 testes Vitest em 84 arquivos, 56 Playwright desktop/mobile, build, lint, auditoria e proteção do bundle. `package.json` e `package-lock.json` correspondem aos arquivos ensaiados. Nenhuma mudança de lógica de formulários, dados, regras, permissões, imagem ou configuração de Supabase.
+
+**Production:** deployment Vercel `dpl_mDLNJqYVVKqX6xvcMgNg87edFGd8` confirmado `READY`, com SHA `9cc11ae1bda0c1d57ab3e1845a477907899bf9fb` e alias oficial `demandas-rhsme-expansao.vercel.app`. Requisição independente ao domínio oficial retornou HTTP 200. Isso comprova deploy e acesso ao HTML da aplicação, não uma autenticação real com credenciais institucionais.
+
+**Pendência externa única da atualização npm existente:** PR #226 continua aberto sem merge: ESLint 10.14.0 não satisfaz o peer de `eslint-plugin-jsx-a11y@6.10.2`, cujo `latest` público ainda suporta ESLint até 9. Não forçar resolução nem remover validações de acessibilidade. TypeScript 7 é mudança independente que também aguarda compatibilidade oficial do ecossistema; nenhuma delas constitui falha do CTRH publicado.
+
+**Acompanhamento do legado:** para o próximo lote estimado em até 400 demandas, aguardar os arquivos de origem e seu manifesto antes de alterar importadores ou dados. O PR histórico #147 foi encerrado sem merge e o PR visual #221 foi encerrado após substituição pelos PRs homologados #222/#223. O PR documental #229 foi integrado em Production no commit `9b1c3363279d26cc1c42bc6c9875b4c4e33fafa5`. Nenhum dado histórico foi sobrescrito nesta manutenção.
+
+**Reversão:** se regressão específica da atualização de resolvers for comprovada, reverter o merge #231 com seu manifesto e lockfile, executar o gate integral e publicar por fluxo normal. O checkpoint de ensaio abaixo é histórico e não significa que a publicação permaneça pendente.
+
 ## Teste isolado de @hookform/resolvers 7 — 05/11/2026
 
 **Estado na abertura:** após a integração do PR #229 (`9b1c3363279d26cc1c42bc6c9875b4c4e33fafa5`), foi iniciado pacote independente para avaliar exclusivamente `@hookform/resolvers` 6.0.2 → 7.0.2. O código operacional, modelos Zod, permissões, RLS e dados não foram alterados. A alteração do pacote e do lockfile foi feita em branch própria, não diretamente na `main`.

@@ -2,7 +2,19 @@
 
 Atualizado em: **4 de novembro de 2026 — checkpoint da manutenção de dependências.** Os estados de GitHub, Vercel e Supabase registrados abaixo são fotografias datadas, não indicadores em tempo real; devem ser reconferidos antes de qualquer intervenção.
 
-## Checkpoint técnico — manutenção incremental de dependências (04/11/2026)
+## Estado operacional verificado após os PRs #223, #228 e #230 — 04/11/2026
+
+**Production atualmente comprovada:** `main` no commit `7378c36f5755210fb6820c94305298ab3c9434e6`, deployment Vercel `dpl_EMweu2VWj6AS7aZ2hCKnvgeoPCjq`, estado `READY`, domínio oficial `https://demandas-rhsme-expansao.vercel.app/` com resposta HTTP 200. O login monumental aprovado foi integrado no PR #223 (merge `8d9d17d9e80faa43a7944d83010066842732f83a`). A correção de densidade, ações e assinatura institucional homologada foi integrada no PR #222 (merge `e76d9d1999d5adbbb085b3de5460b874a41dc5cc`). A confirmação HTTP e o deployment não substituem login real autenticado com credenciais.
+
+**Modernização efetivamente publicada:** PR #228 (Vitest 5.1 e ferramentas de desenvolvimento) e PR #230 (Supabase JS 2.119.0, TanStack Query e complementos 5.106.0, Motion 14.9.1, tipos Node 26.6.6) integrados. O PR #230 registrou `npm ci`, audit high, assinaturas, compatibilidade, documentação, lint, 379 testes unitários/de integração, build, budget e segurança de bundle, 56 Playwright desktop/mobile. Os quatro workflows remotos (Dependency health, CodeQL, Storybook e fidelidade do login) passaram. Nenhuma migration, mutação de dados, RLS ou regra de produto mudou neste pacote.
+
+**Pendências independentes submetidas a análise:** PR #226 tenta ESLint 10.14.0, ainda incompatível com o peer oficial do `eslint-plugin-jsx-a11y@6.10.2`; manter ESLint 9 sem `--force`. PR #221 é uma proposta anterior e incompatível com as alterações publicadas dos PRs #222 e #223; seu merge reintroduziria interface desatualizada. PR #147 documenta um cenário histórico de snapshot Firebase com 3.201 demandas, não é contrato aprovado para a nova extração ainda não recebida. O PR #229 contempla documentação de diagnóstico, sem alteração funcional.
+
+**Diagnóstico Knip recuperado:** em sandbox de 8 GiB com Node 24, `npm run analyze:unused` concluiu. Apontou `fast-check` como dependência de desenvolvimento sem uso estático; imports de `readdir-glob` e `@typescript-eslint/typescript-estree` em verificação de compatibilidade; e alguns exports/tipos não referenciados. São **achados de investigação**, não permissão para remover dependências ou exports. O erro de alocação anterior ocorreu exclusivamente em sandbox de 4 GiB (parser OXC requeria buffer maior); não caracteriza defeito do produto.
+
+**Critério de conclusão:** propostas sem autorização de produto, material de migração sem arquivo-fonte e atualização major incompatível não podem ser considerados trabalho implementável ou publicado. Documentar o impedimento com evidência e preservar histórico dos PRs. Próxima carga de dados: receber arquivos originais, manifestos e metadados antes de qualquer dry-run e exigir aprovação do lote antes de gravar.
+
+## Checkpoint histórico pré-publicação do PR #230 (04/11/2026)
 
 **Estado anterior a esta proposta:** `main` no SHA `05b9a6c6eff9a34ff03a72c649c2007f91aeed95`, PR #228 integrado e respectiva Vercel Production em `READY`. O login monumental do PR #223 já foi publicado pelo merge `8d9d17d9e80faa43a7944d83010066842732f83a`; o registro de 1º de novembro logo abaixo é histórico e não autoriza reabrir a homologação artística.
 

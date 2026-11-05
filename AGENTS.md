@@ -1,5 +1,7 @@
 # Instruções de execução — Central de Demandas CTRH
 
+> **Referência de depuração e entrega comprovada (04/11/2026):** para falhas de build/deploy, integrações Vercel, problemas de browser, persistência remota, dependências ou downloads, consultar [skill portátil](.agents/skills/diagnostico-entrega-verificada/SKILL.md) e [registro de evidências](docs/engineering/INCIDENTES_E_VERIFICACAO_2026_11.md). Estes textos são **suplementares** e não alteram a precedência, a governança, os gates, as decisões e os critérios de autorização definidos neste AGENTS.md.
+
 Estas regras valem para todo trabalho neste repositório.
 
 O `Plano_Integrado_Reformulado_CTRH_v3.1.md` é a estratégia geral dos Trilhos A e B. O `Plano_Executivo_Operacao_Atual_CTRH_v1.2.md` organiza o trabalho possível do Trilho A. Nenhum deles **autoriza automaticamente** a implementação de pacote, ciclo, item ou decisão `OP-Dxx`.
@@ -50,6 +52,8 @@ As decisões e imagens aprovadas, a marca oficial e os dados reais do produto pr
 Consulte `docs/design/SISTEMA_PROFISSIONAL_DESIGN_CTRH.md` e o registro `TECH-DESIGN-001`.
 
 **Autorização específica posterior — UX-LOGIN-001 (01/11/2026):** implementar somente o novo `AuthPanel` com fidelidade à primeira arte canônica de 1586 × 992 (SHA-256 `e42150c4f07618a221441a9bc5fe83ac7e50beac8946c2b27d942d4e522dfb84`). Preservar o original e os contratos Supabase. Esta decisão supera o limite histórico da primeira intervenção na sidebar exclusivamente para o login. Autoriza branch, testes, documentação, PR e Preview; não autoriza merge nem Production antes da homologação humana. Consultar `docs/design/LOGIN_MONUMENTAL_CANONICO.md` e a entrada UX-LOGIN-001 no Registro.
+
+**Estado posterior:** o PR #223 recebeu homologação e foi integrado no merge `8d9d17d9e80faa43a7944d83010066842732f83a`, com publicação em Production posteriormente comprovada. A restrição de Preview na decisão inicial acima descreve a etapa de aprovação histórica; não justifica bloquear ou reexecutar a publicação já concluída. Qualquer nova alteração artística continua sujeita à homologação específica.
 
 ## Code Review Rules
 

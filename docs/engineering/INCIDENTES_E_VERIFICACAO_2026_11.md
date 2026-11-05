@@ -21,6 +21,7 @@
 
 **Evidências:** [PR #226](https://github.com/WilsonMPeixoto-2/demandas-rhsme-expansao/pull/226), [PR #228](https://github.com/WilsonMPeixoto-2/demandas-rhsme-expansao/pull/228), [Vercel CTRH](https://vercel.com/wilson-m-peixotos-projects/demandas-rhsme-expansao).
 
+
 ## Encerramentos verificados após o registro histórico
 - **PR #228:** integrado à `main` no merge `05b9a6c6eff9a34ff03a72c649c2007f91aeed95`, com Production `READY`. A correção do lockfile tornou-se release, não apenas Preview.
 - **PR #230:** integrado no merge `7378c36f5755210fb6820c94305298ab3c9434e6`, deployment de Production `dpl_EMweu2VWj6AS7aZ2hCKnvgeoPCjq` `READY`, domínio oficial HTTP 200. Atualizações seguras: Supabase JS 2.119.0, TanStack Query e complementos 5.106.0, Motion 14.9.1, tipos Node 26.6.6. Provas locais: 379 Vitest e 56 Playwright aprovados; quatro workflows remotos aprovados. Sem mudanças de negócio nem banco.

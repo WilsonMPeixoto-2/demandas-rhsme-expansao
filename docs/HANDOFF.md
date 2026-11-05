@@ -1,6 +1,16 @@
 # Handoff Operacional — Central de Demandas CTRH
 
-Atualizado em: **4 de novembro de 2026 — checkpoint da manutenção de dependências.** Os estados de GitHub, Vercel e Supabase registrados abaixo são fotografias datadas, não indicadores em tempo real; devem ser reconferidos antes de qualquer intervenção.
+Atualizado em: **5 de novembro de 2026 — validação isolada de manutenção de dependências.** Os estados de GitHub, Vercel e Supabase registrados abaixo são fotografias datadas, não indicadores em tempo real; devem ser reconferidos antes de qualquer intervenção.
+
+## Teste isolado de @hookform/resolvers 7 — 05/11/2026
+
+**Estado na abertura:** após a integração do PR #229 (`9b1c3363279d26cc1c42bc6c9875b4c4e33fafa5`), foi iniciado pacote independente para avaliar exclusivamente `@hookform/resolvers` 6.0.2 → 7.0.2. O código operacional, modelos Zod, permissões, RLS e dados não foram alterados. A alteração do pacote e do lockfile foi feita em branch própria, não diretamente na `main`.
+
+**Compatibilidade:** registro npm 7.0.2 declara peers compatíveis com `react-hook-form@7.91.0` e `zod@4.6.7`, ambos instalados. Comparação de pacotes npm 6.0.2 versus 7.0.2 não encontrou alterações nos arquivos do resolvedor Zod, que é o único importado pelos formulários CTRH. O contrato para outros resolvedores não é parte desta intervenção.
+
+**Evidências locais antes do PR:** instalação limpa `npm ci` em Node 24, lint, auditoria, cobertura 379/379 e 84 arquivos, build/TypeScript, limites e proteção do bundle, exclusividade de ferramentas DEV e 56/56 Playwright (desktop e mobile), aprovados. `package-lock.json` e `package.json` conferidos por hashes Git contra os arquivos realmente testados. A análise de dependências não encontrou alertas altos ou críticos; os moderados já documentados permanecem no ambiente de desenvolvimento.
+
+**Porta de publicação:** o pacote só pode ser integrado após CI remota e Preview Vercel `READY` no mesmo SHA do PR. Sem alteração de schema, dados, autorização, UX ou identidade artística. Rollback por revert do commit de dependências e lockfile em conjunto. A seção é um checkpoint de teste e não afirma, por si, que houve integração ou publicação.
 
 ## Estado operacional verificado após os PRs #223, #228 e #230 — 04/11/2026
 

@@ -20,3 +20,9 @@
 5. Dependabot deve seguir a política de dependências e homologação do produto. Não fechar PR nem alterar regras do Dependabot por mera conveniência sem análise/decisão.
 
 **Evidências:** [PR #226](https://github.com/WilsonMPeixoto-2/demandas-rhsme-expansao/pull/226), [PR #228](https://github.com/WilsonMPeixoto-2/demandas-rhsme-expansao/pull/228), [Vercel CTRH](https://vercel.com/wilson-m-peixotos-projects/demandas-rhsme-expansao).
+
+## Encerramentos verificados após o registro histórico
+- **PR #228:** integrado à `main` no merge `05b9a6c6eff9a34ff03a72c649c2007f91aeed95`, com Production `READY`. A correção do lockfile tornou-se release, não apenas Preview.
+- **PR #230:** integrado no merge `7378c36f5755210fb6820c94305298ab3c9434e6`, deployment de Production `dpl_EMweu2VWj6AS7aZ2hCKnvgeoPCjq` `READY`, domínio oficial HTTP 200. Atualizações seguras: Supabase JS 2.119.0, TanStack Query e complementos 5.106.0, Motion 14.9.1, tipos Node 26.6.6. Provas locais: 379 Vitest e 56 Playwright aprovados; quatro workflows remotos aprovados. Sem mudanças de negócio nem banco.
+- **PR #226:** o commit do Dependabot foi rebaseado posteriormente, mas o peer incompatível de `eslint-plugin-jsx-a11y@6.10.2` segue limitado ao ESLint 9 segundo registro npm de 04/11/2026. Logo, atualizar a base não libera o ESLint 10; não reduzir regras de acessibilidade para aprovar esse PR.
+- **Knip:** `npm run analyze:unused` foi executado até o fim em sandbox de 8 GiB, Node 24. Em 4 GiB, o parser OXC falhou na reserva do buffer de transferência; o aumento de recursos do ambiente resolveu essa limitação. Achados incluem `fast-check`, dependências transitivas usadas em verificação de compatibilidade e alguns exports não referenciados. Não houve remoção nem autofix.

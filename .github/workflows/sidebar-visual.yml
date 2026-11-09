@@ -36,7 +36,7 @@ jobs:
         run: npm run test:visual-inventory
       - name: Preservar relatório e capturas para revisão artística
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: fluxo-ctrh-sidebar-visual
           path: |
